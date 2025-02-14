@@ -12,7 +12,7 @@ public class Book {
     String title;
     Author author;
     Price price;
-    String kind;        // "fiction", "nonfiction", "textbook"
+    String kind;
 
     public Book(int id, String title, Author author, Price price, String kind) {
         this.id = id;
@@ -29,6 +29,13 @@ public class Book {
         this.author = new Author(authorName, authorYOB);
         this.price = new Price(salePrice, listPrice, discount);
         this.kind = kind;
+    }
+
+    /**
+     * Return the ID of this book.
+     */
+    public int getId() {
+        return this.id;
     }
 
     /**
