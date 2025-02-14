@@ -25,14 +25,14 @@ public class Book {
     /**
      * Return true if this book was written by the given author.
      */
-    boolean writtenBy(String author) {
+    public boolean writtenBy(String author) {
         return this.author.equals(author);
     }
 
     /**
      * Return true if this book is more expensive than the given price.
      */
-    boolean moreExpensiveThan(int price) {
+    public boolean moreExpensiveThan(int price) {
         return this.price > price;
     }
 
@@ -43,7 +43,7 @@ public class Book {
      * - 20% discount on nonfiction books
      * - textbooks sell at full price
 	 */
-	int salePrice(){    
+	public int salePrice(){    
 		if (this.kind.equals("fiction")) {
 			return this.price - 3 * (this.price / 10);
 		} else  if (this.kind.equals("nonfiction")) {
@@ -57,14 +57,14 @@ public class Book {
      * Produce an updated version of this book with the 
      * price multiplied by the given percentage.
      */
-    Book adjustPrice(int percent) {
+    public Book adjustPrice(int percent) {
         return new Book(this.id, this.title, this.author, this.price * percent / 100, this.kind);
     }
 
     /**
      * Return a JSON string representation of this book.
      */
-    String toJSONString() {
+    public String toJSONString() {
         return "{ \"type\": \"print\", \"id\": " + this.id + ", \"title\": \"" + this.title
                  + "\", \"author\": \"" + this.author + "\", \"price\": \"$" 
                  + (this.price/100) + "." + (this.price%100) + "\", \"tag\": \"" + this.kind + "\" }";
