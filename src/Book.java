@@ -67,7 +67,7 @@ public class Book {
     public String toJSONString() {
         return "{ \"type\": \"print\", \"id\": " + this.id + ", \"title\": \"" + this.title
                  + "\", \"author\": \"" + this.author + "\", \"price\": \"$" 
-                 + (this.price/100) + "." + (this.price%100) + "\", \"tag\": \"" + this.kind + "\" }";
+                 + (this.price/100) + "." + (this.price%100) + "\", \"tags\": \"" + this.kind + "\" }";
     }
 
 
