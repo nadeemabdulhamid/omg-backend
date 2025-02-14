@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "type": "print",
+        "title": "To Kill a Mockingbird",
+        "author": "Harper Lee",
+        "price": 1500,
+        "tag": "fiction"
+    },
+    {
+        "id": 51,
+        "type": "print",
+        "title": "Clean Code: A Handbook of Agile Software Craftsmanship",
+        "author": "Robert C. Martin",
+        "price": 4083,
+        "tag": "textbook"
+    },
+    {
+        "id": 5570,
+        "type": "print",
+        "title": "Educated",
+        "author": "Tara Westover",
+        "price": 1799,
+        "tag": "nonfiction"
+    }
+]
