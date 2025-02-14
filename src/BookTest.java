@@ -44,7 +44,7 @@ public class BookTest {
     @Test
     public void testToJSONString() {
         assertEquals("""
-                        { "type": "print", "id": 1, "title": "Elements of Style", "author": "William Strunk Jr.", "price": "$12.0", "tag": "nonfiction" }""",
+                        { "type": "print", "id": 1, "title": "Elements of Style", "author": "William Strunk Jr.", "price": "$12.0", "tags": "nonfiction" }""",
                         b1.toJSONString());
     }
 }
