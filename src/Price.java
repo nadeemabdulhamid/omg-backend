@@ -18,6 +18,10 @@ public class Price {
 		this.list = list;
 		this.discount = discount;
 	}
+
+	public Price(int sale) {		// overloaded constructor
+		this(sale, sale, "");
+	}
 	
     /**
      * An item is on sale if the sale price is less than the list price.
