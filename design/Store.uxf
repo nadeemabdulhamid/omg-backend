@@ -1,0 +1,39 @@
+<diagram program="umletino" version="15.1"><zoom_level>13</zoom_level><element><id>UMLClass</id><coordinates><x>130</x><y>325</y><w>286</w><h>260</h></coordinates><panel_attributes>Book
+--
+id : int
+title : String
+author : Author
+price : Price
+kind : String
+--
+writtenBy(String) : boolean
+moreExpensiveThan(int) : boolean
+salePrice() : int
+adjustPrice(int) : Book
+toJSONString() : String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>572</x><y>325</y><w>299</w><h>169</h></coordinates><panel_attributes>Author
+--
+name : String
+yob : int
+--
+nameMatches(String) : boolean
+bornBefore(Author) : boolean
+toJSONString() : String
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>572</x><y>533</y><w>234</w><h>169</h></coordinates><panel_attributes>Price
+--
+sale : int
+list : int
+discount : String
+--
+isOnSale() : boolean
+toJSONString() : String
+formatAsDollars(int) : String
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>403</x><y>325</y><w>195</w><h>104</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>130;10;80;10;80;60;10;60</additional_attributes></element><element><id>Relation</id><coordinates><x>403</x><y>416</y><w>195</w><h>156</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>130;100;80;100;80;10;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>130</x><y>52</y><w>273</w><h>182</h></coordinates><panel_attributes>Store
+--
+b1 : Book
+b2 : Book
+b3 : Book
+--
+catalog() : String
+itemInfoAsJSON(int) : String
+tagCounts() : String
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>78</x><y>91</y><w>403</w><h>273</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>40;190;10;190;10;140;290;140;290;10;250;10</additional_attributes></element></diagram>
