@@ -18,12 +18,8 @@ public class StoreTest extends BookTest {
 
     @Test
     public void testItemInfoAsJSON() {
-        assertEquals("""
-                { "type": "print", "id": 1, "title": "Elements of Style", "author": "William Strunk Jr. (b. 1869)", "price": { "sale" : "$12.00", "list" : "$15.00", "discount" : "20% off" }, "tags": "nonfiction" }""", 
-                s1.itemInfoAsJSON(1));
-        assertEquals("""
-                { "type": "print", "id": 2, "title": "Old Man and the Sea", "author": "Ernest Hemingway (b. 1899)", "price": "$5.00", "tags": "fiction" }""",
-                s1.itemInfoAsJSON(2));
+        assertEquals(b1.toJSONString(), s1.itemInfoAsJSON(1));
+        assertEquals(b2.toJSONString(), s1.itemInfoAsJSON(2));
     }
 
 }

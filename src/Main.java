@@ -7,7 +7,7 @@ public class Main {
         public static void main(String[] args) {
         OMGServer server = new OMGServer("data/data-stage-2.json");
 
-        server.installConstructor("print", Book.class, "id", "title", "author-name", "author-yob", "sale-price", "list-price", "discount", "tag");
+        server.installConstructor("print", Book.class, "id", "title", "description", "author-name", "author-yob", "sale-price", "list-price", "discount", "tag", "rating-average", "rating-count");
         Book b1 = (Book)server.fetchItemList().get(0);
         Book b2 = (Book)server.fetchItemList().get(1);
         Book b3 = (Book)server.fetchItemList().get(2);
