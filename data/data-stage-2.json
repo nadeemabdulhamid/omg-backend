@@ -7,6 +7,8 @@
         "author-yob" : 1926,
 	    "description": "A gripping, heart-wrenching, and wholly remarkable tale of coming-of-age in a South poisoned by virulent prejudice.",
         "tag": "fiction",
+        "rating-average": 4.8,
+        "rating-count": 235762,
         "sale-price": 1000,
         "list-price": 1500,
         "discount": "Back to school sale - 33% off"
@@ -17,8 +19,10 @@
         "title": "Clean Code: A Handbook of Agile Software Craftsmanship",
         "author-name": "Robert C. Martin",
         "author-yob" : 1952,
-        "description": "Even bad code can function. But if code isn’t clean, it can bring a development organization to its knees. Every year, countless hours and significant resources are lost because of poorly written code. But it doesn’t have to be that way.",
+        "description": "Even bad code can function. But if code isn't clean, it can bring a development organization to its knees. Every year, countless hours and significant resources are lost because of poorly written code. But it doesn’t have to be that way.",
         "tag": "textbook",
+        "rating-average": 4.7,
+        "rating-count": 2244,
         "sale-price": 1398,
         "list-price": 4083,
         "discount": "Spring sale - 66% off"
@@ -30,9 +34,11 @@
         "author-name": "Tara Westover",
         "author-yob" : 1986,
         "description": "An unforgettable memoir about a young girl who, kept out of school, leaves her survivalist family and goes on to earn a PhD from Cambridge University.",
+        "tag": "nonfiction",
+        "rating-average": 4.6,
+        "rating-count": 853,
         "sale-price": 1799,
         "list-price": 1999,
-        "discount": "10% off nonfiction",
-        "tag": "nonfiction"
+        "discount": "10% off nonfiction"
     }
 ]
