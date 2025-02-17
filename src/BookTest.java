@@ -8,8 +8,8 @@ import static org.junit.Assert.*;
 public class BookTest {
     Book b1 = new Book(1, "Elements of Style", new Author("William Strunk Jr.", 1869), new Price(1200, 1500, "20% off"), "nonfiction");
     Book b2 = new Book(2, "Old Man and the Sea", new Author("Ernest Hemingway", 1899), new Price(500, 500, ""), "fiction");
-    Book b3 = new Book(4, "The Little Prince", new Author("Antoine de Saint-Exupery", 1900), new Price(500, 350, "Holiday sale"), "fiction");
-    Book b4 = new Book(5, "Introduction to the Theory of Computation", new Author("Michael Sipser", 1954), new Price(10000, 8000, "20% off"), "textbook");
+    Book b3 = new Book(4, "The Little Prince", new Author("Antoine de Saint-Exupery", 1900), new Price(350, 500, "Holiday sale"), "fiction");
+    Book b4 = new Book(5, "Introduction to the Theory of Computation", new Author("Michael Sipser", 1954), new Price(8000, 10000, "20% off"), "textbook");
 
     @Test
     public void testWrittenBy() {
@@ -23,6 +23,7 @@ public class BookTest {
         assertTrue(b1.moreExpensiveThan(1000));
         assertFalse(b1.moreExpensiveThan(1500));
         assertTrue(b4.moreExpensiveThan(5000));
+        assertFalse(b4.moreExpensiveThan(9000));
     }
 
     @Test
