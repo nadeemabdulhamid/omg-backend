@@ -1,0 +1,39 @@
+/**
+ * Nadeem Abdul Hamid, 2025.
+ */
+
+public class ConsLoM implements ILoM {
+    IMedia first;
+    ILoM rest;
+
+    public ConsLoM(IMedia first, ILoM rest) {
+        this.first = first;
+        this.rest = rest;
+    }
+    
+    /**
+     * Produces a comma-separated string of all the
+     * ids of the media in this list.
+     */
+    public String collectIds() {
+        String restStr = this.rest.collectIds();
+        if (restStr.equals("")) {
+            return this.first.getId() + "";
+        } else {
+            return this.first.getId() + ", " + restStr;
+        }
+    }
+
+    /**
+	 * Returns a string representation of the JSON object for the item 
+	 * with the given id in this list. If the item is not found, returns "".
+     */
+	public String infoAsJSON(int id) {
+        if (this.first.getId() == id) {
+            return this.first.toJSONString();
+        } else {
+            return this.rest.infoAsJSON(id);
+        }
+    }
+
+}
