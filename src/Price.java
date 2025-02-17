@@ -50,23 +50,16 @@ public class Price {
      */
     public String toJSONString() {
     	if (this.isOnSale()) {
-    		return "{ \"sale\" : " + this.formatAsDollars(sale) + ", " +
-    				  "\"list\" : " + this.formatAsDollars(list) + ", " +
-    				  "\"discount\" : \"" + this.discount + "\" }";
+			return "{ "
+					+ StringHelpers.keyValuePair("sale", this.sale, true) + ", "
+					+ StringHelpers.keyValuePair("list", this.list, true) + ", "
+					+ StringHelpers.keyValuePair("discount", this.discount)
+					+ " }";
     	} else {
-    		return this.formatAsDollars(sale);
+    		return StringHelpers.quote(StringHelpers.formatAsDollars(sale));
     	}
     }
 	
-    /**
-     * Helper method to format a price in cents as a dollar amount, quoted
-     * as a JSON string.
-     */
-	public String formatAsDollars(int centsValue) {
-		return "\"$" + new BigDecimal(centsValue).movePointLeft(2).toString() + "\"";
-	}
-
-
     // AUTO-GENERATED: DO NOT EDIT BELOW
 
 	@Override

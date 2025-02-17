@@ -35,6 +35,7 @@ public class Book implements IMedia {
     /**
      * Return the ID of this book.
      */
+    @Override
     public int getId() {
         return this.id;
     }
@@ -78,26 +79,35 @@ public class Book implements IMedia {
     /**
      * Return the sale price of this book.
      */
+    @Override
     public int salePrice() {
         return this.price.getSalePrice();
     }
 
     /** Produce true if this media item contains the given text in 
         any of its textual fields */
-	public boolean contains(String text) {
-        return this.title.contains(text) || this.description.contains(text) || this.author.contains(text) || this.kind.contains(text);
+    @Override
+    public boolean contains(String text) {
+        String lowerText = text.toLowerCase();
+        return this.title.toLowerCase().contains(lowerText) || this.description.toLowerCase().contains(lowerText) || this.author.contains(lowerText) || this.kind.toLowerCase().contains(lowerText);
     }
 
     /**
      * Return a JSON string representation of this book.
      */
+    @Override
     public String toJSONString() {
-        return "{ \"type\": \"print\", \"id\": " + this.id + ", \"title\": \"" + this.title
-                 + "\", \"description-full\": \"" + this.description + "\", \"description-short\": \"" + this.getShortDescription()
-                 + "\", \"author\": " + this.author.toJSONString() + ", \"price\": " 
-                 + this.price.toJSONString() + ", \"tags\": \"" + this.kind
-                 + "\", " + this.rating.toJSONStringFragment()
-                 + " }";
+        return "{ "
+                + StringHelpers.keyValuePair("type", "print") + ", "
+                + StringHelpers.keyValuePair("id", getId()) + ", "
+                + StringHelpers.keyValuePair("title", this.title) + ", "
+                + StringHelpers.keyValuePair("description-full", this.description) + ", "
+                + StringHelpers.keyValuePair("description-short", this.getShortDescription()) + ", "
+                + StringHelpers.keyValuePair("author", this.author.toJSONString(), false) + ", "
+                + StringHelpers.keyValuePair("price", this.price.toJSONString(), false) + ", "
+                + StringHelpers.keyValuePair("tags", this.kind) + ", "
+                + this.rating.toJSONStringFragment()
+                + " }";
     }
 
     // AUTO-GENERATED: DO NOT EDIT BELOW
