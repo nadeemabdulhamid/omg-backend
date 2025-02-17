@@ -24,6 +24,7 @@ public class BookTest {
         assertTrue(b1.moreExpensiveThan(1000));
         assertFalse(b1.moreExpensiveThan(1500));
         assertTrue(b4.moreExpensiveThan(5000));
+        assertFalse(b4.moreExpensiveThan(9000));
     }
 
     @Test
