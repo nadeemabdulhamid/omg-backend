@@ -7,7 +7,7 @@ import java.util.Objects;
 /** 
  * Represents a book in our online media store.
  */
-public class Book {
+public class Book implements IMedia {
     int id;
     String title;
     String description;
@@ -73,6 +73,19 @@ public class Book {
      */
     public Book adjustPrice(int percent) {
         return new Book(this.id, this.title, this.description, this.author, this.price.adjustPrice(percent), this.kind, this.rating);
+    }
+
+    /**
+     * Return the sale price of this book.
+     */
+    public int salePrice() {
+        return this.price.getSalePrice();
+    }
+
+    /** Produce true if this media item contains the given text in 
+        any of its textual fields */
+	public boolean contains(String text) {
+        return this.title.contains(text) || this.description.contains(text) || this.author.contains(text) || this.kind.contains(text);
     }
 
     /**

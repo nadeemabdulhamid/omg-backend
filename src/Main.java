@@ -8,10 +8,10 @@ public class Main {
         OMGServer server = new OMGServer("data/data-stage-2.json");
 
         server.installConstructor("print", Book.class, "id", "title", "description", "author-name", "author-yob", "sale-price", "list-price", "discount", "tag", "rating-average", "rating-count");
-        Book b1 = (Book)server.fetchItemList().get(0);
-        Book b2 = (Book)server.fetchItemList().get(1);
-        Book b3 = (Book)server.fetchItemList().get(2);
-        Store store = new Store(b1, b2, b3);
+        IMedia m1 = (IMedia)server.fetchItemList().get(0);
+        IMedia m2 = (IMedia)server.fetchItemList().get(1);
+        IMedia m3 = (IMedia)server.fetchItemList().get(2);
+        Store store = new Store(m1, m2, m3);
 
         server.installHandler("catalog",   (RequestCatalogHandler) store::catalog);
         server.installHandler("item-data", (RequestItemDataHandler) store::itemInfoAsJSON);

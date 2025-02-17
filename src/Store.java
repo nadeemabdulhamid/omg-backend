@@ -7,27 +7,27 @@
  * available for sale.
  */
 public class Store {
-	Book b1;
-	Book b2;
-	Book b3;
+	IMedia m1;
+	IMedia m2;
+	IMedia m3;
 	
-	public Store(Book b1, Book b2, Book b3) {
-		this.b1 = b1;
-		this.b2 = b2;
-		this.b3 = b3;
+	public Store(IMedia m1, IMedia m2, IMedia m3) {
+		this.m1 = m1;
+		this.m2 = m2;
+		this.m3 = m3;
 	}
 	
 	public String catalog() {
-		return "[" + b1.getId() + ", " + b2.getId() + ", " + b3.getId() + "]";
+		return "[" + m1.getId() + ", " + m2.getId() + ", " + m3.getId() + "]";
 	}
 	
 	public String itemInfoAsJSON(int id) {
-		if (b1.getId() == id) {
-			return b1.toJSONString();
-		} else if (b2.getId() == id) {
-			return b2.toJSONString();
-		} else if (b3.getId() == id) {
-			return b3.toJSONString();
+		if (m1.getId() == id) {
+			return m1.toJSONString();
+		} else if (m2.getId() == id) {
+			return m2.toJSONString();
+		} else if (m3.getId() == id) {
+			return m3.toJSONString();
 		} else {
 			return "{}";
 		}

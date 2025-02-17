@@ -37,6 +37,13 @@ public class Author {
     	return "\"" + this.name + " (b. " + this.yob + ")\"";
     }
 
+    /**
+     * Produces true if this author's name contains the given text
+     */
+    public boolean contains(String text) {
+        return this.name.contains(text);
+    }
+
 
     // AUTO-GENERATED CODE BELOW. DO NOT MODIFY!
     
