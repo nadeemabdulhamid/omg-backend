@@ -12,11 +12,11 @@ public class Book implements IMedia {
     String title;
     String description;
     Author author;
-    Price price;
+    IPrice price;
     String kind;
     Rating rating;
 
-    public Book(int id, String title, String description, Author author, Price price, String kind, Rating rating) {
+    public Book(int id, String title, String description, Author author, IPrice price, String kind, Rating rating) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -29,7 +29,18 @@ public class Book implements IMedia {
     // overloaded constructor
     public Book(int id, String title, String description, String authorName, int authorYOB, int salePrice, int listPrice, String discount, String kind,
             double ratingAverage, int ratingCount) {
-        this(id, title, description, new Author(authorName, authorYOB), new Price(salePrice, listPrice, discount), kind, new Rating(ratingAverage, ratingCount));
+        this(id, title, description, new Author(authorName, authorYOB), buildPrice(salePrice, listPrice, discount), kind, new Rating(ratingAverage, ratingCount));
+    }
+
+    /*
+     * Builds a DiscountPrice object if the sale price is different from the list
+     */
+    private static IPrice buildPrice(int salePrice, int listPrice, String discount) {
+        if (salePrice == listPrice) {
+            return new SimplePrice(salePrice);
+        } else {
+            return new DiscountPrice(salePrice, listPrice, discount);
+        }
     }
 
     /**

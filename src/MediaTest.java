@@ -6,17 +6,17 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 public class MediaTest {
-    Book b1 = new Book(1, "Elements of Style", "A classic guide to writing in English.", new Author("William Strunk Jr.", 1869), new Price(1200, 1500, "20% off"), "nonfiction", new Rating(4.1, 574));
-    Book b2 = new Book(2, "Old Man and the Sea", "A short novel written by an American author.", new Author("Ernest Hemingway", 1899), new Price(500, 500, ""), "fiction", new Rating(3.4, 14849));
-    Book b3 = new Book(4, "The Little Prince", "A novella by Antoine de Saint-Exupery.", new Author("Antoine de Saint-Exupery", 1900), new Price(350, 500, "Holiday sale"), "fiction", new Rating(5.0, 3594104));
+    Book b1 = new Book(1, "Elements of Style", "A classic guide to writing in English.", new Author("William Strunk Jr.", 1869), new DiscountPrice(1200, 1500, "20% off"), "nonfiction", new Rating(4.1, 574));
+    Book b2 = new Book(2, "Old Man and the Sea", "A short novel written by an American author.", new Author("Ernest Hemingway", 1899), new DiscountPrice(500, 500, ""), "fiction", new Rating(3.4, 14849));
+    Book b3 = new Book(4, "The Little Prince", "A novella by Antoine de Saint-Exupery.", new Author("Antoine de Saint-Exupery", 1900), new DiscountPrice(350, 500, "Holiday sale"), "fiction", new Rating(5.0, 3594104));
     Book b4 = new Book(5, "Introduction to the Theory of Computation", "A comprehensive textbook on the theory of computation.", 
-                                new Author("Michael Sipser", 1954), new Price(8000, 10000, "20% off"), "textbook", new Rating(3.2, 9542));
+                                new Author("Michael Sipser", 1954), new DiscountPrice(8000, 10000, "20% off"), "textbook", new Rating(3.2, 9542));
 
-    Audio a1 = new Audio(3, "The Dark Side of the Moon", "A classic rock album by Pink Floyd.", "Pink Floyd", 2954, new Price(750, 750, ""), "rock", new Rating(4.8, 12345));
-    Audio a2 = new Audio(6, "Kind of Blue", "A classic jazz album by Miles Davis.", "Miles Davis", 3200, new Price(400, 600, "Jazz sale"), "jazz", new Rating(3.9, 9876));
+    Audio a1 = new Audio(3, "The Dark Side of the Moon", "A classic rock album by Pink Floyd.", "Pink Floyd", 2954, new DiscountPrice(750, 750, ""), "rock", new Rating(4.8, 12345));
+    Audio a2 = new Audio(6, "Kind of Blue", "A classic jazz album by Miles Davis.", "Miles Davis", 3200, new DiscountPrice(400, 600, "Jazz sale"), "jazz", new Rating(3.9, 9876));
 
-    Movie m1 = new Movie(7, "The Godfather", "A classic crime film directed by Francis Ford Coppola.", "Marlon Brando", "Francis Ford Coppola", new Price(300, 500, "Mafia sale"), "crime", new Rating(4.7, 54321));
-    Movie m2 = new Movie(8, "The Shawshank Redemption", "A classic drama film directed by Frank Darabont.", "Tim Robbins", "Frank Darabont", new Price(200, 300, "Prison sale"), "drama", new Rating(4.9, 98765));
+    Movie m1 = new Movie(7, "The Godfather", "A classic crime film directed by Francis Ford Coppola.", "Marlon Brando", "Francis Ford Coppola", new DiscountPrice(300, 500, "Mafia sale"), "crime", new Rating(4.7, 54321));
+    Movie m2 = new Movie(8, "The Shawshank Redemption", "A classic drama film directed by Frank Darabont.", "Tim Robbins", "Frank Darabont", new DiscountPrice(200, 300, "Prison sale"), "drama", new Rating(4.9, 98765));
 
     @Test
     public void textGetID() {
@@ -45,9 +45,9 @@ public class MediaTest {
 
     @Test
     public void testAdjustPrice() {
-        assertEquals(new Book(1, "Elements of Style", "A classic guide to writing in English.", new Author("William Strunk Jr.", 1869), new Price(900, 1125, "20% off"), "nonfiction", new Rating(4.1, 574)),
+        assertEquals(new Book(1, "Elements of Style", "A classic guide to writing in English.", new Author("William Strunk Jr.", 1869), new DiscountPrice(900, 1125, "20% off"), "nonfiction", new Rating(4.1, 574)),
                      b1.adjustPrice(75));
-        assertEquals(new Book(2, "Old Man and the Sea", "A short novel written by an American author.", new Author("Ernest Hemingway", 1899), new Price(575, 575, ""), "fiction", new Rating(3.4, 14849)),
+        assertEquals(new Book(2, "Old Man and the Sea", "A short novel written by an American author.", new Author("Ernest Hemingway", 1899), new DiscountPrice(575, 575, ""), "fiction", new Rating(3.4, 14849)),
                       b2.adjustPrice(115));
     }
 
