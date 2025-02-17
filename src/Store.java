@@ -17,10 +17,18 @@ public class Store {
 		this.b3 = b3;
 	}
 	
+	/**
+	 * Returns a string representation of a JSON array of the ids of all items
+	 * in this store.
+	 */
 	public String catalog() {
 		return "[" + b1.getId() + ", " + b2.getId() + ", " + b3.getId() + "]";
 	}
 	
+	/**
+	 * Returns a string representation of the JSON object for the item 
+	 * with the given id.
+	 */
 	public String itemInfoAsJSON(int id) {
 		if (b1.getId() == id) {
 			return b1.toJSONString();
