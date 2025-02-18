@@ -48,4 +48,12 @@ public class ILoMTest {
         assertEquals(new Range(1920, 1973), lom2.yearRange());
         assertEquals(new Range(1920, 1994), lom3.yearRange());
     }
+
+    @Test
+    public void testPriceRange() {
+        assertEquals(new Range(), mt.priceRange());
+        assertEquals(new Range(1200), lom1.priceRange());
+        assertEquals(new Range(300, 1200), lom2.priceRange());
+        assertEquals(new Range(200, 1200), lom3.priceRange());
+    }
 }

@@ -28,5 +28,11 @@ public interface ILoM {
      * Return the range of years associated with all items in this list
      */
     public Range yearRange();
+
+    /**
+     * Return the range of prices of all items in this list
+     */
+    public Range priceRange();
+
 }
 
