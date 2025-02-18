@@ -34,44 +34,6 @@ public class Audio extends AbsItem {
         }
     }
     
-    /**
-    * Return the ID of this audio item.
-    */ 
-    @Override
-    public int getId() {
-        return this.id;
-    }
-    
-    /**
-    * Return the description of this audio item.
-    */
-    public String getDescription() {
-        return this.description;
-    }
-    
-    /**
-    * Produce the tags for this audio item
-    */
-    public ILoS getTags() { 
-        return this.tags;
-    }
-    
-    
-    /**
-    * Return a truncated version of the description of this audio item.
-    */
-    public String getShortDescription() {
-        return this.description.substring(0, Math.min(15, this.description.length())) + "...";
-    }
-    
-    /**
-    * Return the sale price of this audio item.
-    */
-    @Override
-    public int salePrice() {
-        return this.price.getSalePrice();
-    }
-    
     /** Produce true if this media item contains the given text in 
     any of its textual fields */
     @Override

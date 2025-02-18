@@ -35,35 +35,6 @@ public class Book extends AbsItem {
     }
 
     /**
-     * Return the ID of this book.
-     */
-    @Override
-    public int getId() {
-        return this.id;
-    }
-
-    /**
-     * Return the description of this book.
-     */
-    public String getDescription() {
-        return this.description;
-    }
-
-    /**
-     * Produce the tags for this audio item
-     */
-    public ILoS getTags() { 
-        return this.tags;
-    }
-
-    /**
-     * Return a truncated version of the description of this book.
-     */
-    public String getShortDescription() {
-        return this.description.substring(0, Math.min(15, this.description.length())) + "...";
-    }
-
-    /**
      * Return true if this book was written by the given author.
      */
     public boolean writtenBy(String author) {

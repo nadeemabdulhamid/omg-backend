@@ -15,4 +15,41 @@ public abstract class AbsItem implements IMedia {
         this.rating = rating;
     }
 
+    /**
+     * Return the ID of this media item.
+     */
+    @Override
+    public int getId() {
+        return this.id;
+    }
+
+    /**
+     * Return the sale price of this media item.
+     */
+    @Override
+    public int salePrice() {
+        return this.price.getSalePrice();
+    }
+
+    /**
+     * Produce the tags for this media item
+     */
+    public ILoS getTags() { 
+        return this.tags;
+    }
+
+    /**
+     * Return the description of this audio item.
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
+    /**
+     * Return a truncated version of the description of this media item.
+     */
+    public String getShortDescription() {
+        return this.description.substring(0, Math.min(15, this.description.length())) + "...";
+    }
+
 }

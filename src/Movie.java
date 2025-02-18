@@ -24,36 +24,6 @@ public class Movie extends AbsItem {
     }
 
     /**
-     * Return the ID of this movie.
-     */
-    @Override
-    public int getId() {
-        return this.id;
-    }
-
-    /**
-     * Return the sale price of this movie.
-     */
-    @Override
-    public int salePrice() {
-        return this.price.getSalePrice();
-    }
-
-    /**
-     * Produce the tags for this audio item
-     */
-    public ILoS getTags() { 
-        return this.tags;
-    }
-
-    /**
-     * Return a truncated version of the description of this book.
-     */
-    public String getShortDescription() {
-        return this.description.substring(0, Math.min(15, this.description.length())) + "...";
-    }
-
-    /**
      * Return the string representation of a JSON object for this movie.
      */
     @Override
