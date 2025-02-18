@@ -21,6 +21,7 @@ public class Book implements IMedia {
         this.title = title;
         this.description = description;
         this.author = author;
+        this.author.setBook(this);
         this.price = price;
         this.tags = tags;
         this.rating = rating;
