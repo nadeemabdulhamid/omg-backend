@@ -33,11 +33,11 @@ public class Store {
 	 * Produces a string representation of a JSON array of the tags of all items
 	 */
 	public String tagsList(int limit) {
-		//if (limit < 0) {
+		if (limit < 0) {
 			return items.collectTags().asJSONList();
-		//} else {
-		//	return items.collectTags().take(limit).asJSONList();
-		//}
+		} else {
+			return items.collectTags().take(limit).asJSONList();
+		}
 	}
 
 	// stub!

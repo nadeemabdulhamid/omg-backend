@@ -19,4 +19,9 @@ public interface ILoS {
      */
     public ILoS append(ILoS that);
 
+    /**
+     * Produce a new list with only the first n items of this list.
+     */
+    public ILoS take(int n);
+
 }
