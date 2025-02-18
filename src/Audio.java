@@ -22,18 +22,7 @@ public class Audio extends AbsItem {
         this(id, title, description, artist, duration, buildPrice(salePrice, listPrice, discount), 
         StringHelpers.split(tags, ','), new Rating(ratingAverage, ratingCount));
     }
-    
-    /*
-    * Builds a DiscountPrice object if the sale price is different from the list
-    */
-    private static IPrice buildPrice(int salePrice, int listPrice, String discount) {
-        if (salePrice == listPrice) {
-            return new SimplePrice(salePrice);
-        } else {
-            return new DiscountPrice(salePrice, listPrice, discount);
-        }
-    }
-    
+       
     /** Produce true if this media item contains the given text in 
     any of its textual fields */
     @Override

@@ -52,4 +52,15 @@ public abstract class AbsItem implements IMedia {
         return this.description.substring(0, Math.min(15, this.description.length())) + "...";
     }
 
+    /*
+     * Builds a DiscountPrice object if the sale price is different from the list
+     */
+    protected static IPrice buildPrice(int salePrice, int listPrice, String discount) {
+        if (salePrice == listPrice) {
+            return new SimplePrice(salePrice);
+        } else {
+            return new DiscountPrice(salePrice, listPrice, discount);
+        }
+    }
+
 }
