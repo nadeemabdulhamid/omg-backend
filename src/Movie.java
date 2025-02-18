@@ -7,30 +7,19 @@ import java.util.Objects;
 /**
 * Represents a video item in our media store.
 */
-public class Movie implements IMedia {
-    int id;
-    String title;
-    String description;
+public class Movie extends AbsItem {
     String starring;
     String directedBy;
-    IPrice price;
-    ILoS tags;
-    Rating rating;
 
     public Movie(int id, String title, String description, String starring, String directedBy, IPrice price,
             ILoS tags, Rating rating) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
+        super(id, title, description, price, tags, rating);
         this.starring = starring;
         this.directedBy = directedBy;
-        this.price = price;
-        this.tags = tags;
-        this.rating = rating;
     }
 
     public Movie(int id, String title, String description, String starring, String directedBy, int salePrice, int listPrice, String discount,
-            String tags, double ratingAverage, int ratingCount) {
+                String tags, double ratingAverage, int ratingCount) {
         this(id, title, description, starring, directedBy, new DiscountPrice(salePrice, listPrice, discount), StringHelpers.split(tags, ','), new Rating(ratingAverage, ratingCount));
     }
 

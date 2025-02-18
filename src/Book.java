@@ -7,29 +7,18 @@ import java.util.Objects;
 /** 
  * Represents a book in our online media store.
  */
-public class Book implements IMedia {
-    int id;
-    String title;
-    String description;
+public class Book extends AbsItem {
     Author author;
-    IPrice price;
-    ILoS tags;
-    Rating rating;
 
     public Book(int id, String title, String description, Author author, IPrice price, ILoS tags, Rating rating) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
+        super(id, title, description, price, tags, rating);
         this.author = author;
         this.author.setBook(this);
-        this.price = price;
-        this.tags = tags;
-        this.rating = rating;
     }
 
     // overloaded constructor
     public Book(int id, String title, String description, String authorName, int authorYOB, int salePrice, int listPrice, String discount, String tags,
-            double ratingAverage, int ratingCount) {
+                    double ratingAverage, int ratingCount) {
         this(id, title, description, new Author(authorName, authorYOB), buildPrice(salePrice, listPrice, discount), 
                     StringHelpers.split(tags, ','), new Rating(ratingAverage, ratingCount));
     }
