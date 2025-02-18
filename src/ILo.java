@@ -17,5 +17,10 @@ public interface ILo<T> {
     /** Produce a copy of this list with the given number removed */
     public ILo<T> removeAll(T elt);
     
+    /** Produce a new list that is this list appended to that */
+    public ILo<T> append(ILo<T> that);
+
+    /** Produce a new list with only the first n elements of this list. */
+    public ILo<T> take(int n);
 }
 

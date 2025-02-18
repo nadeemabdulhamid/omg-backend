@@ -5,8 +5,9 @@
 import org.junit.*;
 import static org.junit.Assert.*;
 
-public class ILoTest {
+import org.json.JSONArray;
 
+public class ILoTest {
     MediaTest media = new MediaTest();
 
     ILo<String> mtS = new MTLo<String>();
@@ -47,5 +48,20 @@ public class ILoTest {
         assertEquals("[15,33,42,51,33]", lon.removeAll(24).asJSONList().toString());
         assertEquals("[15,24,42,51]", lon.removeAll(33).asJSONList().toString());
         assertEquals(lon, lon.removeAll(25));
+    }
+
+    @Test 
+    public void testAppend() {
+        assertEquals(los, mtS.append(los));
+        assertTrue(new JSONArray("[this,is,a,test,this,is,a,test]").similar(los.append(los).asJSONList()));
+        assertEquals("[15,24,33,42,51,33,15,24,33,42,51,33]", lon.append(lon).asJSONList().toString());
+    }
+
+    @Test
+    public void testTake() {
+        assertEquals(mtS, mtS.take(2));
+        assertEquals("[\"this\",\"is\"]", los.take(2).asJSONList().toString());
+        assertEquals("[15,24,33]", lon.take(3).asJSONList().toString());
+        assertEquals(lon, lon.take(7));
     }
 }
