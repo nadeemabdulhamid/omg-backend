@@ -13,7 +13,7 @@ public class AuthorTest {
     @Test 
     public void testBook() {
         assertEquals(null, a1.getBook());
-        Book b1 = new Book(0, "Hobbit", "A fantasy novel and children's book by J.R.R. Tolkien.", a1, new SimplePrice(1000), new MTLoS(), new Rating(5.0, 1000000));
+        Book b1 = new Book(0, "Hobbit", "A fantasy novel and children's book by J.R.R. Tolkien.", 1937, a1, new SimplePrice(1000), new MTLoS(), new Rating(5.0, 1000000));
         assertEquals(b1, a1.getBook());
     }
 
@@ -34,8 +34,8 @@ public class AuthorTest {
 
     @Test
     public void testToJSONString() {
-        assertEquals("\"Tolkien (b. 1892)\"", a1.toJSONString());
-        assertEquals("\"Ghazzali (b. 1058)\"", a2.toJSONString());
-        assertEquals("\"Cooper (b. 1895)\"", a3.toJSONString());
+        assertEquals("Tolkien (b. 1892)", a1.toJSONString());
+        assertEquals("Ghazzali (b. 1058)", a2.toJSONString());
+        assertEquals("Cooper (b. 1895)", a3.toJSONString());
     }
 }

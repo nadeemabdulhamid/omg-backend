@@ -1,15 +1,23 @@
+/**
+ * Nadeem Abdul Hamid, 2025.
+ */
+
+import org.json.JSONObject;
+
 public abstract class AbsItem implements IMedia {
     int id;
     String title;
     String description;
+    int year;
     IPrice price;
     ILoS tags;
     Rating rating;
 
-    public AbsItem(int id, String title, String description, IPrice price, ILoS tags, Rating rating) {
+    public AbsItem(int id, String title, String description, int year, IPrice price, ILoS tags, Rating rating) {
         this.id = id;
         this.title = title;
         this.description = description;
+        this.year = year;
         this.price = price;
         this.tags = tags;
         this.rating = rating;
@@ -62,5 +70,21 @@ public abstract class AbsItem implements IMedia {
             return new DiscountPrice(salePrice, listPrice, discount);
         }
     }
+
+    /*
+     * Builds a JSONObject with key/values for the common 
+     * fields of this media item
+     */
+    protected JSONObject toJSONObject() {
+        return rating.addToJSONObject(
+                    new JSONObject()
+                    .put("id", this.id)
+                    .put("title", this.title)
+                    .put("description-full", this.description)
+                    .put("description-short", this.getShortDescription())
+                    .put("price", this.price.toJSON())
+                    .put("tags", this.tags.asJSONList()));
+    }
+
 
 }

@@ -5,6 +5,8 @@
 import org.junit.*;
 import static org.junit.Assert.*;
 
+import org.json.JSONArray;
+
 public class ILoMTest {
 
     MediaTest media = new MediaTest();
@@ -32,8 +34,10 @@ public class ILoMTest {
 
     @Test
     public void testCollectTags() {
-        assertEquals("", mt.collectTags().join(",", false));
-        assertEquals("nonfiction,classic,guide,writing,English", lom1.collectTags().join(",", false));
-        assertEquals("rock,classic,album,crime,classic,film,nonfiction,classic,guide,writing,English", lom2.collectTags().join(",", false));
+        assertTrue(mt.collectTags().asJSONList().similar(new JSONArray("[]")));
+        assertTrue(new JSONArray("[nonfiction,classic,guide,writing,English]").similar(lom1.collectTags().asJSONList()));
+        JSONArray a = lom2.collectTags().asJSONList();              // for debugging
+        assertTrue(lom2.collectTags().asJSONList()
+                    .similar(new JSONArray("[rock,classic,album,crime,classic,film,nonfiction,classic,guide,writing,English]")));
     }
 }

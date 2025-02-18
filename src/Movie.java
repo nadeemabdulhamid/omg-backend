@@ -11,16 +11,16 @@ public class Movie extends AbsItem {
     String starring;
     String directedBy;
 
-    public Movie(int id, String title, String description, String starring, String directedBy, IPrice price,
+    public Movie(int id, String title, String description, int year, String starring, String directedBy, IPrice price,
             ILoS tags, Rating rating) {
-        super(id, title, description, price, tags, rating);
+        super(id, title, description, year, price, tags, rating);
         this.starring = starring;
         this.directedBy = directedBy;
     }
 
-    public Movie(int id, String title, String description, String starring, String directedBy, int salePrice, int listPrice, String discount,
+    public Movie(int id, String title, String description, int year, String starring, String directedBy, int salePrice, int listPrice, String discount,
                 String tags, double ratingAverage, int ratingCount) {
-        this(id, title, description, starring, directedBy, new DiscountPrice(salePrice, listPrice, discount), StringHelpers.split(tags, ','), new Rating(ratingAverage, ratingCount));
+        this(id, title, description, year, starring, directedBy, new DiscountPrice(salePrice, listPrice, discount), StringHelpers.split(tags, ','), new Rating(ratingAverage, ratingCount));
     }
 
     /**
@@ -28,18 +28,11 @@ public class Movie extends AbsItem {
      */
     @Override
     public String toJSONString() {
-        return "{ "
-                + StringHelpers.keyValuePair("type", "video") + ", "
-                + StringHelpers.keyValuePair("id", getId()) + ", "
-                + StringHelpers.keyValuePair("title", this.title) + ", "
-                + StringHelpers.keyValuePair("description-full", this.description) + ", "
-                + StringHelpers.keyValuePair("description-short", this.getShortDescription()) + ", "
-                + StringHelpers.keyValuePair("starring", this.starring) + ", "
-                + StringHelpers.keyValuePair("directed-by", this.directedBy) + ", "
-                + StringHelpers.keyValuePair("price", this.price.toJSONString(), false) + ", "
-                + StringHelpers.keyValuePair("tags", this.tags.asJSONList(), false) + ", "
-                + this.rating.toJSONStringFragment()
-                + " }";
+        return super.toJSONObject()
+                .put("type", "video")
+                .put("starring", this.starring)
+                .put("directed-by", this.directedBy)
+                .toString();
     }
 
     @Override

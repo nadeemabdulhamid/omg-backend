@@ -3,6 +3,8 @@
  */
 
  import java.util.Objects;
+ 
+ import org.json.JSONObject;
 
  /** 
   * Represents rating information for an item in our media store.
@@ -31,11 +33,10 @@
 	}
 
     /**
-     * Return a JSON fields representing this rating, as a fragment
-     * of a larger JSON object.
+     * 
      */
-    public String toJSONStringFragment() {
-        return String.format("\"rating-average\": %.1f, \"rating-count\": \"%s\"", this.average, formatCount());
+    public JSONObject addToJSONObject(JSONObject obj) {
+        return obj.put("rating-average", this.average).put("rating-count", this.formatCount());
     }
 
 

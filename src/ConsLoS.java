@@ -3,6 +3,7 @@
  */
 
 import java.util.Objects;
+import org.json.JSONArray;
 
 /** 
  * Represents a non-empty list of strings.
@@ -16,31 +17,12 @@ public class ConsLoS implements ILoS {
         this.rest = rest;
     }
 
-	/** Produce a string representation of this list as a JSON array */
-	public String asJSONList() {
-		return "[" + this.join(",", true) + "]";
+	/** Produce a representation of this list as a JSON array */
+	public JSONArray asJSONList() {
+        return new JSONArray().put(this.first).putAll(this.rest.asJSONList());
 	}
 
-    /** Produce a single string with all the strings in this list quoted 
-     * and joined by the given separator. */
-    public String join(String sep, boolean quote) {
-        String restJoin = this.rest.join(sep, quote); 
-		if (restJoin.equals("")) {
-            if (quote) {
-                return StringHelpers.quote(this.first);
-            } else {
-                return this.first;
-            }
-		} else {
-            if (quote) {
-                return StringHelpers.quote(this.first) + sep + restJoin;
-            } else {
-                return this.first + sep + restJoin;
-            }
-		}
-    }
-
-    	/**
+    /**
      * Produce a new list that is this list append to all the
      * items in that.
      */

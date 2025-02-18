@@ -11,15 +11,15 @@ public class Audio extends AbsItem {
     String artist;
     int duration;		// seconds
     
-    public Audio(int id, String title, String description, String artist, int duration, IPrice price, ILoS tags, Rating rating) {
-        super(id, title, description, price, tags, rating);
+    public Audio(int id, String title, String description, int year, String artist, int duration, IPrice price, ILoS tags, Rating rating) {
+        super(id, title, description, year, price, tags, rating);
         this.artist = artist;
         this.duration = duration;
     }
     
-    public Audio(int id, String title, String description, String artist, int duration, int salePrice, int listPrice, String discount, String tags,
+    public Audio(int id, String title, String description, int year, String artist, int duration, int salePrice, int listPrice, String discount, String tags,
                     double ratingAverage, int ratingCount) {
-        this(id, title, description, artist, duration, buildPrice(salePrice, listPrice, discount), 
+        this(id, title, description, year, artist, duration, buildPrice(salePrice, listPrice, discount), 
         StringHelpers.split(tags, ','), new Rating(ratingAverage, ratingCount));
     }
        
@@ -30,24 +30,24 @@ public class Audio extends AbsItem {
         String lowerText = text.toLowerCase();
         return this.title.toLowerCase().contains(lowerText) || this.description.toLowerCase().contains(lowerText) || this.artist.toLowerCase().contains(lowerText);
     }
+
+    /*
+     * generate the info line for this audio item
+     */
+    private String infoLine() {
+        return (this.duration/60) + " minutes " + (this.duration%60) + " seconds • " + this.year;
+    }
     
     /**
     * Return a JSON string representation of this book.
     */
     @Override
     public String toJSONString() {
-        return "{ "
-        + StringHelpers.keyValuePair("type", "audio") + ", "
-        + StringHelpers.keyValuePair("id", getId()) + ", "
-        + StringHelpers.keyValuePair("title", this.title) + ", "
-        + StringHelpers.keyValuePair("description-full", this.description) + ", "
-        + StringHelpers.keyValuePair("description-short", this.getShortDescription()) + ", "
-        + StringHelpers.keyValuePair("artist", this.artist) + ", "
-        + StringHelpers.keyValuePair("info-line", (this.duration/60) + " minutes " + (this.duration%60) + " seconds") + ", "
-        + StringHelpers.keyValuePair("price", this.price.toJSONString(), false) + ", "
-        + StringHelpers.keyValuePair("tags", this.tags.asJSONList(), false) + ", "
-        + this.rating.toJSONStringFragment()
-        + " }";
+        return super.toJSONObject()
+                .put("type", "audio")
+                .put("artist", this.artist)
+                .put("info-line", infoLine())
+                .toString();
     }
     
     // AUTO-GENERATED: DO NOT EDIT BELOW

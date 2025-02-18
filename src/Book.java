@@ -10,16 +10,16 @@ import java.util.Objects;
 public class Book extends AbsItem {
     Author author;
 
-    public Book(int id, String title, String description, Author author, IPrice price, ILoS tags, Rating rating) {
-        super(id, title, description, price, tags, rating);
+    public Book(int id, String title, String description, int year, Author author, IPrice price, ILoS tags, Rating rating) {
+        super(id, title, description, year, price, tags, rating);
         this.author = author;
         this.author.setBook(this);
     }
 
     // overloaded constructor
-    public Book(int id, String title, String description, String authorName, int authorYOB, int salePrice, int listPrice, String discount, String tags,
+    public Book(int id, String title, String description, int year, String authorName, int authorYOB, int salePrice, int listPrice, String discount, String tags,
                     double ratingAverage, int ratingCount) {
-        this(id, title, description, new Author(authorName, authorYOB), buildPrice(salePrice, listPrice, discount), 
+        this(id, title, description, year, new Author(authorName, authorYOB), buildPrice(salePrice, listPrice, discount), 
                     StringHelpers.split(tags, ','), new Rating(ratingAverage, ratingCount));
     }
 
@@ -42,7 +42,7 @@ public class Book extends AbsItem {
      * price multiplied by the given percentage.
      */
     public Book adjustPrice(int percent) {
-        return new Book(this.id, this.title, this.description, this.author, this.price.adjustPrice(percent), this.tags, this.rating);
+        return new Book(this.id, this.title, this.description, this.year, this.author, this.price.adjustPrice(percent), this.tags, this.rating);
     }
 
     /**
@@ -61,22 +61,23 @@ public class Book extends AbsItem {
         return this.title.toLowerCase().contains(lowerText) || this.description.toLowerCase().contains(lowerText) || this.author.contains(lowerText);
     }
 
+    /*
+     * generate the info line for this audio item
+     */
+    private String infoLine() {
+        return "Published " + this.year;
+    }
+
     /**
      * Return a JSON string representation of this book.
      */
     @Override
     public String toJSONString() {
-        return "{ "
-                + StringHelpers.keyValuePair("type", "print") + ", "
-                + StringHelpers.keyValuePair("id", getId()) + ", "
-                + StringHelpers.keyValuePair("title", this.title) + ", "
-                + StringHelpers.keyValuePair("description-full", this.description) + ", "
-                + StringHelpers.keyValuePair("description-short", this.getShortDescription()) + ", "
-                + StringHelpers.keyValuePair("author", this.author.toJSONString(), false) + ", "
-                + StringHelpers.keyValuePair("price", this.price.toJSONString(), false) + ", "
-                + StringHelpers.keyValuePair("tags", this.tags.asJSONList(), false) + ", "
-                + this.rating.toJSONStringFragment()
-                + " }";
+        return super.toJSONObject()
+                .put("type", "print")
+                .put("author", this.author.toJSONString())
+                .put("info-line", infoLine())
+                .toString();
     }
 
     // AUTO-GENERATED: DO NOT EDIT BELOW

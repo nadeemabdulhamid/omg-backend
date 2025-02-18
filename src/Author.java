@@ -51,7 +51,7 @@ public class Author {
      * Produces a JSON object representation of this author
      */
     public String toJSONString() {
-    	return "\"" + this.name + " (b. " + this.yob + ")\"";
+    	return this.name + " (b. " + this.yob + ")";
     }
 
     /**

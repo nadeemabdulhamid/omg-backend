@@ -36,7 +36,7 @@ public class PriceTest {
     @Test
     public void testToJSONString() {
         assertEquals("""
-                { "sale": "$10.00", "list": "$15.00", "discount": "25% off" }""", p1.toJSONString());
-        assertEquals("\"$15.00\"", p2.toJSONString());
+                {"sale":"$10.00","discount":"25% off","list":"$15.00"}""", p1.toJSON().toString());
+        assertEquals("$15.00", p2.toJSON().toString());
     }
 }

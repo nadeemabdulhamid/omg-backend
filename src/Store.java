@@ -49,9 +49,9 @@ public class Store {
 	 */
 	public String tagsList(int limit) {
 		if (limit < 0) {
-			return items.collectTags().asJSONList();
+			return items.collectTags().asJSONList().toString();
 		} else {
-			return items.collectTags().take(limit).asJSONList();
+			return items.collectTags().take(limit).asJSONList().toString();
 		}
 	}
 

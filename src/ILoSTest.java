@@ -4,6 +4,7 @@
 
 import org.junit.*;
 import static org.junit.Assert.*;
+import org.json.JSONArray;
 
 public class ILoSTest {
 
@@ -13,17 +14,9 @@ public class ILoSTest {
 
     @Test
     public void testAsJSONList() {
-        assertEquals("[]", s0.asJSONList());
-        assertEquals("[\"hello\",\"world\"]", s1.asJSONList());
-        assertEquals("[\"this\",\"is\",\"a\",\"test\"]", s2.asJSONList());
-    }
-
-    @Test
-    public void testJoin() {
-        assertEquals("", s0.join(",", true));
-        assertEquals("\"hello\",\"world\"", s1.join(",", true));
-        assertEquals("this is a test", s2.join(" ", false));
-        assertEquals("this|is|a|test", s2.join("|", false));
+        assertTrue(s0.asJSONList().similar(new JSONArray()));
+        assertTrue(s1.asJSONList().similar(new JSONArray().put("hello").put("world")));
+        assertTrue(s2.asJSONList().similar(new JSONArray().put("this").put("is").put("a").put("test")));
     }
 
     @Test
