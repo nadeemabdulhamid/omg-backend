@@ -10,7 +10,7 @@ import java.util.Objects;
 public class Book extends AbsItem {
     Author author;
 
-    public Book(int id, String title, String description, int year, Author author, IPrice price, ILoS tags, Rating rating) {
+    public Book(int id, String title, String description, int year, Author author, IPrice price, ILo<String> tags, Rating rating) {
         super(id, title, description, year, price, tags, rating);
         this.author = author;
         this.author.setBook(this);

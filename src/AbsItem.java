@@ -10,10 +10,10 @@ public abstract class AbsItem implements IMedia {
     String description;
     int year;
     IPrice price;
-    ILoS tags;
+    ILo<String> tags;
     Rating rating;
 
-    public AbsItem(int id, String title, String description, int year, IPrice price, ILoS tags, Rating rating) {
+    public AbsItem(int id, String title, String description, int year, IPrice price, ILo<String> tags, Rating rating) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -50,7 +50,7 @@ public abstract class AbsItem implements IMedia {
     /**
      * Produce the tags for this media item
      */
-    public ILoS getTags() { 
+    public ILo<String> getTags() { 
         return this.tags;
     }
 

@@ -44,7 +44,7 @@ public class ConsLoM implements ILoM {
     /**
      * Return a list of all tags of all items in this list
      */
-    public ILoS collectTags() {
+    public ILo<String> collectTags() {
         return this.first.getTags().append(this.rest.collectTags());
     }
 

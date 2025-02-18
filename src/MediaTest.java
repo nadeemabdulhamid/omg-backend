@@ -8,14 +8,14 @@ import static org.junit.Assert.*;
 import org.json.JSONObject;
 
 public class MediaTest {
-    ILoS tagsb1 = StringHelpers.split( "nonfiction,classic,guide,writing,English", ',');
-    ILoS tagsb2 = StringHelpers.split( "fiction,short,novel,American,author", ',');
-    ILoS tagsb3 = StringHelpers.split( "fiction,novella,france", ',');
-    ILoS tagsb4 = StringHelpers.split( "textbook,computation,theory,computer,science", ',');
-    ILoS tagsa1 = StringHelpers.split( "rock,classic,album", ',');
-    ILoS tagsa2 = StringHelpers.split( "jazz,classic,album", ',');
-    ILoS tagsm1 = StringHelpers.split( "crime,classic,film", ',');
-    ILoS tagsm2 = StringHelpers.split( "drama,classic,film", ',');
+    ILo<String> tagsb1 = StringHelpers.split( "nonfiction,classic,guide,writing,English", ',');
+    ILo<String> tagsb2 = StringHelpers.split( "fiction,short,novel,American,author", ',');
+    ILo<String> tagsb3 = StringHelpers.split( "fiction,novella,france", ',');
+    ILo<String> tagsb4 = StringHelpers.split( "textbook,computation,theory,computer,science", ',');
+    ILo<String> tagsa1 = StringHelpers.split( "rock,classic,album", ',');
+    ILo<String> tagsa2 = StringHelpers.split( "jazz,classic,album", ',');
+    ILo<String> tagsm1 = StringHelpers.split( "crime,classic,film", ',');
+    ILo<String> tagsm2 = StringHelpers.split( "drama,classic,film", ',');
 
     Book b1 = new Book(1, "Elements of Style", "A classic guide to writing in English.", 1920, new Author("William Strunk Jr.", 1869), new DiscountPrice(1200, 1500, "20% off"), tagsb1, new Rating(4.1, 574));
     Book b2 = new Book(2, "Old Man and the Sea", "A short novel written by an American author.", 1952, new Author("Ernest Hemingway", 1899), new DiscountPrice(500, 500, ""), tagsb2, new Rating(3.4, 14849));

@@ -11,7 +11,7 @@ public class Audio extends AbsItem {
     String artist;
     int duration;		// seconds
     
-    public Audio(int id, String title, String description, int year, String artist, int duration, IPrice price, ILoS tags, Rating rating) {
+    public Audio(int id, String title, String description, int year, String artist, int duration, IPrice price, ILo<String> tags, Rating rating) {
         super(id, title, description, year, price, tags, rating);
         this.artist = artist;
         this.duration = duration;

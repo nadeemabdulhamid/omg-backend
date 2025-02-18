@@ -26,8 +26,8 @@ public class MTLoM implements ILoM {
     /**
      * Return a list of all tags of all items in this list
      */
-    public ILoS collectTags() {
-        return new MTLoS();
+    public ILo<String> collectTags() {
+        return new MTLo<>();
     }
 
     /**

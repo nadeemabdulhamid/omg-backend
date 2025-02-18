@@ -22,7 +22,7 @@ public interface ILoM {
     /**
      * Return a list of all tags of all items in this list
      */
-    public ILoS collectTags();
+    public ILo<String> collectTags();
 
     /**
      * Return the range of years associated with all items in this list

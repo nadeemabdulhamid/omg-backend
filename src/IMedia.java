@@ -23,7 +23,7 @@ public interface IMedia {
     /**
      * Produce the tags for this media item
      */
-    public ILoS getTags();
+    public ILo<String> getTags();
 
     /**
      * Produce the year of this media item

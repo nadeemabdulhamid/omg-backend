@@ -64,15 +64,15 @@ public class StringHelpers {
      * Split the given string into a list of substrings, separated by the
      * given character.
      */
-    public static ILoS split(String text, char sep) {
+    public static ILo<String> split(String text, char sep) {
         if (text.equals("")) {
-            return new MTLoS();
+            return new MTLo<>();
         } else {
             int pos = text.indexOf(sep);
             if (pos < 0) {
-                return new ConsLoS(text, new MTLoS());
+                return new ConsLo<>(text, new MTLo<>());
             } else {
-                return new ConsLoS(text.substring(0, pos), 
+                return new ConsLo<>(text.substring(0, pos), 
                                    split(text.substring(pos + 1), sep));
             }
         }
