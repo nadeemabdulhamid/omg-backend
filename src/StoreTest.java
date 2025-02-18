@@ -27,6 +27,19 @@ public class StoreTest extends MediaTest {
     }
 
     @Test
+    public void testTagCounts() {
+        // drama,classic,film, fiction,novella,france,rock,classic,album
+        assertEquals("""
+            [["drama", 1], ["classic", 2], ["film", 1], ["fiction", 1], ["novella", 1], ["france", 1], ["rock", 1], ["album", 1]]""", 
+            s2.tagCounts());
+
+        // nonfiction,classic,guide,writing,English,jazz,classic,album,crime,classic,film
+        assertEquals("""
+            [["nonfiction", 1], ["classic", 3], ["guide", 1], ["writing", 1], ["English", 1], ["jazz", 1], ["album", 1], ["crime", 1], ["film", 1]]""",
+            s1.tagCounts());
+    }
+
+    @Test
     public void testTagsList() {
         assertEquals("""
             ["drama","classic","film","fiction","novella","france","rock","classic","album"]""", s2.tagsList(-1));
