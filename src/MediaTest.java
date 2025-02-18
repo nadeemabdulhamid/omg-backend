@@ -64,13 +64,13 @@ public class MediaTest {
     @Test
     public void testToJSONString() {
         assertTrue(new JSONObject("""
-                { "type": "print", "id": 1, "info-line": "Published 1920", "title": "Elements of Style", "description-full": "A classic guide to writing in English.", "description-short": "A classic guide...", "author": "William Strunk Jr. (b. 1869)", "price": { "sale": "$12.00", "list": "$15.00", "discount": "20% off" }, "tags": ["nonfiction","classic","guide","writing","English"], "rating-average": 4.1, "rating-count": "574" }""")
+                { "type": "print", "id": 1, "info-line": "1920", "title": "Elements of Style", "description-full": "A classic guide to writing in English.", "description-short": "A classic guide...", "author": "William Strunk Jr. (b. 1869)", "price": { "sale": "$12.00", "list": "$15.00", "discount": "20% off" }, "tags": ["nonfiction","classic","guide","writing","English"], "rating-average": 4.1, "rating-count": "574" }""")
                  .similar(new JSONObject(b1.toJSONString())));        
         assertTrue(new JSONObject("""
             { "type": "audio", "id": 3, "title": "The Dark Side of the Moon", "description-full": "A classic rock album by Pink Floyd.", "description-short": "A classic rock ...", "artist": "Pink Floyd", "info-line": "49 minutes 14 seconds • 1973", "price": "$7.50", "tags": ["rock","classic","album"], "rating-average": 4.8, "rating-count": "12K" }""")
                     .similar(new JSONObject(a1.toJSONString())));
         assertTrue(new JSONObject("""
-            { "type": "video", "id": 7, "title": "The Godfather", "description-full": "A classic crime film directed by Francis Ford Coppola.", "description-short": "A classic crime...", "starring": "Marlon Brando", "directed-by": "Francis Ford Coppola", "price": { "sale": "$3.00", "list": "$5.00", "discount": "Mafia sale" }, "tags": ["crime","classic","film"], "rating-average": 4.7, "rating-count": "54K" }""")
+            { "type": "video", "id": 7, "title": "The Godfather", "info-line":"1972", "description-full": "A classic crime film directed by Francis Ford Coppola.", "description-short": "A classic crime...", "starring": "Marlon Brando", "directed-by": "Francis Ford Coppola", "price": { "sale": "$3.00", "list": "$5.00", "discount": "Mafia sale" }, "tags": ["crime","classic","film"], "rating-average": 4.7, "rating-count": "54K" }""")
                     .similar(new JSONObject(m1.toJSONString())));
     }
 
