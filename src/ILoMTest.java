@@ -29,4 +29,11 @@ public class ILoMTest {
         assertEquals(media.m1.toJSONString(), lom2.infoAsJSON(7));
         assertEquals(media.b2.toJSONString(), lom3.infoAsJSON(2));
     }
+
+    @Test
+    public void testCollectTags() {
+        assertEquals("", mt.collectTags().join(",", false));
+        assertEquals("nonfiction,classic,guide,writing,English", lom1.collectTags().join(",", false));
+        assertEquals("rock,classic,album,crime,classic,film,nonfiction,classic,guide,writing,English", lom2.collectTags().join(",", false));
+    }
 }

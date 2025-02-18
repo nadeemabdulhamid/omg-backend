@@ -25,4 +25,11 @@ public class ILoSTest {
         assertEquals("this is a test", s2.join(" ", false));
         assertEquals("this|is|a|test", s2.join("|", false));
     }
+
+    @Test
+    public void testAppend() {
+        assertEquals(s1, s0.append(s1));
+        assertEquals(s1, s1.append(s0));
+        assertEquals(new ConsLoS("hello", new ConsLoS("world", s2)), s1.append(s2));
+    }
 }

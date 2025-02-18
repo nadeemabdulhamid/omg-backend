@@ -19,5 +19,9 @@ public interface ILoM {
      */
 	public String infoAsJSON(int id);
 
+    /**
+     * Return a list of all tags of all items in this list
+     */
+    public ILoS collectTags();
 }
 

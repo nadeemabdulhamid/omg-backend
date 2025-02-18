@@ -13,4 +13,10 @@ public interface ILoS {
      * if quote is true, and joined by the given separator. */ 
     public String join(String sep, boolean quote);
 
+    /**
+     * Produce a new list that is this list append to all the
+     * items in that.
+     */
+    public ILoS append(ILoS that);
+
 }
