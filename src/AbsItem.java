@@ -90,6 +90,7 @@ public abstract class AbsItem implements IMedia {
                     .put("title", this.title)
                     .put("description-full", this.description)
                     .put("description-short", this.getShortDescription())
+                    .put("info-line", Integer.toString(this.year))
                     .put("price", this.price.toJSON())
                     .put("tags", this.tags.asJSONList()));
     }

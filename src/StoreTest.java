@@ -87,4 +87,10 @@ public class StoreTest extends MediaTest {
         assertNotEquals(s4, s5);
     }
 
+    @Test
+    public void testYearRange() {
+        assertEquals(new Range(1920, 1972).toJSONString(), s1.yearRangeAsJSON());
+        assertEquals(new Range(1943, 1994).toJSONString(), s2.yearRangeAsJSON());
+    }
+
 }

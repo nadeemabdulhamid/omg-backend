@@ -61,13 +61,6 @@ public class Book extends AbsItem {
         return this.title.toLowerCase().contains(lowerText) || this.description.toLowerCase().contains(lowerText) || this.author.contains(lowerText);
     }
 
-    /*
-     * generate the info line for this audio item
-     */
-    private String infoLine() {
-        return "Published " + this.year;
-    }
-
     /**
      * Return a JSON string representation of this book.
      */
@@ -76,7 +69,6 @@ public class Book extends AbsItem {
         return super.toJSONObject()
                 .put("type", "print")
                 .put("author", this.author.toJSONString())
-                .put("info-line", infoLine())
                 .toString();
     }
 

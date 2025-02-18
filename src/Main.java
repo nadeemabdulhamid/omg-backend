@@ -16,6 +16,8 @@ public class Main {
         server.installHandler("item-data", (RequestItemDataHandler) store::itemInfoAsJSON);
         server.installHandler("tags",      (RequestTagsWithLimitHandler) store::tagsList);
 
+        server.installHandler("year-range", (RequestRangeHandler) store::yearRangeAsJSON);
+
         server.installHandler("cart-count", (RequestCatalogHandler) store::cartSize);
         server.installHandler("cart-list",  (RequestCatalogHandler) store::cartList);
         server.installHandler("cart-add",   (RequestItemDataHandler) store::addToCart);
