@@ -3,8 +3,9 @@
  */
 
  import java.util.Objects;
- 
- import org.json.JSONObject;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
  /** 
   * Represents rating information for an item in our media store.
@@ -32,11 +33,28 @@
 		}
 	}
 
+    /** 
+     * Produces a JSON array of star icons to represent the average rating.
+     * Use the string "fa-regular fa-star" for empty stars, "fa-solid fa-star" for full stars,
+     * and "fa-regular fa-star-half-stroke" for partial (half) stars.
+     */
+    private JSONArray starIcons() {
+		String star1 = average < 0.3 ? "fa-regular fa-star" : average  < 0.9 ? "fa-regular fa-star-half-stroke" :  "fa-solid fa-star";
+		String star2 = average < 1.3 ? "fa-regular fa-star" : average  < 1.9 ? "fa-regular fa-star-half-stroke" :  "fa-solid fa-star";
+		String star3 = average < 2.3 ? "fa-regular fa-star" : average  < 2.9 ? "fa-regular fa-star-half-stroke" :  "fa-solid fa-star";
+		String star4 = average < 3.3 ? "fa-regular fa-star" : average  < 3.9 ? "fa-regular fa-star-half-stroke" :  "fa-solid fa-star";
+		String star5 = average < 4.3 ? "fa-regular fa-star" : average  < 4.9 ? "fa-regular fa-star-half-stroke" :  "fa-solid fa-star";
+		
+		return new JSONArray()
+				.put(star1).put(star2).put(star3).put(star4).put(star5);
+    }
+
     /**
      * 
      */
     public JSONObject addToJSONObject(JSONObject obj) {
-        return obj.put("rating-average", this.average).put("rating-count", this.formatCount());
+        return obj.put("rating-average", this.average).put("rating-count", this.formatCount())
+                .put("star-icons", this.starIcons());
     }
 
 
