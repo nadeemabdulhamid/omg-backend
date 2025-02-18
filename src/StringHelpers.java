@@ -59,4 +59,22 @@ public class StringHelpers {
             return keyValuePair(key, Integer.toString(value), false);
         }
     }
+
+    /**
+     * Split the given string into a list of substrings, separated by the
+     * given character.
+     */
+    public static ILoS split(String text, char sep) {
+        if (text.equals("")) {
+            return new MTLoS();
+        } else {
+            int pos = text.indexOf(sep);
+            if (pos < 0) {
+                return new ConsLoS(text, new MTLoS());
+            } else {
+                return new ConsLoS(text.substring(0, pos), 
+                                   split(text.substring(pos + 1), sep));
+            }
+        }
+    }
 }

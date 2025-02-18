@@ -13,23 +13,24 @@ public class Book implements IMedia {
     String description;
     Author author;
     IPrice price;
-    String kind;
+    ILoS tags;
     Rating rating;
 
-    public Book(int id, String title, String description, Author author, IPrice price, String kind, Rating rating) {
+    public Book(int id, String title, String description, Author author, IPrice price, ILoS tags, Rating rating) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.author = author;
         this.price = price;
-        this.kind = kind;
+        this.tags = tags;
         this.rating = rating;
     }
 
     // overloaded constructor
-    public Book(int id, String title, String description, String authorName, int authorYOB, int salePrice, int listPrice, String discount, String kind,
+    public Book(int id, String title, String description, String authorName, int authorYOB, int salePrice, int listPrice, String discount, String tags,
             double ratingAverage, int ratingCount) {
-        this(id, title, description, new Author(authorName, authorYOB), buildPrice(salePrice, listPrice, discount), kind, new Rating(ratingAverage, ratingCount));
+        this(id, title, description, new Author(authorName, authorYOB), buildPrice(salePrice, listPrice, discount), 
+                    StringHelpers.split(tags, ','), new Rating(ratingAverage, ratingCount));
     }
 
     /*
@@ -59,6 +60,13 @@ public class Book implements IMedia {
     }
 
     /**
+     * Produce the tags for this audio item
+     */
+    public ILoS getTags() { 
+        return this.tags;
+    }
+
+    /**
      * Return a truncated version of the description of this book.
      */
     public String getShortDescription() {
@@ -84,7 +92,7 @@ public class Book implements IMedia {
      * price multiplied by the given percentage.
      */
     public Book adjustPrice(int percent) {
-        return new Book(this.id, this.title, this.description, this.author, this.price.adjustPrice(percent), this.kind, this.rating);
+        return new Book(this.id, this.title, this.description, this.author, this.price.adjustPrice(percent), this.tags, this.rating);
     }
 
     /**
@@ -100,7 +108,7 @@ public class Book implements IMedia {
     @Override
     public boolean contains(String text) {
         String lowerText = text.toLowerCase();
-        return this.title.toLowerCase().contains(lowerText) || this.description.toLowerCase().contains(lowerText) || this.author.contains(lowerText) || this.kind.toLowerCase().contains(lowerText);
+        return this.title.toLowerCase().contains(lowerText) || this.description.toLowerCase().contains(lowerText) || this.author.contains(lowerText);
     }
 
     /**
@@ -116,7 +124,7 @@ public class Book implements IMedia {
                 + StringHelpers.keyValuePair("description-short", this.getShortDescription()) + ", "
                 + StringHelpers.keyValuePair("author", this.author.toJSONString(), false) + ", "
                 + StringHelpers.keyValuePair("price", this.price.toJSONString(), false) + ", "
-                + StringHelpers.keyValuePair("tags", this.kind) + ", "
+                + StringHelpers.keyValuePair("tags", this.tags.asJSONList(), false) + ", "
                 + this.rating.toJSONStringFragment()
                 + " }";
     }
@@ -125,7 +133,7 @@ public class Book implements IMedia {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, author, price, kind);
+        return Objects.hash(id, title, description, author, price, tags, rating);
     }
 
     @Override
@@ -137,13 +145,13 @@ public class Book implements IMedia {
         Book other = (Book) obj;
         return id == other.id && Objects.equals(title, other.title) && Objects.equals(description, other.description)
                 && Objects.equals(author, other.author) && Objects.equals(price, other.price)
-                && Objects.equals(kind, other.kind);
+                && Objects.equals(tags, other.tags) && Objects.equals(rating, other.rating);
     }
 
     @Override
     public String toString() {
         return "Book [id=" + id + ", title=" + title + ", description=" + description + ", author=" + author
-                + ", price=" + price + ", kind=" + kind + "]";
+                + ", price=" + price + ", tags=" + tags + ", rating=" + rating + "]";
     }
 
 }
