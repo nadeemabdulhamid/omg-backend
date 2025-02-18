@@ -9,9 +9,9 @@ public class StoreTest extends MediaTest {
 
     Store s1 = new Store(new ConsLoM(b1, new ConsLoM(a2, new ConsLoM(m1, new MTLoM()))));   // [1, 6, 7]
     Store s2 = new Store(new ConsLoM(m2, new ConsLoM(b3, new ConsLoM(a1, new MTLoM()))));   // [8, 4, 3]
-    Store s3 = new Store(new ConsLoM(m2, new ConsLoM(b3, new ConsLoM(a1, new MTLoM()))), new ConsLoN(4, new MTLoN()), "");
-    Store s4 = new Store(new ConsLoM(m2, new ConsLoM(b3, new ConsLoM(a1, new MTLoM()))), new ConsLoN(8, new ConsLoN(4, new MTLoN())), "");
-    Store s5 = new Store(new ConsLoM(m2, new ConsLoM(b3, new ConsLoM(a1, new MTLoM()))), new ConsLoN(8, new ConsLoN(4, new MTLoN())), "50%OFF");
+    Store s3 = new Store(new ConsLoM(m2, new ConsLoM(b3, new ConsLoM(a1, new MTLoM()))), new ConsLo<>(4, new MTLo<>()), "");
+    Store s4 = new Store(new ConsLoM(m2, new ConsLoM(b3, new ConsLoM(a1, new MTLoM()))), new ConsLo<>(8, new ConsLo<>(4, new MTLo<>())), "");
+    Store s5 = new Store(new ConsLoM(m2, new ConsLoM(b3, new ConsLoM(a1, new MTLoM()))), new ConsLo<>(8, new ConsLo<>(4, new MTLo<>())), "50%OFF");
 
     @Test
     public void testCatalog() {    

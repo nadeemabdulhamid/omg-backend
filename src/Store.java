@@ -10,17 +10,17 @@ import java.util.Objects;
  */
 public class Store {
 	ILoM items;		// catalog of items available in this store
-	ILoN cart;		// list of item ids that are currently in the cart
+	ILo<Integer> cart;		// list of item ids that are currently in the cart
 	String coupon;	// coupon code for a discount applied to the cart, "" if none is applied, always in uppercase
 	
-	public Store(ILoM items, ILoN cart, String coupon) {
+	public Store(ILoM items, ILo<Integer> cart, String coupon) {
 		this.items = items;
 		this.cart = cart;
 		this.coupon = coupon;
 	}
 
 	public Store(ILoM items) {
-		this(items, new MTLoN(), "");
+		this(items, new MTLo<Integer>(), "");
 	}
 
 	/**
@@ -83,7 +83,7 @@ public class Store {
 		if (this.cart.contains(id)) {
 			return "false";
 		} else {
-			this.cart = new ConsLoN(id, this.cart);
+			this.cart = new ConsLo<Integer>(id, this.cart);
 			return "true";
 		}
 	}
@@ -97,7 +97,7 @@ public class Store {
 		if (!this.cart.contains(id)) {
 			return "false";
 		} else {
-			this.cart = this.cart.remove(id);
+			this.cart = this.cart.removeAll(id);
 			return "true";
 		}
 	}
