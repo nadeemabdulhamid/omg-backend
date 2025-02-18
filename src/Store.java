@@ -55,8 +55,14 @@ public class Store {
 		}
 	}
 
-	// stub!
+	/**
+	 * Produces a JSON array of pairs (JSON array of a string and a number)
+	 * representing the count of each tag in the store for all tags of all
+	 * items.
+	 */
 	public String tagCounts() {
+		ILo<String> alltags = items.collectTags();
+		
 		return "[ [\"fiction\", 1], [\"nonfiction\", 1], [\"textbook\", 1] ]";
 	}
 	

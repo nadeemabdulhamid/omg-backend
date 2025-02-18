@@ -22,5 +22,13 @@ public interface ILo<T> {
 
     /** Produce a new list with only the first n elements of this list. */
     public ILo<T> take(int n);
-}
 
+    /** Produce the number of elements in this list that are equal() to the given one */
+    public int count(T elt);
+
+    /** Return the first element in this list; null if the list is empty */
+    public T getFirst();
+
+    /** Return true if this list is empty */
+    default public boolean isEmpty() { return this.size() == 0; }
+}
