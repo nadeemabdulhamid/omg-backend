@@ -4,6 +4,8 @@
 
 import java.util.Objects;
 
+import org.json.JSONArray;
+
 /**
  * Represents our online media store, which keeps track of a few books
  * available for sale.
@@ -62,8 +64,17 @@ public class Store {
 	 */
 	public String tagCounts() {
 		ILo<String> alltags = items.collectTags();
-		
-		return "[ [\"fiction\", 1], [\"nonfiction\", 1], [\"textbook\", 1] ]";
+		return tagTally(alltags).toString();
+	}
+
+	private JSONArray tagTally(ILo<String> tags) {
+		if (tags.isEmpty()) {
+			return new JSONArray();
+		} else {
+			String tag = tags.getFirst();
+			int count = tags.count(tag);
+			return new JSONArray().put(new JSONArray().put(tag).put(count)).putAll(tagTally(tags.removeAll(tag)));
+		}
 	}
 	
 	/**
