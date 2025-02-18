@@ -13,6 +13,13 @@ public class ILoSTest {
     ILoS s2 = new ConsLoS("this", new ConsLoS("is", new ConsLoS("a", new ConsLoS("test", s0))));
 
     @Test
+    public void testSize() {
+        assertEquals(0, s0.size());
+        assertEquals(2, s1.size());
+        assertEquals(4, s2.size());
+    }
+
+    @Test
     public void testAsJSONList() {
         assertTrue(s0.asJSONList().similar(new JSONArray()));
         assertTrue(s1.asJSONList().similar(new JSONArray().put("hello").put("world")));

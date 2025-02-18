@@ -8,6 +8,9 @@ import org.json.JSONArray;
  * Represents a list of strings.
  */
 public interface ILoS {
+    /** Produce the number of strings in this list */
+    public int size();
+
     /** Produce a representation of this list as a JSON array */
     public JSONArray asJSONList();
 
