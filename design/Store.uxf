@@ -28,7 +28,7 @@ getSalePrice() : int
 toJSONString() : String
 formatAsDollars(int) : String
 adjustPrice(int) : IPrice
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1155</x><y>517</y><w>176</w><h>110</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>140;10;80;10;80;80;10;80</additional_attributes></element><element><id>Relation</id><coordinates><x>1155</x><y>616</y><w>583</w><h>110</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>510;80;80;80;80;10;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>407</x><y>0</y><w>231</w><h>264</h></coordinates><panel_attributes>Store
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1155</x><y>517</y><w>176</w><h>110</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>140;10;80;10;80;80;10;80</additional_attributes></element><element><id>Relation</id><coordinates><x>1155</x><y>616</y><w>583</w><h>110</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>510;80;80;80;80;10;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>407</x><y>0</y><w>231</w><h>275</h></coordinates><panel_attributes>Store
 --
 items : ILoM
 cart : ILoN
@@ -42,8 +42,9 @@ cartSize() : String
 cartList() : String
 addToCart(int) : String
 removeFromCart(int) : String
-
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1298</x><y>880</y><w>220</w><h>110</h></coordinates><panel_attributes>Rating
+getCoupon() : String
+applyCoupon(String) : String
+removeCoupon(String) : String</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1298</x><y>880</y><w>220</w><h>110</h></coordinates><panel_attributes>Rating
 --
 average : double
 count : int
