@@ -29,6 +29,17 @@ public class Store {
 		return this.items.infoAsJSON(id);
 	}
 	
+	/**
+	 * Produces a string representation of a JSON array of the tags of all items
+	 */
+	public String tagsList(int limit) {
+		//if (limit < 0) {
+			return items.collectTags().asJSONList();
+		//} else {
+		//	return items.collectTags().take(limit).asJSONList();
+		//}
+	}
+
 	// stub!
 	public String tagCounts() {
 		return "[ [\"fiction\", 1], [\"nonfiction\", 1], [\"textbook\", 1] ]";

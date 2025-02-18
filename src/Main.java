@@ -1,6 +1,4 @@
-import omg.interfaces.RequestCatalogHandler;
-import omg.interfaces.RequestItemDataHandler;
-import omg.interfaces.RequestTagsHandler;
+import omg.interfaces.*;
 import omg.server.OMGServer;
 
 public class Main {
@@ -15,7 +13,7 @@ public class Main {
 
         server.installHandler("catalog",   (RequestCatalogHandler) store::catalog);
         server.installHandler("item-data", (RequestItemDataHandler) store::itemInfoAsJSON);
-        server.installHandler("tags",      (RequestTagsHandler) store::tagCounts);
+        server.installHandler("tags",      (RequestTagsWithLimitHandler) store::tagsList);
         server.start();
     }
 }

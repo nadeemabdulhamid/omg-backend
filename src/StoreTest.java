@@ -23,4 +23,12 @@ public class StoreTest extends MediaTest {
         assertEquals(m2.toJSONString(), s2.itemInfoAsJSON(8));
     }
 
+    @Test
+    public void testTagsList() {
+        assertEquals("""
+            ["drama","classic","film","fiction","novella","france","rock","classic","album"]""", s2.tagsList(-1));
+        assertEquals("""
+            ["drama","classic","film","fiction","novella"]""", s2.tagsList(5));
+    }
+
 }
