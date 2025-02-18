@@ -71,7 +71,7 @@
         return this.title.toLowerCase().contains(lowerText) || this.description.toLowerCase().contains(lowerText) || this.artist.toLowerCase().contains(lowerText);
     }
 
-        /**
+    /**
      * Return a JSON string representation of this book.
      */
     @Override
