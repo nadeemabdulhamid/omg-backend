@@ -30,14 +30,14 @@ public class ConsLoM implements ILoM {
     }
 
     /**
-	 * Returns a string representation of the JSON object for the item 
-	 * with the given id in this list. If the item is not found, returns "".
+	 * Returns the media item with the given id in this list.
+     * Produces null if not found.
      */
-	public String infoAsJSON(int id) {
+	public IMedia findItem(int id) {
         if (this.first.getId() == id) {
-            return this.first.toJSONString();
+            return this.first;
         } else {
-            return this.rest.infoAsJSON(id);
+            return this.rest.findItem(id);
         }
     }
 

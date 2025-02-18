@@ -34,7 +34,12 @@ public class Store {
 	 * with the given id.
 	 */
 	public String itemInfoAsJSON(int id) {
-		return this.items.infoAsJSON(id);
+		IMedia item = this.items.findItem(id);
+		if (item == null) {
+			return "";
+		} else {
+			return item.toJSONString();
+		}
 	}
 	
 	/**

@@ -23,11 +23,11 @@ public class ILoMTest {
     }
 
     @Test
-    public void testInfoAsJSON() {
-        assertEquals("", mt.infoAsJSON(1));
-        assertEquals("", lom2.infoAsJSON(2));
-        assertEquals(media.m1.toJSONString(), lom2.infoAsJSON(7));
-        assertEquals(media.b2.toJSONString(), lom3.infoAsJSON(2));
+    public void testFindItem() {
+        assertEquals(null, mt.findItem(1));
+        assertEquals(null, lom2.findItem(2));
+        assertEquals(media.m1, lom2.findItem(7));
+        assertEquals(media.b2, lom3.findItem(2));
     }
 
     @Test

@@ -14,10 +14,10 @@ public interface ILoM {
     public String collectIds();
 
     /**
-	 * Returns a string representation of the JSON object for the item 
-	 * with the given id in this list. If the item is not found, returns "".
+	 * Returns the media item with the given id in this list.
+     * Produces null if not found.
      */
-	public String infoAsJSON(int id);
+	public IMedia findItem(int id);
 
     /**
      * Return a list of all tags of all items in this list
