@@ -36,8 +36,16 @@ public class ILoMTest {
     public void testCollectTags() {
         assertTrue(mt.collectTags().asJSONList().similar(new JSONArray("[]")));
         assertTrue(new JSONArray("[nonfiction,classic,guide,writing,English]").similar(lom1.collectTags().asJSONList()));
-        JSONArray a = lom2.collectTags().asJSONList();              // for debugging
+        //JSONArray a = lom2.collectTags().asJSONList();              // for debugging
         assertTrue(lom2.collectTags().asJSONList()
                     .similar(new JSONArray("[rock,classic,album,crime,classic,film,nonfiction,classic,guide,writing,English]")));
+    }
+
+    @Test
+    public void testYearRange() {
+        assertEquals(new Range(), mt.yearRange());
+        assertEquals(new Range(1920), lom1.yearRange());
+        assertEquals(new Range(1920, 1973), lom2.yearRange());
+        assertEquals(new Range(1920, 1994), lom3.yearRange());
     }
 }

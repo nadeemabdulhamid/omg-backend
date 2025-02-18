@@ -32,6 +32,14 @@ public abstract class AbsItem implements IMedia {
     }
 
     /**
+     * Return the year of this media item.
+     */
+    @Override
+    public int getYear() {
+        return this.year;
+    }
+
+    /**
      * Return the sale price of this media item.
      */
     @Override

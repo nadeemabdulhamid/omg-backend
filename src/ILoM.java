@@ -23,5 +23,10 @@ public interface ILoM {
      * Return a list of all tags of all items in this list
      */
     public ILoS collectTags();
+
+    /**
+     * Return the range of years associated with all items in this list
+     */
+    public Range yearRange();
 }
 

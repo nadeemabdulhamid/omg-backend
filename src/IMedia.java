@@ -24,4 +24,9 @@ public interface IMedia {
      * Produce the tags for this media item
      */
     public ILoS getTags();
+
+    /**
+     * Produce the year of this media item
+     */
+    public int getYear();
 }
