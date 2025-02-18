@@ -13,18 +13,10 @@ public class ILoNTest {
 
     @Test
     public void testAsJSONList() {
-        assertEquals("[]", mt.asJSONList());
-        assertEquals("[10]", ns1.asJSONList());
-        assertEquals("[20,10]", ns2.asJSONList());
-        assertEquals("[70,30,50,45,3]", ns3.asJSONList());
-    }
-
-    @Test
-    public void testJoin() {
-        assertEquals("", mt.join(","));
-        assertEquals("10", ns1.join(","));
-        assertEquals("20,10", ns2.join(","));
-        assertEquals("70,30,50,45,3", ns3.join(","));
+        assertEquals("[]", mt.asJSONList().toString());
+        assertEquals("[10]", ns1.asJSONList().toString());
+        assertEquals("[20,10]", ns2.asJSONList().toString());
+        assertEquals("[70,30,50,45,3]", ns3.asJSONList().toString());
     }
 
     @Test
@@ -56,11 +48,11 @@ public class ILoNTest {
         assertEquals(new ConsLoN(20, mt), ns2.remove(10));
         assertEquals(ns1, ns2.remove(20));
 
-        assertEquals("[70,30,50,45]", ns3.remove(3).asJSONList());
-        assertEquals("[70,30,50,3]", ns3.remove(45).asJSONList());
-        assertEquals("[70,30,45,3]", ns3.remove(50).asJSONList());
-        assertEquals("[70,50,45,3]", ns3.remove(30).asJSONList());
-        assertEquals("[30,50,45,3]", ns3.remove(70).asJSONList());
+        assertEquals("[70,30,50,45]", ns3.remove(3).asJSONList().toString());
+        assertEquals("[70,30,50,3]", ns3.remove(45).asJSONList().toString());
+        assertEquals("[70,30,45,3]", ns3.remove(50).asJSONList().toString());
+        assertEquals("[70,50,45,3]", ns3.remove(30).asJSONList().toString());
+        assertEquals("[30,50,45,3]", ns3.remove(70).asJSONList().toString());
         assertEquals(ns3, ns3.remove(100));
         assertEquals(ns3, ns3.remove(0));
         assertEquals(ns3, ns3.remove(-50));

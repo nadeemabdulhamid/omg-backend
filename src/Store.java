@@ -71,7 +71,7 @@ public class Store {
 	 * Returns a JSON array of the ids of all items in the cart.
 	 */
 	public String cartList() {
-		return this.cart.asJSONList();
+		return this.cart.asJSONList().toString();
 	}
 
 	/**

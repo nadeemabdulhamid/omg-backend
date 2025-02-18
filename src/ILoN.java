@@ -1,3 +1,9 @@
+/**
+ * Nadeem Abdul Hamid, 2025.
+ */
+
+ import org.json.JSONArray;
+
 public interface ILoN {
     /**
      * Produce the number of elements in this list.
@@ -11,10 +17,6 @@ public interface ILoN {
     public ILoN remove(int n);
 
     /** Produce a string representation of this list as a JSON array */
-    public String asJSONList();
-
-    /** Produce a single string with all the strings in this list quoted
-     * if quote is true, and joined by the given separator. */ 
-    public String join(String sep);
+    public JSONArray asJSONList();
 
 }
