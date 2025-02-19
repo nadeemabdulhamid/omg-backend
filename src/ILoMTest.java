@@ -86,4 +86,16 @@ public class ILoMTest {
         assertEquals("9", lom3.filter(new After2000Predicate()).collectIds());
     }
 
+    @Test
+    public void testFilterTypesPredicate() {
+        // onlyPrint:
+        assertEquals("", mt.filter(new TypesPredicate("print")).collectIds());
+        assertEquals("1", lom1.filter(new TypesPredicate("print")).collectIds());
+        assertEquals("", lom1.filter(new TypesPredicate("video")).collectIds());
+
+        assertEquals("1", lom2.filter(new TypesPredicate("print")).collectIds());
+        assertEquals("1, 2, 4", lom3.filter(new TypesPredicate("print")).collectIds());
+        assertEquals("3, 6", lom3.filter(new TypesPredicate("audio")).collectIds());
+    }
+
 }

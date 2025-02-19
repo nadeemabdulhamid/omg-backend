@@ -3,6 +3,7 @@
  */
 
 import java.util.Objects;
+import java.util.function.Predicate;
 
 /**
  * Represents a non-empty list of media.
@@ -103,7 +104,7 @@ public class ConsLoM implements ILoM {
     /**
      * Produce a list of only media from this list that satisfy the given predicate
      */
-    public ILoM filter(IMediaPredicate pred) {
+    public ILoM filter(Predicate<IMedia> pred) {
         if (pred.test(this.first)) {
             return new ConsLoM(this.first, this.rest.filter(pred));
         } else {

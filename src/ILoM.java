@@ -2,6 +2,8 @@
  * Nadeem Abdul Hamid, 2025.
  */
 
+import java.util.function.Predicate;
+
 /** 
  * Represents a list of media in our store.
  */
@@ -54,6 +56,7 @@ public interface ILoM {
     /**
      * Produce a list of only media from this list that satisfy the given predicate
      */
-    public ILoM filter(IMediaPredicate pred);
+    //public ILoM filter(IMediaPredicate pred);
+    public ILoM filter(Predicate<IMedia> pred);
 }
 
