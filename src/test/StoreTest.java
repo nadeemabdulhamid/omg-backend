@@ -6,6 +6,7 @@ package test;
 import org.junit.*;
 
 import funcobjs.MinPricePredicate;
+import funcobjs.MinYearPredicate;
 import funcobjs.TextSearchPredicate;
 import funcobjs.TypesPredicate;
 import main.*;
@@ -37,6 +38,14 @@ public class StoreTest extends MediaTest {
         assertEquals(b1.toJSONString(), s1.itemInfoAsJSON(1));
         assertEquals(a2.toJSONString(), s1.itemInfoAsJSON(6));
         assertEquals(m2.toJSONString(), s2.itemInfoAsJSON(8));
+    }
+
+    @Test
+    public void testCountMatching() {
+        assertEquals("3", s1.countMatching(new MinPricePredicate(0)));
+        assertEquals("2", s2.countMatching(new MinYearPredicate(1950)));
+        assertEquals("1", s2.countMatching(new TypesPredicate("audio")));
+        assertEquals("2", s2.countMatching(new TypesPredicate("audio,video")));
     }
 
     @Test

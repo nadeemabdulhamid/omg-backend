@@ -68,6 +68,20 @@ public class Store {
 			return item.toJSONString();
 		}
 	}
+
+	/**
+	 * Returns the number of items in the store that satisfy the given predicate,
+	 * as a string.
+	 */
+	public String countMatching(Predicate<IMedia> pred) {
+		int count = 0;
+		for (IMedia item : this.items) {
+			if (pred.test(item)) {
+				count++;
+			}
+		}
+		return Integer.toString(count);
+	}
 	
 	/*
 	 * Collects all tags of all items in the store that satisfy the given predicate
