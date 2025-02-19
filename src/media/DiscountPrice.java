@@ -6,8 +6,6 @@ package media;
 import java.util.Objects;
 import org.json.JSONObject;
 
-import main.StringHelpers;
-
 /**
  * Represents a price, in cents, of items in our media store with a 
  * discount off the normal list price.
@@ -52,9 +50,9 @@ public class DiscountPrice implements IPrice {
     @Override
     public Object toJSON() {
     	if (this.isOnSale()) {
-			return new JSONObject().put("sale", StringHelpers.formatAsDollars(this.sale)).put("list",StringHelpers.formatAsDollars(this.list)).put("discount", this.discount);
+			return new JSONObject().put("sale", formatAsDollars(this.sale)).put("list", formatAsDollars(this.list)).put("discount", this.discount);
 		} else {
-			return StringHelpers.formatAsDollars(this.sale);
+			return formatAsDollars(this.sale);
 		}
 	}
 	

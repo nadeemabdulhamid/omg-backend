@@ -5,8 +5,6 @@ package media;
 
 import java.util.Objects;
 
-import main.StringHelpers;
-
 /**
  * Represents a price, in cents, of items in our media store
  */
@@ -32,7 +30,7 @@ public class SimplePrice implements IPrice {
     /** Produces a JSON data representation of this price */
     @Override
     public Object toJSON() {
-        return StringHelpers.formatAsDollars(value);
+        return formatAsDollars(value);
     }
 
     /** Produce an updated version of this price with the 

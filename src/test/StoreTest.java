@@ -8,20 +8,19 @@ import org.junit.*;
 import funcobjs.MinPricePredicate;
 import funcobjs.TextSearchPredicate;
 import funcobjs.TypesPredicate;
-import list.*;
 import main.*;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class StoreTest extends MediaTest {
-
     Store s1 = new Store(List.of(b1, a2, m1));    // [1, 6, 7]
     Store s2 = new Store(List.of(m2, b3, a1));    // [8, 4, 3]
-    Store s3 = new Store(List.of(m2, b3, a1), new ConsLo<>(4, new MTLo<>()), "");
-    Store s4 = new Store(List.of(m2, b3, a1), new ConsLo<>(8, new ConsLo<>(4, new MTLo<>())), "");
-    Store s5 = new Store(List.of(m2, b3, a1), new ConsLo<>(8, new ConsLo<>(4, new MTLo<>())), "50%OFF");
+    Store s3 = new Store(List.of(m2, b3, a1), new ArrayList<>(List.of(4)), "");
+    Store s4 = new Store(List.of(m2, b3, a1), new ArrayList<>(List.of(4, 8)), "");
+    Store s5 = new Store(List.of(m2, b3, a1), new ArrayList<>(List.of(4, 8)), "50%OFF");
 
     @Test
     public void testCatalogWithFilter() {    
@@ -64,7 +63,7 @@ public class StoreTest extends MediaTest {
     public void testCartList() {
         assertEquals("[]", s1.cartList());
         assertEquals("[4]", s3.cartList());
-        assertEquals("[8,4]", s4.cartList());
+        assertEquals("[4,8]", s4.cartList());
     }
 
     @Test

@@ -3,6 +3,7 @@ package media;
 * Nadeem Abdul Hamid, 2025.
 */
 
+import java.math.BigDecimal;
 
 /**
  * Represents a price of items in our media store.
@@ -22,5 +23,10 @@ public interface IPrice {
      */
     public IPrice adjustPrice(int percent);
 
+    /**
+     * Helper method to format a price in cents as a dollar amount
+     */
+	default public String formatAsDollars(int centsValue) {
+		return "$" + new BigDecimal(centsValue).movePointLeft(2).toString();
+	}
 }
-

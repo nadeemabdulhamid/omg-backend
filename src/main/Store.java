@@ -9,7 +9,6 @@ import java.util.function.Predicate;
 import org.json.JSONArray;
 
 import funcobjs.*;
-import list.*;
 import media.*;
 
 /**
@@ -18,17 +17,17 @@ import media.*;
  */
 public class Store {
 	List<IMedia> items;		// catalog of items available in this store
-	ILo<Integer> cart;		// list of item ids that are currently in the cart
+	List<Integer> cart;		// list of item ids that are currently in the cart
 	String coupon;	// coupon code for a discount applied to the cart, "" if none is applied, always in uppercase
 	
-	public Store(List<IMedia> items, ILo<Integer> cart, String coupon) {
+	public Store(List<IMedia> items, List<Integer> cart, String coupon) {
 		this.items = items;
 		this.cart = cart;
 		this.coupon = coupon;
 	}
 
 	public Store(List<IMedia> items) {
-		this(items, new MTLo<Integer>(), "");
+		this(items, new ArrayList<Integer>(), "");
 	}
 
 	/**
@@ -111,7 +110,7 @@ public class Store {
 	 * Returns a JSON array of the ids of all items in the cart.
 	 */
 	public String cartList() {
-		return this.cart.asJSONList().toString();
+		return new JSONArray(this.cart).toString();
 	}
 
 	/**
@@ -123,7 +122,7 @@ public class Store {
 		if (this.cart.contains(id)) {
 			return "false";
 		} else {
-			this.cart = new ConsLo<Integer>(id, this.cart);
+			this.cart.add(id);  
 			return "true";
 		}
 	}
@@ -137,7 +136,7 @@ public class Store {
 		if (!this.cart.contains(id)) {
 			return "false";
 		} else {
-			this.cart = this.cart.removeAll(id);
+			this.cart.remove(Integer.valueOf(id));
 			return "true";
 		}
 	}
@@ -146,7 +145,7 @@ public class Store {
 	 * Returns the currently applied coupon as a JSON quoted string, "\"\""" if none.
 	 */
 	public String getCoupon() {
-		return StringHelpers.quote(this.coupon);
+		return "\"" + this.coupon + "\"";
 	}
 
 	/**
