@@ -20,10 +20,10 @@ public class Audio extends AbsItem {
         this.duration = duration;
     }
     
-    public Audio(int id, String title, String description, int year, String artist, int duration, int salePrice, int listPrice, String discount, String tags,
+    public Audio(int id, String title, String description, int year, String artist, int duration, int salePrice, int listPrice, String discount, List<String> tags,
                     double ratingAverage, int ratingCount) {
         this(id, title, description, year, artist, duration, buildPrice(salePrice, listPrice, discount), 
-                        List.of(tags.split(",")), new Rating(ratingAverage, ratingCount));
+                        tags, new Rating(ratingAverage, ratingCount));
     }
        
     /** Produce true if this media item contains the given text in 

@@ -18,10 +18,10 @@ public class Book extends AbsItem {
     }
 
     // overloaded constructor
-    public Book(int id, String title, String description, int year, String authorName, int authorYOB, int salePrice, int listPrice, String discount, String tags,
+    public Book(int id, String title, String description, int year, String authorName, int authorYOB, int salePrice, int listPrice, String discount, List<String> tags,
                     double ratingAverage, int ratingCount) {
         this(id, title, description, year, new Author(authorName, authorYOB), buildPrice(salePrice, listPrice, discount), 
-                        List.of(tags.split(",")), new Rating(ratingAverage, ratingCount));
+                        tags, new Rating(ratingAverage, ratingCount));
     }
 
     /**

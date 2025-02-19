@@ -21,8 +21,8 @@ public class Movie extends AbsItem {
     }
 
     public Movie(int id, String title, String description, int year, String starring, String directedBy, int salePrice, int listPrice, String discount,
-                String tags, double ratingAverage, int ratingCount) {
-        this(id, title, description, year, starring, directedBy, new DiscountPrice(salePrice, listPrice, discount), List.of(tags.split(",")), new Rating(ratingAverage, ratingCount));
+                        List<String> tags, double ratingAverage, int ratingCount) {
+        this(id, title, description, year, starring, directedBy, new DiscountPrice(salePrice, listPrice, discount), tags, new Rating(ratingAverage, ratingCount));
     }
 
     /**

@@ -12,7 +12,7 @@ import media.*;
 
 public class Main {
     public static void main(String[] args) {
-        OMGServer server = new OMGServer("data/data-stage-4.json");
+        OMGServer server = new OMGServer("data/data-full.json");
 
         server.installConstructor("audio", Audio.class, "id", "title", "description", "year", "artist", "duration", "sale-price", "list-price", "discount", "tags", "rating-average", "rating-count");
         server.installConstructor("print", Book.class, "id", "title", "description", "year", "author-name", "author-yob", "sale-price", "list-price", "discount", "tags", "rating-average", "rating-count");
