@@ -41,7 +41,13 @@ public class Main {
         server.installHandler("cart-list",  (RequestCatalogHandler) store::cartList);
         server.installHandler("cart-add",   (RequestItemDataHandler) store::addToCart);
         server.installHandler("cart-remove", (RequestItemDataHandler) store::removeFromCart);
+        server.installHandler("cart-subtotal", (RequestHandler) store::cartSubtotal);
+        server.installHandler("cart-total",    (RequestHandler) store::cartTotal);
 
+        server.installHandler("cart-get-coupon",    (RequestHandler) store::getCoupon);
+        server.installHandler("cart-apply-coupon",  (RequestCouponHandler) store::applyCoupon);
+        server.installHandler("cart-remove-coupon", (RequestCouponHandler) store::removeCoupon);
+    
         server.start();
     }
 }

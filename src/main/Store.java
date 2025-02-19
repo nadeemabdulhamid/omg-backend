@@ -176,7 +176,7 @@ public class Store {
 	 * Calculate the subtotal of the cart, applying the current coupon.
 	 */
 	public String cartTotal() {
-		ICoupon coupObj = this.coupons.get(this.coupon);
+		ICoupon coupObj = this.coupons.getOrDefault(this.coupon, new NoDiscountCoupon());
 		int sum = coupObj.calculateTotal(itemsInCart());
 		return Store.quote(IPrice.formatAsDollars(sum));
 	}
@@ -209,8 +209,9 @@ public class Store {
 	 * Returns "true" if successful, "false" if there was already a coupon applied.
 	 */
 	public String applyCoupon(String code) {
-		if (this.coupon.equals("")) {
-			this.coupon = code.toUpperCase();
+		String codeUpper = code.toUpperCase();
+		if (this.coupon.equals("") && this.coupons.containsKey(codeUpper)) {
+			this.coupon = codeUpper;
 			return "true";
 		} else {
 			return "false";
