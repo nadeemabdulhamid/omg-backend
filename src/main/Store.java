@@ -29,7 +29,9 @@ public class Store {
 		this.coupons = Map.of(
 			"", new NoDiscountCoupon(),
 			"50%OFF", new HalfOffCoupon(),
-			"AUDIO30", new Audio30OffCoupon());
+			"AUDIO30", new Audio30OffCoupon(),
+			"BOGOPAIR", new BOGOPairCoupon()
+		);
 	}
 
 	public Store(List<IMedia> items) {
