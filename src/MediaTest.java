@@ -27,6 +27,7 @@ public class MediaTest {
 
     Movie m1 = new Movie(7, "The Godfather", "A classic crime film directed by Francis Ford Coppola.", 1972, "Marlon Brando", "Francis Ford Coppola", new DiscountPrice(300, 500, "Mafia sale"), tagsm1, new Rating(4.7, 54321));
     Movie m2 = new Movie(8, "The Shawshank Redemption", "A classic drama film directed by Frank Darabont.", 1994, "Tim Robbins", "Frank Darabont", new DiscountPrice(200, 300, "Prison sale"), tagsm2, new Rating(4.9, 98765));
+    Movie m3 = new Movie(9, "Inception", "A mind-bending thriller directed by Christopher Nolan.", 2010, "Leonardo DiCaprio", "Christopher Nolan", new DiscountPrice(1500, 2000, "Sci-fi sale"), StringHelpers.split("thriller,sci-fi,mind-bending", ','), new Rating(4.8, 2000000));
 
     @Test
     public void textGetID() {

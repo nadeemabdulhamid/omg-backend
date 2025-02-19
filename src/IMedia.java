@@ -29,4 +29,11 @@ public interface IMedia {
      * Produce the year of this media item
      */
     public int getYear();
+
+    /**
+     * Produce true if the type of this media is one
+     * of the given comma-separated list of types
+     */
+    public boolean typeMatches(String tys);
+
 }

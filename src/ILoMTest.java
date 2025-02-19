@@ -14,8 +14,8 @@ public class ILoMTest {
     ILoM lom1 = new ConsLoM(media.b1, mt);                              // [ b1 ]
     ILoM lom2 = new ConsLoM(media.a1, new ConsLoM(media.m1, lom1));     // [ a1, m1, b1 ]
     ILoM lom3 = new ConsLoM(media.b1, new ConsLoM(media.b2, new ConsLoM(media.b3, 
-                new ConsLoM(media.a1, new ConsLoM(media.a2, new ConsLoM(media.m1, 
-                new ConsLoM(media.m2, mt)))))));    // [ b1, b2, b3, a1, a2, m1, m2 ]
+                new ConsLoM(media.a1, new ConsLoM(media.a2, new ConsLoM(media.m3, 
+                new ConsLoM(media.m2, mt)))))));    // [ b1, b2, b3, a1, a2, m3, m2 ]
 
     @Test
     public void testCollectIds() {
@@ -56,4 +56,20 @@ public class ILoMTest {
         assertEquals(new Range(300, 1200), lom2.priceRange());
         assertEquals(new Range(200, 1200), lom3.priceRange());
     }
+
+    @Test
+    public void testOnlyPrint() {
+        assertEquals("", mt.onlyPrint().collectIds());
+        assertEquals("1", lom1.onlyPrint().collectIds());
+        assertEquals("1", lom2.onlyPrint().collectIds());
+        assertEquals("1, 2, 4", lom3.onlyPrint().collectIds());
+    }
+
+    @Test
+    public void testAfter2000() {
+        assertEquals("", mt.after2000().collectIds());
+        assertEquals("", lom2.after2000().collectIds());
+        assertEquals("9", lom3.after2000().collectIds());
+    }
+
 }

@@ -40,5 +40,16 @@ public interface ILoM {
      */
     public Range range(IIntExtractor obj);
 
+    /**
+     * Produce a list of only the "print" media from this list
+     */
+    public ILoM onlyPrint();
+
+    /**
+     * Produce a list of only media published/produced after 
+     * 2000 from this list
+     */
+	public ILoM after2000();
+
 }
 

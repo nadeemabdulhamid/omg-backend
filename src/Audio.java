@@ -49,6 +49,15 @@ public class Audio extends AbsItem {
                 .put("info-line", infoLine())
                 .toString();
     }
+
+    /**
+     * Produce true if the type of this media is one
+     * of the given comma-separated list of types
+     */
+    public boolean typeMatches(String tys) {
+        return tys.contains("audio");
+    }
+
     
     // AUTO-GENERATED: DO NOT EDIT BELOW
     
