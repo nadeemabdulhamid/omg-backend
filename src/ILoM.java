@@ -51,5 +51,9 @@ public interface ILoM {
      */
 	public ILoM after2000();
 
+    /**
+     * Produce a list of only media from this list that satisfy the given predicate
+     */
+    public ILoM filter(IMediaPredicate pred);
 }
 
