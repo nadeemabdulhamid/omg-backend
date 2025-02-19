@@ -33,7 +33,7 @@ public class StoreTest extends MediaTest {
         assertEquals("\"$13.00\"", s6.cartSubtotal());
 
         assertEquals("\"$5.50\"", s4.cartTotal());
-        assertEquals("\"$2.75\"", s5.cartTotal());
+        assertEquals("\"$5.50\"", s5.cartTotal());
         assertEquals("\"$10.75\"", s6.cartTotal());
     }
 

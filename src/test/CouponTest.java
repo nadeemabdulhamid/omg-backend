@@ -26,8 +26,8 @@ public class CouponTest {
     @Test
     public void testHalfOffCoupon() {
         assertEquals(0, halfOff.calculateTotal(List.of()));
-        assertEquals(1125, halfOff.calculateTotal(List.of(media.b1, media.a1, media.m1)));
-        assertEquals(1375, halfOff.calculateTotal(List.of(media.b1, media.a1, media.m1, media.b2)));
+        assertEquals(1875, halfOff.calculateTotal(List.of(media.b1, media.a1, media.m1)));
+        assertEquals(2125, halfOff.calculateTotal(List.of(media.b1, media.a1, media.m1, media.b2)));
     }
 
     @Test

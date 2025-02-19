@@ -6,8 +6,16 @@ package funcobjs;
 import java.util.List;
 import media.IMedia;
 
-public class HalfOffCoupon extends NoDiscountCoupon {
+public class HalfOffCoupon implements ICoupon {
     public int calculateTotal(List<IMedia> items) {
-        return super.calculateTotal(items) / 2;
+        int total = 0;
+        for (IMedia item : items) {
+            if (item.isOnSale()) {
+                total += item.salePrice();
+            } else {
+                total += item.salePrice() / 2;
+            }
+        }
+        return total;
     }
 }
