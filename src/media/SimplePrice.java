@@ -30,7 +30,7 @@ public class SimplePrice implements IPrice {
     /** Produces a JSON data representation of this price */
     @Override
     public Object toJSON() {
-        return formatAsDollars(value);
+        return IPrice.formatAsDollars(value);
     }
 
     /** Produce an updated version of this price with the 

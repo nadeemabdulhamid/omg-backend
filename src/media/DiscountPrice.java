@@ -50,9 +50,9 @@ public class DiscountPrice implements IPrice {
     @Override
     public Object toJSON() {
     	if (this.isOnSale()) {
-			return new JSONObject().put("sale", formatAsDollars(this.sale)).put("list", formatAsDollars(this.list)).put("discount", this.discount);
+			return new JSONObject().put("sale", IPrice.formatAsDollars(this.sale)).put("list", IPrice.formatAsDollars(this.list)).put("discount", this.discount);
 		} else {
-			return formatAsDollars(this.sale);
+			return IPrice.formatAsDollars(this.sale);
 		}
 	}
 	
