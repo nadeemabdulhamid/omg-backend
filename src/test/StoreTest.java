@@ -5,6 +5,7 @@ package test;
 
 import org.junit.*;
 
+import funcobjs.MinPricePredicate;
 import funcobjs.TextSearchPredicate;
 import funcobjs.TypesPredicate;
 import list.ConsLo;
@@ -123,14 +124,14 @@ public class StoreTest extends MediaTest {
 
     @Test
     public void testYearRange() {
-        assertEquals(new Range(1920, 1972).toJSONString(), s1.yearRangeAsJSON());
-        assertEquals(new Range(1943, 1994).toJSONString(), s2.yearRangeAsJSON());
+        assertEquals(new Range(1920, 1972).toJSONString(), s1.yearRangeAsJSON(new MinPricePredicate(0)));
+        assertEquals(new Range(1943, 1994).toJSONString(), s2.yearRangeAsJSON(new MinPricePredicate(0)));
     }
 
     @Test
     public void testPriceRange() {
-        assertEquals(new Range(300, 1200).toJSONString(), s1.priceRangeAsJSON());
-        assertEquals(new Range(200, 750).toJSONString(), s2.priceRangeAsJSON());
+        assertEquals(new Range(300, 1200).toJSONString(), s1.priceRangeAsJSON(new MinPricePredicate(0)));
+        assertEquals(new Range(200, 750).toJSONString(), s2.priceRangeAsJSON(new MinPricePredicate(0)));
     }
 
 }

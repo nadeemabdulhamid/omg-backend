@@ -172,26 +172,29 @@ public class Store {
 
 	/**
 	 * Returns a JSON string representation of the range of 
-	 * years of all items in the store.
+	 * years of all items in the store that satisfy the
+	 * given predicate.
 	 */
-	public String yearRangeAsJSON() {
-		return rangeAsJSON(new YearExtractor());
+	public String yearRangeAsJSON(Predicate<IMedia> pred) {
+		return rangeAsJSON(pred, new YearExtractor());
 	}
 
 	/**
 	 * Returns a JSON string representation of the range of 
-	 * years of all items in the store.
+	 * years of all items in the store that satisfy the
+	 * given predicate.
 	 */
-	public String priceRangeAsJSON() {
-		return rangeAsJSON(new PriceExtractor());
+	public String priceRangeAsJSON(Predicate<IMedia> pred) {
+		return rangeAsJSON(pred, new PriceExtractor());
 	}
 
 	/**
 	 * Returns a JSON string representation of the range of 
-	 * items in this store based on the extraction function.
+	 * items in this store that satisfy the given
+	 * predicate, based on the extraction function.
 	 */
-	public String rangeAsJSON(IIntExtractor obj) {
-		return this.items.range(obj).toJSONString();
+	public String rangeAsJSON(Predicate<IMedia> pred, IIntExtractor obj) {
+		return this.items.filter(pred).range(obj).toJSONString();
 	}
 
 
