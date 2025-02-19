@@ -26,7 +26,7 @@ public interface IPrice {
     /**
      * Helper method to format a price in cents as a dollar amount
      */
-	default public String formatAsDollars(int centsValue) {
+	public static String formatAsDollars(int centsValue) {
 		return "$" + new BigDecimal(centsValue).movePointLeft(2).toString();
 	}
 }
