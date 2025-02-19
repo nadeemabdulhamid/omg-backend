@@ -108,5 +108,17 @@ public abstract class AbsItem implements IMedia {
                     .put("tags", new JSONArray(this.tags)));
     }
 
+    /**
+     * Produce true if this media item has 
+     * any of the given tags
+     */
+    public boolean hasAnyTag(List<String> searchTags) {
+        for (String tag : searchTags) {
+            if (this.tags.contains(tag)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 }

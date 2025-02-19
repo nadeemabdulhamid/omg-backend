@@ -23,6 +23,7 @@ public class Main {
 
         server.installPredicate("types", (StringPredicateConstructor<IMedia>) TypesPredicate::new);
         server.installPredicate("search", (StringPredicateConstructor<IMedia>) TextSearchPredicate::new);
+        server.installPredicate("tags",   (StringPredicateConstructor<IMedia>) TagsPredicate::new);
         server.installPredicate("min-year", (IntPredicateConstructor<IMedia>) MinYearPredicate::new);
         server.installPredicate("max-year", (IntPredicateConstructor<IMedia>) MaxYearPredicate::new);
         server.installPredicate("min-price", (IntPredicateConstructor<IMedia>) MinPricePredicate::new);

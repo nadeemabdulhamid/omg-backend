@@ -108,4 +108,14 @@ public class MediaTest {
         assertTrue(m1.contains("brand"));
         assertFalse(m1.contains("Shawshank"));
     }
+
+    @Test
+    public void testHasAnyTag() {
+        assertTrue(b1.hasAnyTag(List.of("jazz,drama,crime,nonfiction".split(","))));
+        assertFalse(b1.hasAnyTag(List.of("jazz,drama,crime,fiction".split(","))));
+
+        assertTrue(m2.hasAnyTag(List.of("jazz,drama,crime,nonfiction".split(","))));
+        assertFalse(a1.hasAnyTag(List.of("jazz,drama,crime,nonfiction".split(","))));
+    }
+    
 }

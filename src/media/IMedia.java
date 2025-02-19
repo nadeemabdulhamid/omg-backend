@@ -39,4 +39,10 @@ public interface IMedia {
      */
     public boolean typeMatches(String tys);
 
+    /**
+     * Produce true if this media item has 
+     * any of the given tags
+     */
+    public boolean hasAnyTag(List<String> tags);
+
 }
