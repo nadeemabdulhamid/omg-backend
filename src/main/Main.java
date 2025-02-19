@@ -21,6 +21,7 @@ public class Main {
         Store store = new Store(items);
 
         server.installPredicate("types", (StringPredicateConstructor<IMedia>) TypesPredicate::new);
+        server.installPredicate("search", (StringPredicateConstructor<IMedia>) TextSearchPredicate::new);
 
         server.installHandler("catalog",   (RequestCatalogWithFilterHandler) store::catalog);
         server.installHandler("item-data", (RequestItemDataHandler) store::itemInfoAsJSON);

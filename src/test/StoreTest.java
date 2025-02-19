@@ -5,6 +5,7 @@ package test;
 
 import org.junit.*;
 
+import funcobjs.TextSearchPredicate;
 import funcobjs.TypesPredicate;
 import list.ConsLo;
 import list.ConsLoM;
@@ -33,6 +34,10 @@ public class StoreTest extends MediaTest {
     public void testCatalogWithFilter() {    
         assertEquals("[1]", s1.catalog(new TypesPredicate("print")));
         assertEquals("[8, 3]", s2.catalog(new TypesPredicate("video,audio")));
+
+        assertEquals("[1, 6, 7]", s1.catalog(new TextSearchPredicate("clas")));
+        assertEquals("[6, 7]", s1.catalog(new TextSearchPredicate("by")));
+
     }
 
     @Test
