@@ -3,7 +3,7 @@ package main;
  * Nadeem Abdul Hamid, 2025.
  */
 
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Predicate;
 
 import org.json.JSONArray;
@@ -17,26 +17,18 @@ import media.*;
  * available for sale.
  */
 public class Store {
-	ILoM items;		// catalog of items available in this store
+	List<IMedia> items;		// catalog of items available in this store
 	ILo<Integer> cart;		// list of item ids that are currently in the cart
 	String coupon;	// coupon code for a discount applied to the cart, "" if none is applied, always in uppercase
 	
-	public Store(ILoM items, ILo<Integer> cart, String coupon) {
+	public Store(List<IMedia> items, ILo<Integer> cart, String coupon) {
 		this.items = items;
 		this.cart = cart;
 		this.coupon = coupon;
 	}
 
-	public Store(ILoM items) {
+	public Store(List<IMedia> items) {
 		this(items, new MTLo<Integer>(), "");
-	}
-
-	/**
-	 * Returns a string representation of a JSON array of the ids of all items
-	 * in this store.
-	 */
-	public String catalog() {
-		return "[" + this.items.collectIds() + "]";
 	}
 
 	/**
@@ -44,17 +36,33 @@ public class Store {
 	 * in this store that satisfy the given predicate.
 	 */
 	public String catalog(Predicate<IMedia> pred) {
-		return "[" + this.items.filter(pred).collectIds() + "]";
+		JSONArray ids = new JSONArray();
+		for (IMedia item : this.items) {
+			if (pred.test(item)) {
+				ids.put(item.getId());
+			}
+		}
+		return ids.toString();
+	}
+	
+	/*
+	 * find the item with the given id
+	 */
+	public IMedia findItem(int id) {
+		for (IMedia item : this.items) {
+			if (item.getId() == id) {
+				return item;
+			}
+		}
+		return null;
 	}
 
-
-	
 	/**
 	 * Returns a string representation of the JSON object for the item 
 	 * with the given id.
 	 */
 	public String itemInfoAsJSON(int id) {
-		IMedia item = this.items.findItem(id);
+		IMedia item = findItem(id);
 		if (item == null) {
 			return "";
 		} else {
@@ -62,15 +70,17 @@ public class Store {
 		}
 	}
 	
-	/**
-	 * Produces a string representation of a JSON array of the tags of all items
+	/*
+	 * Collects all tags of all items in the store that satisfy the given predicate
 	 */
-	public String tagsList(int limit) {
-		if (limit < 0) {
-			return items.collectTags().asJSONList().toString();
-		} else {
-			return items.collectTags().take(limit).asJSONList().toString();
+	private List<String> collectTags(Predicate<IMedia> pred) {
+		List<String> tags = new ArrayList<String>();
+		for (IMedia item : this.items) {
+			if (pred.test(item)) {
+				tags.addAll(item.getTags());
+			}
 		}
+		return tags;
 	}
 
 	/**
@@ -79,18 +89,15 @@ public class Store {
 	 * items.
 	 */
 	public String tagCounts() {
-		ILo<String> alltags = items.collectTags();
-		return tagTally(alltags).toString();
-	}
+		JSONArray tallies = new JSONArray();
+		List<String> alltags = collectTags(new MinPricePredicate(0));   // temporary
+		Set<String> unique = new HashSet<String>(alltags);
 
-	private JSONArray tagTally(ILo<String> tags) {
-		if (tags.isEmpty()) {
-			return new JSONArray();
-		} else {
-			String tag = tags.getFirst();
-			int count = tags.count(tag);
-			return new JSONArray().put(new JSONArray().put(tag).put(count)).putAll(tagTally(tags.removeAll(tag)));
+		for (String tag : unique) {
+			tallies.put(new JSONArray().put(tag).put(Collections.frequency(alltags, tag)));
 		}
+
+		return tallies.toString();
 	}
 	
 	/**
@@ -194,7 +201,13 @@ public class Store {
 	 * predicate, based on the extraction function.
 	 */
 	public String rangeAsJSON(Predicate<IMedia> pred, IIntExtractor obj) {
-		return this.items.filter(pred).range(obj).toJSONString();
+		List<Integer> vals = new ArrayList<>();
+		for (IMedia item : this.items) {
+			if (pred.test(item)) {
+				vals.add(obj.extract(item));
+			}
+		}
+		return new Range(Collections.min(vals), Collections.max(vals)).toJSONString();
 	}
 
 

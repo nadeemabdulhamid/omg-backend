@@ -5,8 +5,9 @@ package main;
 
 import omg.interfaces.*;
 import omg.server.OMGServer;
+
+import java.util.List;
 import funcobjs.*;
-import list.*;
 import media.*;
 
 public class Main {
@@ -17,7 +18,7 @@ public class Main {
         server.installConstructor("print", Book.class, "id", "title", "description", "year", "author-name", "author-yob", "sale-price", "list-price", "discount", "tags", "rating-average", "rating-count");
         server.installConstructor("video", Movie.class, "id", "title", "description", "year", "starring", "directed-by", "sale-price", "list-price", "discount", "tags", "rating-average", "rating-count");
        
-        ILoM items = server.fetchItemList(MTLoM::new, ConsLoM::new);
+        List<IMedia> items = server.fetchItemList();
         Store store = new Store(items);
 
         server.installPredicate("types", (StringPredicateConstructor<IMedia>) TypesPredicate::new);

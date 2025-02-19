@@ -8,36 +8,28 @@ import org.junit.*;
 import funcobjs.MinPricePredicate;
 import funcobjs.TextSearchPredicate;
 import funcobjs.TypesPredicate;
-import list.ConsLo;
-import list.ConsLoM;
-import list.MTLo;
-import list.MTLoM;
-import main.Range;
-import main.Store;
+import list.*;
+import main.*;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 public class StoreTest extends MediaTest {
 
-    Store s1 = new Store(new ConsLoM(b1, new ConsLoM(a2, new ConsLoM(m1, new MTLoM()))));   // [1, 6, 7]
-    Store s2 = new Store(new ConsLoM(m2, new ConsLoM(b3, new ConsLoM(a1, new MTLoM()))));   // [8, 4, 3]
-    Store s3 = new Store(new ConsLoM(m2, new ConsLoM(b3, new ConsLoM(a1, new MTLoM()))), new ConsLo<>(4, new MTLo<>()), "");
-    Store s4 = new Store(new ConsLoM(m2, new ConsLoM(b3, new ConsLoM(a1, new MTLoM()))), new ConsLo<>(8, new ConsLo<>(4, new MTLo<>())), "");
-    Store s5 = new Store(new ConsLoM(m2, new ConsLoM(b3, new ConsLoM(a1, new MTLoM()))), new ConsLo<>(8, new ConsLo<>(4, new MTLo<>())), "50%OFF");
-
-    @Test
-    public void testCatalog() {    
-        assertEquals("[1, 6, 7]", s1.catalog());
-        assertEquals("[8, 4, 3]", s2.catalog());
-    }
+    Store s1 = new Store(List.of(b1, a2, m1));    // [1, 6, 7]
+    Store s2 = new Store(List.of(m2, b3, a1));    // [8, 4, 3]
+    Store s3 = new Store(List.of(m2, b3, a1), new ConsLo<>(4, new MTLo<>()), "");
+    Store s4 = new Store(List.of(m2, b3, a1), new ConsLo<>(8, new ConsLo<>(4, new MTLo<>())), "");
+    Store s5 = new Store(List.of(m2, b3, a1), new ConsLo<>(8, new ConsLo<>(4, new MTLo<>())), "50%OFF");
 
     @Test
     public void testCatalogWithFilter() {    
         assertEquals("[1]", s1.catalog(new TypesPredicate("print")));
-        assertEquals("[8, 3]", s2.catalog(new TypesPredicate("video,audio")));
+        assertEquals("[8,3]", s2.catalog(new TypesPredicate("video,audio")));
 
-        assertEquals("[1, 6, 7]", s1.catalog(new TextSearchPredicate("clas")));
-        assertEquals("[6, 7]", s1.catalog(new TextSearchPredicate("by")));
+        assertEquals("[1,6,7]", s1.catalog(new TextSearchPredicate("clas")));
+        assertEquals("[6,7]", s1.catalog(new TextSearchPredicate("by")));
 
     }
 
@@ -52,21 +44,13 @@ public class StoreTest extends MediaTest {
     public void testTagCounts() {
         // drama,classic,film, fiction,novella,france,rock,classic,album
         assertEquals("""
-            [["drama",1],["classic",2],["film",1],["fiction",1],["novella",1],["france",1],["rock",1],["album",1]]""", 
+            [["rock",1],["drama",1],["classic",2],["novella",1],["fiction",1],["album",1],["france",1],["film",1]]""", 
             s2.tagCounts());
 
         // nonfiction,classic,guide,writing,English,jazz,classic,album,crime,classic,film
         assertEquals("""
-            [["nonfiction",1],["classic",3],["guide",1],["writing",1],["English",1],["jazz",1],["album",1],["crime",1],["film",1]]""",
+            [["English",1],["classic",3],["jazz",1],["album",1],["writing",1],["nonfiction",1],["crime",1],["film",1],["guide",1]]""",
             s1.tagCounts());
-    }
-
-    @Test
-    public void testTagsList() {
-        assertEquals("""
-            ["drama","classic","film","fiction","novella","france","rock","classic","album"]""", s2.tagsList(-1));
-        assertEquals("""
-            ["drama","classic","film","fiction","novella"]""", s2.tagsList(5));
     }
 
     @Test
