@@ -34,6 +34,10 @@ public class Main {
         server.installHandler("cart-add",   (RequestItemDataHandler) store::addToCart);
         server.installHandler("cart-remove", (RequestItemDataHandler) store::removeFromCart);
 
+        server.installHandler("cart-get-coupon",    (RequestHandler) store::getCoupon);
+        server.installHandler("cart-apply-coupon",  (RequestCouponHandler) store::applyCoupon);
+        server.installHandler("cart-remove-coupon", (RequestCouponHandler) store::removeCoupon);
+    
         server.start();
     }
 }
