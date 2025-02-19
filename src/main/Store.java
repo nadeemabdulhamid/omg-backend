@@ -19,11 +19,17 @@ public class Store {
 	List<IMedia> items;		// catalog of items available in this store
 	List<Integer> cart;		// list of item ids that are currently in the cart
 	String coupon;	// coupon code for a discount applied to the cart, "" if none is applied, always in uppercase
+	Map<String, ICoupon> coupons;	// map of active coupon codes to coupon function objects
 	
 	public Store(List<IMedia> items, List<Integer> cart, String coupon) {
 		this.items = items;
 		this.cart = cart;
 		this.coupon = coupon;
+
+		this.coupons = Map.of(
+			"", new NoDiscountCoupon(),
+			"50%OFF", new HalfOffCoupon(),
+			"AUDIO30", new Audio30OffCoupon());
 	}
 
 	public Store(List<IMedia> items) {
@@ -155,6 +161,38 @@ public class Store {
 			this.cart.remove(Integer.valueOf(id));
 			return "true";
 		}
+	}
+
+	/**
+	 * Calculate the subtotal of the cart, without any
+	 * coupons applied.
+	 */
+	public String cartSubtotal() {
+		int sum = new NoDiscountCoupon().calculateTotal(itemsInCart());
+		return Store.quote(IPrice.formatAsDollars(sum));
+	}
+
+	/**
+	 * Calculate the subtotal of the cart, applying the current coupon.
+	 */
+	public String cartTotal() {
+		ICoupon coupObj = this.coupons.get(this.coupon);
+		int sum = coupObj.calculateTotal(itemsInCart());
+		return Store.quote(IPrice.formatAsDollars(sum));
+	}
+
+	/*
+	 * Returns a list of all items in the cart
+	 */
+	private List<IMedia> itemsInCart() {
+		List<IMedia> items = new ArrayList<IMedia>();
+		for (int id : this.cart) {
+			IMedia item = findItem(id);
+			if (item != null) {
+				items.add(item);
+			}
+		}
+		return items;
 	}
 
 	/**

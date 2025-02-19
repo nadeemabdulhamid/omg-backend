@@ -22,6 +22,20 @@ public class StoreTest extends MediaTest {
     Store s3 = new Store(List.of(m2, b3, a1), new ArrayList<>(List.of(4)), "");
     Store s4 = new Store(List.of(m2, b3, a1), new ArrayList<>(List.of(4, 8)), "");
     Store s5 = new Store(List.of(m2, b3, a1), new ArrayList<>(List.of(4, 8)), "50%OFF");
+    Store s6 = new Store(List.of(m2, b3, a1), new ArrayList<>(List.of(4, 3, 8)), "AUDIO30");
+
+    @Test
+    public void testTotals() {
+        assertEquals("\"$0.00\"", s1.cartSubtotal());
+        assertEquals("\"$3.50\"", s3.cartSubtotal());
+        assertEquals("\"$5.50\"", s4.cartSubtotal());
+        assertEquals("\"$5.50\"", s5.cartSubtotal());
+        assertEquals("\"$13.00\"", s6.cartSubtotal());
+
+        assertEquals("\"$5.50\"", s4.cartTotal());
+        assertEquals("\"$2.75\"", s5.cartTotal());
+        assertEquals("\"$10.75\"", s6.cartTotal());
+    }
 
     @Test
     public void testCatalogWithFilter() {    
