@@ -117,5 +117,13 @@ public class MediaTest {
         assertTrue(m2.hasAnyTag(List.of("jazz,drama,crime,nonfiction".split(","))));
         assertFalse(a1.hasAnyTag(List.of("jazz,drama,crime,nonfiction".split(","))));
     }
+
+    @Test
+    public void testIsOnSale() {
+        assertTrue(b1.isOnSale());
+        assertFalse(b2.isOnSale());
+        assertTrue(a2.isOnSale());
+        assertFalse(a1.isOnSale());
+    }
     
 }
