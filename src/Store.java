@@ -159,7 +159,7 @@ public class Store {
 	 * years of all items in the store.
 	 */
 	public String yearRangeAsJSON() {
-		return this.items.yearRange().toJSONString();
+		return rangeAsJSON(new YearExtractor());
 	}
 
 	/**
@@ -167,7 +167,15 @@ public class Store {
 	 * years of all items in the store.
 	 */
 	public String priceRangeAsJSON() {
-		return this.items.priceRange().toJSONString();
+		return rangeAsJSON(new PriceExtractor());
+	}
+
+	/**
+	 * Returns a JSON string representation of the range of 
+	 * items in this store based on the extraction function.
+	 */
+	public String rangeAsJSON(IIntExtractor obj) {
+		return this.items.range(obj).toJSONString();
 	}
 
 

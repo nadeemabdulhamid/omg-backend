@@ -34,5 +34,11 @@ public interface ILoM {
      */
     public Range priceRange();
 
+    /**
+     * Return the range of values baed on the given extractor 
+     * applied to all items in this list
+     */
+    public Range range(IIntExtractor obj);
+
 }
 
