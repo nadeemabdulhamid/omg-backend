@@ -12,7 +12,9 @@ public class Main {
         ILoM items = server.fetchItemList(MTLoM::new, ConsLoM::new);
         Store store = new Store(items);
 
-        server.installHandler("catalog",   (RequestCatalogHandler) store::catalog);
+        server.installPredicate("types", (StringPredicateConstructor<IMedia>) TypesPredicate::new);
+
+        server.installHandler("catalog",   (RequestCatalogWithFilterHandler) store::catalog);
         server.installHandler("item-data", (RequestItemDataHandler) store::itemInfoAsJSON);
         server.installHandler("tags",      (RequestTagsHandler) store::tagCounts);
 

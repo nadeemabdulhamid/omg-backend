@@ -3,6 +3,7 @@
  */
 
 import java.util.Objects;
+import java.util.function.Predicate;
 
 import org.json.JSONArray;
 
@@ -32,6 +33,16 @@ public class Store {
 	public String catalog() {
 		return "[" + this.items.collectIds() + "]";
 	}
+
+	/**
+	 * Returns a string representation of a JSON array of the ids of all items
+	 * in this store that satisfy the given predicate.
+	 */
+	public String catalog(Predicate<IMedia> pred) {
+		return "[" + this.items.filter(pred).collectIds() + "]";
+	}
+
+
 	
 	/**
 	 * Returns a string representation of the JSON object for the item 

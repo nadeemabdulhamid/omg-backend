@@ -20,6 +20,12 @@ public class StoreTest extends MediaTest {
     }
 
     @Test
+    public void testCatalogWithFilter() {    
+        assertEquals("[1]", s1.catalog(new TypesPredicate("print")));
+        assertEquals("[8, 3]", s2.catalog(new TypesPredicate("video,audio")));
+    }
+
+    @Test
     public void testItemInfoAsJSON() {
         assertEquals(b1.toJSONString(), s1.itemInfoAsJSON(1));
         assertEquals(a2.toJSONString(), s1.itemInfoAsJSON(6));
