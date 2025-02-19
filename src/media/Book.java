@@ -3,10 +3,7 @@ package media;
  * Nadeem Abdul Hamid, 2025.
  */
 
-import java.util.Objects;
-
-import list.ILo;
-import main.StringHelpers;
+import java.util.*;
 
 /** 
  * Represents a book in our online media store.
@@ -14,7 +11,7 @@ import main.StringHelpers;
 public class Book extends AbsItem {
     Author author;
 
-    public Book(int id, String title, String description, int year, Author author, IPrice price, ILo<String> tags, Rating rating) {
+    public Book(int id, String title, String description, int year, Author author, IPrice price, List<String> tags, Rating rating) {
         super("print", id, title, description, year, price, tags, rating);
         this.author = author;
         this.author.setBook(this);
@@ -24,7 +21,7 @@ public class Book extends AbsItem {
     public Book(int id, String title, String description, int year, String authorName, int authorYOB, int salePrice, int listPrice, String discount, String tags,
                     double ratingAverage, int ratingCount) {
         this(id, title, description, year, new Author(authorName, authorYOB), buildPrice(salePrice, listPrice, discount), 
-                    StringHelpers.split(tags, ','), new Rating(ratingAverage, ratingCount));
+                        List.of(tags.split(",")), new Rating(ratingAverage, ratingCount));
     }
 
     /**

@@ -3,10 +3,8 @@ package media;
 * Nadeem Abdul Hamid, 2025.
 */
 
+import java.util.List;
 import java.util.Objects;
-
-import list.ILo;
-import main.StringHelpers;
 
 /**
 * Represents a video item in our media store.
@@ -16,7 +14,7 @@ public class Movie extends AbsItem {
     String directedBy;
 
     public Movie(int id, String title, String description, int year, String starring, String directedBy, IPrice price,
-                     ILo<String> tags, Rating rating) {
+                     List<String> tags, Rating rating) {
         super("video", id, title, description, year, price, tags, rating);
         this.starring = starring;
         this.directedBy = directedBy;
@@ -24,7 +22,7 @@ public class Movie extends AbsItem {
 
     public Movie(int id, String title, String description, int year, String starring, String directedBy, int salePrice, int listPrice, String discount,
                 String tags, double ratingAverage, int ratingCount) {
-        this(id, title, description, year, starring, directedBy, new DiscountPrice(salePrice, listPrice, discount), StringHelpers.split(tags, ','), new Rating(ratingAverage, ratingCount));
+        this(id, title, description, year, starring, directedBy, new DiscountPrice(salePrice, listPrice, discount), List.of(tags.split(",")), new Rating(ratingAverage, ratingCount));
     }
 
     /**

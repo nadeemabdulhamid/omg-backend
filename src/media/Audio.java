@@ -5,8 +5,7 @@ package media;
 
 import java.util.Objects;
 
-import list.ILo;
-import main.StringHelpers;
+import java.util.List;
 
 /** 
  * Represents an audio item in our online media store.
@@ -15,7 +14,7 @@ public class Audio extends AbsItem {
     String artist;
     int duration;		// seconds
     
-    public Audio(int id, String title, String description, int year, String artist, int duration, IPrice price, ILo<String> tags, Rating rating) {
+    public Audio(int id, String title, String description, int year, String artist, int duration, IPrice price, List<String> tags, Rating rating) {
         super("audio", id, title, description, year, price, tags, rating);
         this.artist = artist;
         this.duration = duration;
@@ -24,7 +23,7 @@ public class Audio extends AbsItem {
     public Audio(int id, String title, String description, int year, String artist, int duration, int salePrice, int listPrice, String discount, String tags,
                     double ratingAverage, int ratingCount) {
         this(id, title, description, year, artist, duration, buildPrice(salePrice, listPrice, discount), 
-        StringHelpers.split(tags, ','), new Rating(ratingAverage, ratingCount));
+                        List.of(tags.split(",")), new Rating(ratingAverage, ratingCount));
     }
        
     /** Produce true if this media item contains the given text in 

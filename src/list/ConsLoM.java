@@ -3,6 +3,7 @@ package list;
  * Nadeem Abdul Hamid, 2025.
  */
 
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
 
@@ -50,8 +51,10 @@ public class ConsLoM implements ILoM {
     /**
      * Return a list of all tags of all items in this list
      */
-    public ILo<String> collectTags() {
-        return this.first.getTags().append(this.rest.collectTags());
+    public List<String> collectTags() {
+        List<String> restTags = this.first.getTags();
+        restTags.addAll(this.rest.collectTags());
+        return restTags;
     }
 
     /**

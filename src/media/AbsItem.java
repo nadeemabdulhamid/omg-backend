@@ -3,9 +3,8 @@ package media;
  * Nadeem Abdul Hamid, 2025.
  */
 
-import org.json.JSONObject;
-
-import list.ILo;
+import org.json.*;
+import java.util.List;
 
 public abstract class AbsItem implements IMedia {
     String type;
@@ -14,10 +13,10 @@ public abstract class AbsItem implements IMedia {
     String description;
     int year;
     IPrice price;
-    ILo<String> tags;
+    List<String> tags;
     Rating rating;
 
-    public AbsItem(String type, int id, String title, String description, int year, IPrice price, ILo<String> tags, Rating rating) {
+    public AbsItem(String type, int id, String title, String description, int year, IPrice price, List<String> tags, Rating rating) {
         this.type = type;
         this.id = id;
         this.title = title;
@@ -55,7 +54,7 @@ public abstract class AbsItem implements IMedia {
     /**
      * Produce the tags for this media item
      */
-    public ILo<String> getTags() { 
+    public List<String> getTags() { 
         return this.tags;
     }
 
@@ -106,7 +105,7 @@ public abstract class AbsItem implements IMedia {
                     .put("description-short", this.getShortDescription())
                     .put("info-line", Integer.toString(this.year))
                     .put("price", this.price.toJSON())
-                    .put("tags", this.tags.asJSONList()));
+                    .put("tags", new JSONArray(this.tags)));
     }
 
 
