@@ -106,4 +106,10 @@ public class StoreTest extends MediaTest {
         assertEquals(new Range(1943, 1994).toJSONString(), s2.yearRangeAsJSON());
     }
 
+    @Test
+    public void testPriceRange() {
+        assertEquals(new Range(300, 1200).toJSONString(), s1.priceRangeAsJSON());
+        assertEquals(new Range(200, 750).toJSONString(), s2.priceRangeAsJSON());
+    }
+
 }
