@@ -33,7 +33,7 @@ public class MediaTest {
     Movie m3 = new Movie(9, "Inception", "A mind-bending thriller directed by Christopher Nolan.", 2010, "Leonardo DiCaprio", "Christopher Nolan", new DiscountPrice(1500, 2000, "Sci-fi sale"), List.of("thriller,sci-fi,mind-bending".split(",")), new Rating(4.8, 2000000));
 
     @Test
-    public void textGetID() {
+    public void testGetID() {
         assertEquals(2, b2.getId());
         assertEquals(5, b4.getId());
         assertEquals(3, a1.getId());
