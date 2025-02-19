@@ -44,12 +44,25 @@ public class StoreTest extends MediaTest {
         // drama,classic,film, fiction,novella,france,rock,classic,album
         assertEquals("""
             [["rock",1],["drama",1],["classic",2],["novella",1],["fiction",1],["album",1],["france",1],["film",1]]""", 
-            s2.tagCounts());
+            s2.tagCounts(new MinPricePredicate(0),""));
 
         // nonfiction,classic,guide,writing,English,jazz,classic,album,crime,classic,film
         assertEquals("""
             [["English",1],["classic",3],["jazz",1],["album",1],["writing",1],["nonfiction",1],["crime",1],["film",1],["guide",1]]""",
-            s1.tagCounts());
+            s1.tagCounts(new MinPricePredicate(0),""));
+
+        assertEquals("""
+            [["classic",3],["nonfiction",1],["crime",1]]""",
+            s1.tagCounts(new MinPricePredicate(0),"c"));
+    
+        assertEquals("""
+            [["classic",1],["jazz",1],["album",1]]""",
+            s1.tagCounts(new TypesPredicate("audio"),""));
+
+        assertEquals("""
+            [["classic",1]]""",
+            s1.tagCounts(new TypesPredicate("audio"),"c"));
+    
     }
 
     @Test

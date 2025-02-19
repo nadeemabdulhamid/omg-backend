@@ -30,7 +30,7 @@ public class Main {
 
         server.installHandler("catalog",   (RequestCatalogWithFilterHandler) store::catalog);
         server.installHandler("item-data", (RequestItemDataHandler) store::itemInfoAsJSON);
-        server.installHandler("tags",      (RequestTagsHandler) store::tagCounts);
+        server.installHandler("tags",      (RequestTagsWithFilterHandler) store::tagCounts);
 
         server.installHandler("year-range", (RequestRangeWithFilterHandler) store::yearRangeAsJSON);
         server.installHandler("price-range", (RequestRangeWithFilterHandler) store::priceRangeAsJSON);

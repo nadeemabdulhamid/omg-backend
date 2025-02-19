@@ -87,13 +87,15 @@ public class Store {
 	 * representing the count of each tag in the store for all tags of all
 	 * items.
 	 */
-	public String tagCounts() {
+	public String tagCounts(Predicate<IMedia> pred, String tagSearch) {
 		JSONArray tallies = new JSONArray();
-		List<String> alltags = collectTags(new MinPricePredicate(0));   // temporary
+		List<String> alltags = collectTags(pred);
 		Set<String> unique = new HashSet<String>(alltags);
 
 		for (String tag : unique) {
-			tallies.put(new JSONArray().put(tag).put(Collections.frequency(alltags, tag)));
+			if (tag.contains(tagSearch)) {
+				tallies.put(new JSONArray().put(tag).put(Collections.frequency(alltags, tag)));
+			}
 		}
 
 		return tallies.toString();
