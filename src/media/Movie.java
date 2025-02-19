@@ -17,7 +17,7 @@ public class Movie extends AbsItem {
 
     public Movie(int id, String title, String description, int year, String starring, String directedBy, IPrice price,
                      ILo<String> tags, Rating rating) {
-        super(id, title, description, year, price, tags, rating);
+        super("video", id, title, description, year, price, tags, rating);
         this.starring = starring;
         this.directedBy = directedBy;
     }
@@ -33,7 +33,6 @@ public class Movie extends AbsItem {
     @Override
     public String toJSONString() {
         return super.toJSONObject()
-                .put("type", "video")
                 .put("starring", this.starring)
                 .put("directed-by", this.directedBy)
                 .toString();
@@ -45,15 +44,6 @@ public class Movie extends AbsItem {
         return this.title.toLowerCase().contains(lowerText) || this.description.toLowerCase().contains(lowerText) 
                     || this.starring.toLowerCase().contains(lowerText) || this.directedBy.toLowerCase().contains(lowerText);
     }
-
-    /**
-     * Produce true if the type of this media is one
-     * of the given comma-separated list of types
-     */
-    public boolean typeMatches(String tys) {
-        return tys.contains("video");
-    }
-
 
     // AUTO-GENERATED: DO NOT EDIT BELOW
 

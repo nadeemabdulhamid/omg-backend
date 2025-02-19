@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import list.ILo;
 
 public abstract class AbsItem implements IMedia {
+    String type;
     int id;
     String title;
     String description;
@@ -16,7 +17,8 @@ public abstract class AbsItem implements IMedia {
     ILo<String> tags;
     Rating rating;
 
-    public AbsItem(int id, String title, String description, int year, IPrice price, ILo<String> tags, Rating rating) {
+    public AbsItem(String type, int id, String title, String description, int year, IPrice price, ILo<String> tags, Rating rating) {
+        this.type = type;
         this.id = id;
         this.title = title;
         this.description = description;
@@ -71,6 +73,14 @@ public abstract class AbsItem implements IMedia {
         return this.description.substring(0, Math.min(15, this.description.length())) + "...";
     }
 
+    /**
+     * Produce true if the type of this media is one
+     * of the given comma-separated list of types
+     */
+    public boolean typeMatches(String tys) {
+        return tys.contains(this.type);
+    }
+
     /*
      * Builds a DiscountPrice object if the sale price is different from the list
      */
@@ -89,6 +99,7 @@ public abstract class AbsItem implements IMedia {
     protected JSONObject toJSONObject() {
         return rating.addToJSONObject(
                     new JSONObject()
+                    .put("type", this.type)
                     .put("id", this.id)
                     .put("title", this.title)
                     .put("description-full", this.description)

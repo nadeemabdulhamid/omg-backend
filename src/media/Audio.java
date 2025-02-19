@@ -16,7 +16,7 @@ public class Audio extends AbsItem {
     int duration;		// seconds
     
     public Audio(int id, String title, String description, int year, String artist, int duration, IPrice price, ILo<String> tags, Rating rating) {
-        super(id, title, description, year, price, tags, rating);
+        super("audio", id, title, description, year, price, tags, rating);
         this.artist = artist;
         this.duration = duration;
     }
@@ -53,15 +53,6 @@ public class Audio extends AbsItem {
                 .put("info-line", infoLine())
                 .toString();
     }
-
-    /**
-     * Produce true if the type of this media is one
-     * of the given comma-separated list of types
-     */
-    public boolean typeMatches(String tys) {
-        return tys.contains("audio");
-    }
-
     
     // AUTO-GENERATED: DO NOT EDIT BELOW
     

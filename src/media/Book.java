@@ -15,7 +15,7 @@ public class Book extends AbsItem {
     Author author;
 
     public Book(int id, String title, String description, int year, Author author, IPrice price, ILo<String> tags, Rating rating) {
-        super(id, title, description, year, price, tags, rating);
+        super("print", id, title, description, year, price, tags, rating);
         this.author = author;
         this.author.setBook(this);
     }
@@ -75,15 +75,6 @@ public class Book extends AbsItem {
                 .put("author", this.author.toJSONString())
                 .toString();
     }
-
-    /**
-     * Produce true if the type of this media is one
-     * of the given comma-separated list of types
-     */
-    public boolean typeMatches(String tys) {
-        return tys.contains("print");
-    }
-
 
     // AUTO-GENERATED: DO NOT EDIT BELOW
 
