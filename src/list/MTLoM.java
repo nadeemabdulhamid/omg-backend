@@ -3,6 +3,7 @@ package list;
  * Nadeem Abdul Hamid, 2025.
  */
 
+import java.util.List;
 import java.util.function.Predicate;
 
 import funcobjs.IIntExtractor;
@@ -33,8 +34,8 @@ public class MTLoM implements ILoM {
     /**
      * Return a list of all tags of all items in this list
      */
-    public ILo<String> collectTags() {
-        return new MTLo<>();
+    public List<String> collectTags() {
+        return List.of();
     }
 
     /**

@@ -3,7 +3,7 @@ package media;
  * Nadeem Abdul Hamid, 2025.
  */
 
-import list.ILo;
+import java.util.List;
 
 /**
  * Represents a media item in our online store.
@@ -26,7 +26,7 @@ public interface IMedia {
     /**
      * Produce the tags for this media item
      */
-    public ILo<String> getTags();
+    public List<String> getTags();
 
     /**
      * Produce the year of this media item

@@ -4,14 +4,10 @@ package test;
 */
 
 import org.junit.*;
-
-import list.MTLo;
-import media.Author;
-import media.Book;
-import media.Rating;
-import media.SimplePrice;
-
 import static org.junit.Assert.*;
+
+import media.*;
+import java.util.List;
 
 public class AuthorTest {
     Author a1 = new Author("Tolkien", 1892);
@@ -21,7 +17,7 @@ public class AuthorTest {
     @Test 
     public void testBook() {
         assertEquals(null, a1.getBook());
-        Book b1 = new Book(0, "Hobbit", "A fantasy novel and children's book by J.R.R. Tolkien.", 1937, a1, new SimplePrice(1000), new MTLo<>(), new Rating(5.0, 1000000));
+        Book b1 = new Book(0, "Hobbit", "A fantasy novel and children's book by J.R.R. Tolkien.", 1937, a1, new SimplePrice(1000), List.of(), new Rating(5.0, 1000000));
         assertEquals(b1, a1.getBook());
     }
 

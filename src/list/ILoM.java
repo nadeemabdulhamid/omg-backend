@@ -3,6 +3,7 @@ package list;
  * Nadeem Abdul Hamid, 2025.
  */
 
+import java.util.List;
 import java.util.function.Predicate;
 
 import funcobjs.IIntExtractor;
@@ -29,7 +30,7 @@ public interface ILoM {
     /**
      * Return a list of all tags of all items in this list
      */
-    public ILo<String> collectTags();
+    public List<String> collectTags();
 
     /**
      * Return the range of years associated with all items in this list

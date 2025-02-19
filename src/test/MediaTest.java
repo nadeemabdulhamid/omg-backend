@@ -4,29 +4,21 @@ package test;
 */
 
 import org.junit.*;
-
-import list.ILo;
-import main.StringHelpers;
-import media.Audio;
-import media.Author;
-import media.Book;
-import media.DiscountPrice;
-import media.Movie;
-import media.Rating;
-
 import static org.junit.Assert.*;
 
-import org.json.JSONObject;
+import java.util.List;
+import media.*;
+import org.json.*;
 
 public class MediaTest {
-    ILo<String> tagsb1 = StringHelpers.split( "nonfiction,classic,guide,writing,English", ',');
-    ILo<String> tagsb2 = StringHelpers.split( "fiction,short,novel,American,author", ',');
-    ILo<String> tagsb3 = StringHelpers.split( "fiction,novella,france", ',');
-    ILo<String> tagsb4 = StringHelpers.split( "textbook,computation,theory,computer,science", ',');
-    ILo<String> tagsa1 = StringHelpers.split( "rock,classic,album", ',');
-    ILo<String> tagsa2 = StringHelpers.split( "jazz,classic,album", ',');
-    ILo<String> tagsm1 = StringHelpers.split( "crime,classic,film", ',');
-    ILo<String> tagsm2 = StringHelpers.split( "drama,classic,film", ',');
+    List<String> tagsb1 = List.of( "nonfiction,classic,guide,writing,English".split(","));
+    List<String> tagsb2 = List.of( "fiction,short,novel,American,author".split(","));
+    List<String> tagsb3 = List.of( "fiction,novella,france".split(","));
+    List<String> tagsb4 = List.of( "textbook,computation,theory,computer,science".split(","));
+    List<String> tagsa1 = List.of( "rock,classic,album".split(","));
+    List<String> tagsa2 = List.of( "jazz,classic,album".split(","));
+    List<String> tagsm1 = List.of( "crime,classic,film".split(","));
+    List<String> tagsm2 = List.of( "drama,classic,film".split(","));
 
     Book b1 = new Book(1, "Elements of Style", "A classic guide to writing in English.", 1920, new Author("William Strunk Jr.", 1869), new DiscountPrice(1200, 1500, "20% off"), tagsb1, new Rating(4.1, 574));
     Book b2 = new Book(2, "Old Man and the Sea", "A short novel written by an American author.", 1952, new Author("Ernest Hemingway", 1899), new DiscountPrice(500, 500, ""), tagsb2, new Rating(3.4, 14849));
@@ -38,7 +30,7 @@ public class MediaTest {
 
     Movie m1 = new Movie(7, "The Godfather", "A classic crime film directed by Francis Ford Coppola.", 1972, "Marlon Brando", "Francis Ford Coppola", new DiscountPrice(300, 500, "Mafia sale"), tagsm1, new Rating(4.7, 54321));
     Movie m2 = new Movie(8, "The Shawshank Redemption", "A classic drama film directed by Frank Darabont.", 1994, "Tim Robbins", "Frank Darabont", new DiscountPrice(200, 300, "Prison sale"), tagsm2, new Rating(4.9, 98765));
-    Movie m3 = new Movie(9, "Inception", "A mind-bending thriller directed by Christopher Nolan.", 2010, "Leonardo DiCaprio", "Christopher Nolan", new DiscountPrice(1500, 2000, "Sci-fi sale"), StringHelpers.split("thriller,sci-fi,mind-bending", ','), new Rating(4.8, 2000000));
+    Movie m3 = new Movie(9, "Inception", "A mind-bending thriller directed by Christopher Nolan.", 2010, "Leonardo DiCaprio", "Christopher Nolan", new DiscountPrice(1500, 2000, "Sci-fi sale"), List.of("thriller,sci-fi,mind-bending".split(",")), new Rating(4.8, 2000000));
 
     @Test
     public void textGetID() {
