@@ -4,7 +4,6 @@ package main;
  */
 
 import java.util.*;
-import java.util.*;
 import java.util.function.Predicate;
 
 import org.json.JSONArray;
@@ -63,7 +62,6 @@ public class Store {
 	 */
 	public String itemInfoAsJSON(int id) {
 		IMedia item = findItem(id);
-		IMedia item = findItem(id);
 		if (item == null) {
 			return "";
 		} else {
@@ -96,15 +94,7 @@ public class Store {
 
 		for (String tag : unique) {
 			tallies.put(new JSONArray().put(tag).put(Collections.frequency(alltags, tag)));
-		JSONArray tallies = new JSONArray();
-		List<String> alltags = collectTags(new MinPricePredicate(0));   // temporary
-		Set<String> unique = new HashSet<String>(alltags);
-
-		for (String tag : unique) {
-			tallies.put(new JSONArray().put(tag).put(Collections.frequency(alltags, tag)));
 		}
-
-		return tallies.toString();
 
 		return tallies.toString();
 	}
@@ -210,13 +200,6 @@ public class Store {
 	 * predicate, based on the extraction function.
 	 */
 	public String rangeAsJSON(Predicate<IMedia> pred, IIntExtractor obj) {
-		List<Integer> vals = new ArrayList<>();
-		for (IMedia item : this.items) {
-			if (pred.test(item)) {
-				vals.add(obj.extract(item));
-			}
-		}
-		return new Range(Collections.min(vals), Collections.max(vals)).toJSONString();
 		List<Integer> vals = new ArrayList<>();
 		for (IMedia item : this.items) {
 			if (pred.test(item)) {
