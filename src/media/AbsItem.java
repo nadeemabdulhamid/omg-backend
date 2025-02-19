@@ -51,6 +51,13 @@ public abstract class AbsItem implements IMedia {
         return this.price.getSalePrice();
     }
 
+    /** Is the price of this media item discounted */
+    @Override
+    public boolean isOnSale() {
+        return this.price.isOnSale();
+    }
+
+
     /**
      * Produce the tags for this media item
      */
