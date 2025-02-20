@@ -65,11 +65,9 @@ public class Store {
 		
 		// sort by "id" to begin with
 		if (sortField.equals("year")) {
-			Collections.sort(targetItems, new Comparator<IMedia>() {
-												public int compare(IMedia a, IMedia b) {
+			Collections.sort(targetItems, (IMedia a, IMedia b) -> {
 													return Integer.compare(a.getYear(), b.getYear());
-												}
-											});
+												});
 		} else {
 			Collections.sort(targetItems);
 		}
