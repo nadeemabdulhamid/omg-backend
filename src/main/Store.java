@@ -20,6 +20,7 @@ public class Store {
 	List<Integer> cart;		// list of item ids that are currently in the cart
 	String coupon;	// coupon code for a discount applied to the cart, "" if none is applied, always in uppercase
 	Map<String, ICoupon> coupons;	// map of active coupon codes to coupon function objects
+	Map<String, Comparator<IMedia>> comparators;
 	
 	public Store(List<IMedia> items, List<Integer> cart, String coupon) {
 		this.items = items;
@@ -31,6 +32,12 @@ public class Store {
 			"50%OFF", new HalfOffCoupon(),
 			"AUDIO30", new Audio30OffCoupon(),
 			"BOGOPAIR", new BOGOPairCoupon()
+		);
+		this.comparators = Map.of(
+			"year", (a, b) -> Integer.compare(a.getYear(), b.getYear()),
+			"title", (a, b) -> a.getTitle().compareTo(b.getTitle()),
+			"rating", (a, b) -> Double.compare(a.getRating(), b.getRating()),
+			"price", (a, b) -> Integer.compare(a.salePrice(), b.salePrice())
 		);
 	}
 
@@ -63,11 +70,8 @@ public class Store {
 		JSONArray ids = new JSONArray();
 		List<IMedia> targetItems = itemsMatching(pred);
 		
-		// sort by "id" to begin with
-		if (sortField.equals("year")) {
-			Collections.sort(targetItems, (a, b) -> Integer.compare(a.getYear(), b.getYear()));
-		} else if (sortField.equals("title")) {
-			Collections.sort(targetItems, (a, b) -> a.getTitle().compareTo(b.getTitle()));
+		if (comparators.containsKey(sortField)) {
+			Collections.sort(targetItems, comparators.get(sortField));
 		} else {
 			Collections.sort(targetItems);
 		}

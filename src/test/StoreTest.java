@@ -52,7 +52,12 @@ public class StoreTest extends MediaTest {
         assertEquals("[3,4,8]", s2.catalog(new MinPricePredicate(0), "title", true));
         assertEquals("[8,3]", s2.catalog(new TypesPredicate("video,audio"), "title", false));
         assertEquals("[7,6,1]", s1mix.catalog(new MinPricePredicate(0), "title", false));
+    
+        assertEquals("[7,6,1]", s1mix.catalog(new MinPricePredicate(0), "price", true));
+        assertEquals("[7,1,6]", s1mix.catalog(new MinPricePredicate(0), "rating", false));
     }
+
+
 
     @Test
     public void testCatalogWithFilter() {    
