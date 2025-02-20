@@ -49,6 +49,19 @@ public abstract class AbsItem implements IMedia {
         return this.year;
     }
 
+    /** Produce the title of this media item */
+    @Override
+    public String getTitle() {
+        return this.title;
+    }
+
+    /** Produce the rating average of this media item */
+    @Override
+    public double getRating() {
+        return this.rating.getAverage();
+    }
+    
+
     /**
      * Return the sale price of this media item.
      */

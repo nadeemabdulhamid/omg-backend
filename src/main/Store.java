@@ -66,6 +66,8 @@ public class Store {
 		// sort by "id" to begin with
 		if (sortField.equals("year")) {
 			Collections.sort(targetItems, (a, b) -> Integer.compare(a.getYear(), b.getYear()));
+		} else if (sortField.equals("title")) {
+			Collections.sort(targetItems, (a, b) -> a.getTitle().compareTo(b.getTitle()));
 		} else {
 			Collections.sort(targetItems);
 		}

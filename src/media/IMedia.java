@@ -16,6 +16,12 @@ public interface IMedia extends Comparable<IMedia> {
     /** Produce the type of this media item */
     public String getType();
 
+    /** Produce the title of this media item */
+    public String getTitle();
+
+    /** Produce the rating average of this media item */
+    public double getRating();
+
     /** Produce the sale price of this media item */
 	public int salePrice();
 

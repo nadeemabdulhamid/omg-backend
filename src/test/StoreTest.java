@@ -18,6 +18,7 @@ import java.util.List;
 
 public class StoreTest extends MediaTest {
     Store s1 = new Store(List.of(b1, a2, m1));    // [1, 6, 7]
+    Store s1mix = new Store(List.of(a2, b1, m1));    // [6, 1, 7]
     Store s2 = new Store(List.of(m2, b3, a1));    // [8, 4, 3]
     Store s3 = new Store(List.of(m2, b3, a1), new ArrayList<>(List.of(4)), "");
     Store s4 = new Store(List.of(m2, b3, a1), new ArrayList<>(List.of(4, 8)), "");
@@ -47,6 +48,10 @@ public class StoreTest extends MediaTest {
         assertEquals("[1,6,7]", s1.catalog(new MinPricePredicate(0), "year", true));
         assertEquals("[4,3,8]", s2.catalog(new MinPricePredicate(0), "year", true));
         assertEquals("[8,3,4]", s2.catalog(new MinPricePredicate(0), "year", false));
+
+        assertEquals("[3,4,8]", s2.catalog(new MinPricePredicate(0), "title", true));
+        assertEquals("[8,3]", s2.catalog(new TypesPredicate("video,audio"), "title", false));
+        assertEquals("[7,6,1]", s1mix.catalog(new MinPricePredicate(0), "title", false));
     }
 
     @Test
