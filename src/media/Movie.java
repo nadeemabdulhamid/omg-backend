@@ -12,17 +12,33 @@ import java.util.Objects;
 public class Movie extends AbsItem {
     String starring;
     String directedBy;
+    int minutes;
+    String format;
 
-    public Movie(int id, String title, String description, int year, String starring, String directedBy, IPrice price,
+    public Movie(int id, String title, String description, String imageURL, int year, String starring, String directedBy, int minutes, String format, IPrice price,
                      List<String> tags, Rating rating) {
-        super("video", id, title, description, year, price, tags, rating);
+        super("video", id, title, description, imageURL, year, price, tags, rating);
         this.starring = starring;
         this.directedBy = directedBy;
+        this.minutes = minutes;
+        this.format = format;
     }
 
-    public Movie(int id, String title, String description, int year, String starring, String directedBy, int salePrice, int listPrice, String discount,
+    public Movie(int id, String title, String description, String imageURL, int year, String starring, String directedBy, int minutes, String format, 
+                        int salePrice, int listPrice, String discount,
                         List<String> tags, double ratingAverage, int ratingCount) {
-        this(id, title, description, year, starring, directedBy, new DiscountPrice(salePrice, listPrice, discount), tags, new Rating(ratingAverage, ratingCount));
+        this(id, title, description, imageURL, year, starring, directedBy, minutes, format, new DiscountPrice(salePrice, listPrice, discount), tags, new Rating(ratingAverage, ratingCount));
+    }
+
+    /*
+     * generate the info line for this audio item
+     */
+    private String infoLine() {
+        if (this.minutes%60 == 0) {
+            return (this.minutes/60) + " hours • " + this.year;
+        } else {
+            return (this.minutes/60) + " hours " + (this.minutes%60) + " seconds • " + this.year;
+        }
     }
 
     /**
@@ -33,6 +49,7 @@ public class Movie extends AbsItem {
         return super.toJSONObject()
                 .put("starring", this.starring)
                 .put("directed-by", this.directedBy)
+                .put("info-line", infoLine())
                 .toString();
     }
 

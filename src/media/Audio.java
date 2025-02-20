@@ -14,15 +14,15 @@ public class Audio extends AbsItem {
     String artist;
     int duration;		// seconds
     
-    public Audio(int id, String title, String description, int year, String artist, int duration, IPrice price, List<String> tags, Rating rating) {
-        super("audio", id, title, description, year, price, tags, rating);
+    public Audio(int id, String title, String description, String imageURL, int year, String artist, int duration, IPrice price, List<String> tags, Rating rating) {
+        super("audio", id, title, description, imageURL, year, price, tags, rating);
         this.artist = artist;
         this.duration = duration;
     }
     
-    public Audio(int id, String title, String description, int year, String artist, int duration, int salePrice, int listPrice, String discount, List<String> tags,
+    public Audio(int id, String title, String description, String imageURL, int year, String artist, int duration, int salePrice, int listPrice, String discount, List<String> tags,
                     double ratingAverage, int ratingCount) {
-        this(id, title, description, year, artist, duration, buildPrice(salePrice, listPrice, discount), 
+        this(id, title, description, imageURL, year, artist, duration, buildPrice(salePrice, listPrice, discount), 
                         tags, new Rating(ratingAverage, ratingCount));
     }
        
@@ -38,9 +38,13 @@ public class Audio extends AbsItem {
      * generate the info line for this audio item
      */
     private String infoLine() {
-        return (this.duration/60) + " minutes " + (this.duration%60) + " seconds • " + this.year;
+        if (this.duration%60 == 0) {
+            return (this.duration/60) + " minutes • " + this.year;
+        } else {
+            return (this.duration/60) + " minutes " + (this.duration%60) + " seconds • " + this.year;
+        }
     }
-    
+
     /**
     * Return a JSON string representation of this book.
     */

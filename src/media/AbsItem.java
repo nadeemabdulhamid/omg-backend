@@ -11,16 +11,18 @@ public abstract class AbsItem implements IMedia {
     int id;
     String title;
     String description;
+    String imageURL;
     int year;
     IPrice price;
     List<String> tags;
     Rating rating;
 
-    public AbsItem(String type, int id, String title, String description, int year, IPrice price, List<String> tags, Rating rating) {
+    public AbsItem(String type, int id, String title, String description, String imageURL, int year, IPrice price, List<String> tags, Rating rating) {
         this.type = type;
         this.id = id;
         this.title = title;
         this.description = description;
+        this.imageURL = imageURL;
         this.year = year;
         this.price = price;
         this.tags = tags;
@@ -129,6 +131,7 @@ public abstract class AbsItem implements IMedia {
                     .put("title", this.title)
                     .put("description-full", this.description)
                     .put("description-short", this.getShortDescription())
+                    .put("image", this.imageURL)
                     .put("info-line", Integer.toString(this.year))
                     .put("price", this.price.toJSON())
                     .put("tags", new JSONArray(this.tags)));

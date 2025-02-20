@@ -10,17 +10,21 @@ import java.util.*;
  */
 public class Book extends AbsItem {
     Author author;
+    int pages;
+    String publisher;
 
-    public Book(int id, String title, String description, int year, Author author, IPrice price, List<String> tags, Rating rating) {
-        super("print", id, title, description, year, price, tags, rating);
+    public Book(int id, String title, String description, String imageURL, int year, Author author, int pages, String publisher, IPrice price, List<String> tags, Rating rating) {
+        super("print", id, title, description, imageURL, year, price, tags, rating);
         this.author = author;
         this.author.setBook(this);
+        this.pages = pages;
+        this.publisher = publisher;
     }
 
     // overloaded constructor
-    public Book(int id, String title, String description, int year, String authorName, int authorYOB, int salePrice, int listPrice, String discount, List<String> tags,
+    public Book(int id, String title, String description, String imageURL, int year, String authorName, int authorYOB, int pages, String publisher, int salePrice, int listPrice, String discount, List<String> tags,
                     double ratingAverage, int ratingCount) {
-        this(id, title, description, year, new Author(authorName, authorYOB), buildPrice(salePrice, listPrice, discount), 
+        this(id, title, description, imageURL, year, new Author(authorName, authorYOB), pages, publisher, buildPrice(salePrice, listPrice, discount), 
                         tags, new Rating(ratingAverage, ratingCount));
     }
 
@@ -43,7 +47,7 @@ public class Book extends AbsItem {
      * price multiplied by the given percentage.
      */
     public Book adjustPrice(int percent) {
-        return new Book(this.id, this.title, this.description, this.year, this.author, this.price.adjustPrice(percent), this.tags, this.rating);
+        return new Book(this.id, this.title, this.description, this.imageURL, this.year, this.author, this.pages, this.publisher, this.price.adjustPrice(percent), this.tags, this.rating);
     }
 
     /**
@@ -70,6 +74,7 @@ public class Book extends AbsItem {
         return super.toJSONObject()
                 .put("type", "print")
                 .put("author", this.author.toJSONString())
+                .put("info-line", this.pages + " pages • " + this.publisher + " • " + super.toJSONObject().getString("info-line"))
                 .toString();
     }
 
