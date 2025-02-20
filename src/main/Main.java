@@ -29,7 +29,7 @@ public class Main {
         server.installPredicate("min-price", (IntPredicateConstructor<IMedia>) MinPricePredicate::new);
         server.installPredicate("max-price", (IntPredicateConstructor<IMedia>) MaxPricePredicate::new);
 
-        server.installHandler("catalog",   (RequestCatalogWithFilterHandler) store::catalog);
+        server.installHandler("catalog",   (RequestCatalogWithSortHandler) store::catalog);
         server.installHandler("item-data", (RequestItemDataHandler) store::itemInfoAsJSON);
         server.installHandler("tags",      (RequestTagsWithFilterHandler) store::tagCounts);
         server.installHandler("count", (RequestCountWithFilterHandler) store::countMatching);
