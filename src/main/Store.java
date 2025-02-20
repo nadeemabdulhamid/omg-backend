@@ -31,7 +31,8 @@ public class Store {
 			"", new NoDiscountCoupon(),
 			"50%OFF", new HalfOffCoupon(),
 			"AUDIO30", new Audio30OffCoupon(),
-			"BOGOPAIR", new BOGOPairCoupon()
+			"BOGOPAIR", new BOGOPairCoupon(),
+			"OLDIES", new OldiesGoldiesCoupon()
 		);
 		this.comparators = Map.of(
 			"year", (a, b) -> Integer.compare(a.getYear(), b.getYear()),

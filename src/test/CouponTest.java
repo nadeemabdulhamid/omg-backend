@@ -15,6 +15,7 @@ public class CouponTest {
     ICoupon halfOff = new HalfOffCoupon();
     ICoupon audio30 = new Audio30OffCoupon();
     ICoupon bogoPair = new BOGOPairCoupon();
+    ICoupon oldies = new OldiesGoldiesCoupon();
 
     @Test
     public void testNoDiscountCoupon() {
@@ -42,5 +43,11 @@ public class CouponTest {
         assertEquals(2250, bogoPair.calculateTotal(List.of(media.b1, media.a1, media.m1)));
         assertEquals(2750, bogoPair.calculateTotal(List.of(media.b1, media.a1, media.m1, media.b2)));
         assertEquals(1200, bogoPair.calculateTotal(List.of(media.b1, media.b2)));
+    }
+
+    @Test
+    public void testOldiesGoldiesCoupon() {
+        assertEquals(2250, oldies.calculateTotal(List.of(media.b1, media.a1, media.m1)));
+        assertEquals((int)(0.8*(1200+500+300)+.9*(750)), oldies.calculateTotal(List.of(media.b1, media.a1, media.m1, media.b2)));
     }
 }
