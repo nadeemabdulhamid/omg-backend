@@ -5,6 +5,7 @@ package media;
 
 import java.util.List;
 import java.util.Objects;
+import org.json.JSONObject;
 
 /**
 * Represents a video item in our media store.
@@ -12,6 +13,12 @@ import java.util.Objects;
 public class Movie extends AbsItem {
     String starring;
     String directedBy;
+
+    public Movie(JSONObject obj) {
+        super(obj);
+        this.starring = obj.getString("starring");
+        this.directedBy = obj.getString("directed-by");
+    }
 
     public Movie(int id, String title, String description, int year, String starring, String directedBy, IPrice price,
                      List<String> tags, Rating rating) {

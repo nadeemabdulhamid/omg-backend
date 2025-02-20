@@ -4,12 +4,19 @@ package media;
  */
 
 import java.util.*;
+import org.json.JSONObject;
 
 /** 
  * Represents a book in our online media store.
  */
 public class Book extends AbsItem {
     Author author;
+
+    public Book(JSONObject obj) {
+        super(obj);
+        this.author = new Author(obj.getString("author-name"), obj.getInt("author-yob"));
+        this.author.setBook(this);
+    }
 
     public Book(int id, String title, String description, int year, Author author, IPrice price, List<String> tags, Rating rating) {
         super("print", id, title, description, year, price, tags, rating);
