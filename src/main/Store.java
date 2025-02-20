@@ -63,15 +63,13 @@ public class Store {
 		JSONArray ids = new JSONArray();
 		List<IMedia> targetItems = itemsMatching(pred);
 		
-		class YearComparator implements Comparator<IMedia> {
-			public int compare(IMedia a, IMedia b) {
-				return Integer.compare(a.getYear(), b.getYear());
-			}
-		}
-
 		// sort by "id" to begin with
 		if (sortField.equals("year")) {
-			Collections.sort(targetItems, new YearComparator());
+			Collections.sort(targetItems, new Comparator<IMedia>() {
+												public int compare(IMedia a, IMedia b) {
+													return Integer.compare(a.getYear(), b.getYear());
+												}
+											});
 		} else {
 			Collections.sort(targetItems);
 		}
