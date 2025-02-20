@@ -110,18 +110,16 @@ public class Store {
 	 * representing the count of each tag in the store for all tags of all
 	 * items.
 	 */
-	public String tagCounts(Predicate<IMedia> pred, String tagSearch) {
-		JSONArray tallies = new JSONArray();
+	public String tagCounts(Predicate<IMedia> pred, String tagSearch, int limit) {
 		List<String> alltags = collectTags(pred);
-		Set<String> unique = new HashSet<String>(alltags);
-
-		for (String tag : unique) {
-			if (tag.contains(tagSearch)) {
-				tallies.put(new JSONArray().put(tag).put(Collections.frequency(alltags, tag)));
-			}
-		}
-
-		return tallies.toString();
+		List<JSONArray> pairs = alltags.stream().distinct()
+									.filter((tag) -> tag.contains(tagSearch))
+									.map((tag) -> new JSONArray().put(tag).put(Collections.frequency(alltags, tag)))
+									.sorted(Comparator.comparing((JSONArray pair) -> pair.getString(0).toLowerCase()))		// sort alphabetically
+									.sorted(Comparator.comparingInt((JSONArray pair) -> pair.getInt(1)).reversed()) // but by frequency primarily
+									.limit(limit >= 0 ? limit : alltags.size())
+									.toList();
+		return new JSONArray(pairs).toString();
 	}
 	
 	/**

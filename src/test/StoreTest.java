@@ -88,25 +88,25 @@ public class StoreTest extends MediaTest {
     public void testTagCounts() {
         // drama,classic,film, fiction,novella,france,rock,classic,album
         assertEquals("""
-            [["rock",1],["drama",1],["classic",2],["novella",1],["fiction",1],["album",1],["france",1],["film",1]]""", 
-            s2.tagCounts(new MinPricePredicate(0),""));
+            [["classic",2],["album",1],["drama",1],["fiction",1],["film",1],["france",1],["novella",1],["rock",1]]""", 
+            s2.tagCounts(new MinPricePredicate(0),"",-1));
 
         // nonfiction,classic,guide,writing,English,jazz,classic,album,crime,classic,film
         assertEquals("""
-            [["English",1],["classic",3],["jazz",1],["album",1],["writing",1],["nonfiction",1],["crime",1],["film",1],["guide",1]]""",
-            s1.tagCounts(new MinPricePredicate(0),""));
+            [["classic",3],["album",1],["crime",1],["English",1],["film",1],["guide",1],["jazz",1],["nonfiction",1],["writing",1]]""",
+            s1.tagCounts(new MinPricePredicate(0),"",-1));
 
         assertEquals("""
-            [["classic",3],["nonfiction",1],["crime",1]]""",
-            s1.tagCounts(new MinPricePredicate(0),"c"));
+            [["classic",3],["crime",1],["nonfiction",1]]""",
+            s1.tagCounts(new MinPricePredicate(0),"c",-1));
     
         assertEquals("""
-            [["classic",1],["jazz",1],["album",1]]""",
-            s1.tagCounts(new TypesPredicate("audio"),""));
+            [["album",1],["classic",1],["jazz",1]]""",
+            s1.tagCounts(new TypesPredicate("audio"),"",-1));
 
         assertEquals("""
             [["classic",1]]""",
-            s1.tagCounts(new TypesPredicate("audio"),"c"));
+            s1.tagCounts(new TypesPredicate("audio"),"c",-1));
     
     }
 

@@ -31,7 +31,7 @@ public class Main {
 
         server.installHandler("catalog",   (RequestCatalogWithSortHandler) store::catalog);
         server.installHandler("item-data", (RequestItemDataHandler) store::itemInfoAsJSON);
-        server.installHandler("tags",      (RequestTagsWithFilterHandler) store::tagCounts);
+        server.installHandler("tags",      (RequestTagsWithFilterAndLimitHandler) store::tagCounts);
         server.installHandler("count", (RequestCountWithFilterHandler) store::countMatching);
 
         server.installHandler("year-range", (RequestRangeWithFilterHandler) store::yearRangeAsJSON);
