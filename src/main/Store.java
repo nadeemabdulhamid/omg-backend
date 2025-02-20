@@ -75,12 +75,7 @@ public class Store {
 	 * find the item with the given id
 	 */
 	public IMedia findItem(int id) {
-		for (IMedia item : this.items) {
-			if (item.getId() == id) {
-				return item;
-			}
-		}
-		return null;
+		return this.items.stream().filter((item) -> item.getId() == id).findFirst().orElse(null);
 	}
 
 	/**
@@ -89,11 +84,7 @@ public class Store {
 	 */
 	public String itemInfoAsJSON(int id) {
 		IMedia item = findItem(id);
-		if (item == null) {
-			return "";
-		} else {
-			return item.toJSONString();
-		}
+		return item == null ? "" : item.toJSONString();
 	}
 
 	/**
@@ -101,26 +92,17 @@ public class Store {
 	 * as a string.
 	 */
 	public String countMatching(Predicate<IMedia> pred) {
-		int count = 0;
-		for (IMedia item : this.items) {
-			if (pred.test(item)) {
-				count++;
-			}
-		}
-		return Integer.toString(count);
+		return Long.toString(this.items.stream().filter(pred).count());
 	}
 	
 	/*
 	 * Collects all tags of all items in the store that satisfy the given predicate
 	 */
 	private List<String> collectTags(Predicate<IMedia> pred) {
-		List<String> tags = new ArrayList<String>();
-		for (IMedia item : this.items) {
-			if (pred.test(item)) {
-				tags.addAll(item.getTags());
-			}
-		}
-		return tags;
+		return this.items.stream()
+					.filter(pred)
+					.flatMap((item) -> item.getTags().stream())
+					.toList();
 	}
 
 	/**
@@ -206,14 +188,7 @@ public class Store {
 	 * Returns a list of all items in the cart
 	 */
 	private List<IMedia> itemsInCart() {
-		List<IMedia> items = new ArrayList<IMedia>();
-		for (int id : this.cart) {
-			IMedia item = findItem(id);
-			if (item != null) {
-				items.add(item);
-			}
-		}
-		return items;
+		return this.cart.stream().map(this::findItem).dropWhile(Predicate.isEqual(null)).toList();
 	}
 
 	/**
@@ -276,13 +251,9 @@ public class Store {
 	 * predicate, based on the extraction function.
 	 */
 	public String rangeAsJSON(Predicate<IMedia> pred, IIntExtractor obj) {
-		List<Integer> vals = new ArrayList<>();
-		for (IMedia item : this.items) {
-			if (pred.test(item)) {
-				vals.add(obj.extract(item));
-			}
-		}
-		return new Range(Collections.min(vals), Collections.max(vals)).toJSONString();
+		Range r = new Range();
+		this.items.stream().filter(pred).map(obj::extract).forEach(r::addValue);
+		return r.toJSONString();
 	}
 
 	/**
