@@ -14,9 +14,9 @@ public class Main {
     public static void main(String[] args) {
         OMGServer server = new OMGServer("data/data-full.json");
 
-        server.installConstructor("audio", Audio.class, "id", "title", "description", "image", "year", "artist", "duration", "sale-price", "list-price", "discount", "tags", "rating-average", "rating-count");
-        server.installConstructor("print", Book.class, "id", "title", "description", "image", "year", "author-name", "author-yob", "pages", "publisher", "sale-price", "list-price", "discount", "tags", "rating-average", "rating-count");
-        server.installConstructor("video", Movie.class, "id", "title", "description", "image", "year", "starring", "directed-by", "sale-price", "list-price", "discount", "tags", "rating-average", "rating-count");
+        server.installConstructor("audio", Audio.class, "id", "title", "description", "year", "artist", "duration", "sale-price", "list-price", "discount", "tags", "rating-average", "rating-count");
+        server.installConstructor("print", Book.class, "id", "title", "description", "year", "author-name", "author-yob", "sale-price", "list-price", "discount", "tags", "rating-average", "rating-count");
+        server.installConstructor("video", Movie.class, "id", "title", "description", "year", "starring", "directed-by", "sale-price", "list-price", "discount", "tags", "rating-average", "rating-count");
        
         List<IMedia> items = server.fetchItemList();
         Store store = new Store(items);
