@@ -63,15 +63,22 @@ public class Store {
 		JSONArray ids = new JSONArray();
 		List<IMedia> targetItems = itemsMatching(pred);
 		
-		// sort by "id" to begin with
-		Collections.sort(targetItems);
-		if (!loToHi) {
-			Collections.reverse(targetItems);
+		class YearComparator implements Comparator<IMedia> {
+			public int compare(IMedia a, IMedia b) {
+				return Integer.compare(a.getYear(), b.getYear());
+			}
 		}
 
-		for (IMedia item : targetItems) {
-			ids.put(item.getId());
+		// sort by "id" to begin with
+		if (sortField.equals("year")) {
+			Collections.sort(targetItems, new YearComparator());
+		} else {
+			Collections.sort(targetItems);
 		}
+
+		if (!loToHi) { Collections.reverse(targetItems); }
+
+		for (IMedia item : targetItems) { ids.put(item.getId()); }
 		return ids.toString();
 	}
 

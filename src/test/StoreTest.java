@@ -43,6 +43,10 @@ public class StoreTest extends MediaTest {
         assertEquals("[3,4,8]", s2.catalog(new MinPricePredicate(0), "id", true));
         assertEquals("[7,6,1]", s1.catalog(new MinPricePredicate(0), "id", false));
         assertEquals("[8,4,3]", s2.catalog(new MinPricePredicate(0), "id", false));
+
+        assertEquals("[1,6,7]", s1.catalog(new MinPricePredicate(0), "year", true));
+        assertEquals("[4,3,8]", s2.catalog(new MinPricePredicate(0), "year", true));
+        assertEquals("[8,3,4]", s2.catalog(new MinPricePredicate(0), "year", false));
     }
 
     @Test
