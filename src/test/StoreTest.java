@@ -38,6 +38,14 @@ public class StoreTest extends MediaTest {
     }
 
     @Test
+    public void testCatalogWithSort() {
+        assertEquals("[1,6,7]", s1.catalog(new MinPricePredicate(0), "id", true));
+        assertEquals("[3,4,8]", s2.catalog(new MinPricePredicate(0), "id", true));
+        assertEquals("[7,6,1]", s1.catalog(new MinPricePredicate(0), "id", false));
+        assertEquals("[8,4,3]", s2.catalog(new MinPricePredicate(0), "id", false));
+    }
+
+    @Test
     public void testCatalogWithFilter() {    
         assertEquals("[1]", s1.catalog(new TypesPredicate("print")));
         assertEquals("[8,3]", s2.catalog(new TypesPredicate("video,audio")));

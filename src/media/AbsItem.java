@@ -134,4 +134,13 @@ public abstract class AbsItem implements IMedia {
         return false;
     }
 
+    /**
+     * Compare this media item with that given one based on id
+     */
+    @Override
+    public int compareTo(IMedia that) {
+        return this.id - that.getId();      // or 
+        // return Integer.compare(this.id, that.getId());
+    }
+    
 }

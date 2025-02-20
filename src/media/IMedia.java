@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Represents a media item in our online store.
  */
-public interface IMedia {
+public interface IMedia extends Comparable<IMedia> {
 
     /** Produce this media item's unique id */
     public int getId();

@@ -51,6 +51,45 @@ public class Store {
 		}
 		return ids.toString();
 	}
+
+	/**
+	 * Returns a string representation of a JSON array of the ids of all items
+	 * in this store that satisfy the given predicate. The ids are sorted 
+	 * according to the given field ("title", "year", "rating", or "price") and order
+	 * (true for low-to-high, false for high-to-low).
+	 * If the sort field is invalid, the items are sorted by id.
+	 */
+	public String catalog(Predicate<IMedia> pred, String sortField, boolean loToHi) {
+		JSONArray ids = new JSONArray();
+		List<IMedia> targetItems = itemsMatching(pred);
+		
+		// sort by "id" to begin with
+		Collections.sort(targetItems);
+		if (!loToHi) {
+			Collections.reverse(targetItems);
+		}
+
+		for (IMedia item : targetItems) {
+			ids.put(item.getId());
+		}
+		return ids.toString();
+	}
+
+
+	/*
+	 * Returns a list of all items in the store 
+	 * that satisfy the given predicate
+	 */
+	private List<IMedia> itemsMatching(Predicate<IMedia> p) {
+		List<IMedia> copy = new ArrayList<>();
+		for (IMedia m : items) {
+			if (p.test(m)) {
+				copy.add(m);
+			}
+		}
+		return copy;
+	}
+
 	
 	/*
 	 * find the item with the given id
