@@ -62,7 +62,7 @@ public class StoreTest extends MediaTest {
     @Test
     public void testCatalogWithFilter() {    
         assertEquals("[1]", s1.catalog(new TypesPredicate("print")));
-        assertEquals("[8,3]", s2.catalog(new TypesPredicate("video,audio")));
+        assertEquals("[3,8]", s2.catalog(new TypesPredicate("video,audio")));
 
         assertEquals("[1,6,7]", s1.catalog(new TextSearchPredicate("clas")));
         assertEquals("[6,7]", s1.catalog(new TextSearchPredicate("by")));

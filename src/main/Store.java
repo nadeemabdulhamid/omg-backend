@@ -51,13 +51,7 @@ public class Store {
 	 * in this store that satisfy the given predicate.
 	 */
 	public String catalog(Predicate<IMedia> pred) {
-		JSONArray ids = new JSONArray();
-		for (IMedia item : this.items) {
-			if (pred.test(item)) {
-				ids.put(item.getId());
-			}
-		}
-		return ids.toString();
+		return this.catalog(pred, "", true);
 	}
 
 	/**
@@ -68,36 +62,14 @@ public class Store {
 	 * If the sort field is invalid, the items are sorted by id.
 	 */
 	public String catalog(Predicate<IMedia> pred, String sortField, boolean loToHi) {
-		JSONArray ids = new JSONArray();
-		List<IMedia> targetItems = itemsMatching(pred);
-		
-		if (comparators.containsKey(sortField)) {
-			Collections.sort(targetItems, comparators.get(sortField));
-		} else {
-			Collections.sort(targetItems);
-		}
-
-		if (!loToHi) { Collections.reverse(targetItems); }
-
-		for (IMedia item : targetItems) { ids.put(item.getId()); }
-		return ids.toString();
+		Comparator<IMedia> comp = comparators.getOrDefault(sortField, Comparator.naturalOrder());
+		return new JSONArray(this.items.stream()
+								.filter(pred)
+								.sorted(loToHi ? comp : comp.reversed())
+								.map(IMedia::getId)
+								.toList())
+					.toString();
 	}
-
-
-	/*
-	 * Returns a list of all items in the store 
-	 * that satisfy the given predicate
-	 */
-	private List<IMedia> itemsMatching(Predicate<IMedia> p) {
-		List<IMedia> copy = new ArrayList<>();
-		for (IMedia m : items) {
-			if (p.test(m)) {
-				copy.add(m);
-			}
-		}
-		return copy;
-	}
-
 	
 	/*
 	 * find the item with the given id
