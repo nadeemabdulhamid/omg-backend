@@ -25,3 +25,5 @@ replay_pid*
 
 # javadoc subfolder
 javadoc/
+memos-private/
+.DS_Store
