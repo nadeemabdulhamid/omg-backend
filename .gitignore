@@ -27,3 +27,4 @@ memos-private/
 .DS_Store
 # javadoc subfolder
 javadoc/
+.vscode/
