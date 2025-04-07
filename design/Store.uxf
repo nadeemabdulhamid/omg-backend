@@ -1,0 +1,76 @@
+<diagram program="umletino" version="15.1"><zoom_level>11</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>704</x><y>451</y><w>242</w><h>231</h></coordinates><panel_attributes>Book
+--
+id : int
+title : String
+description : String
+author : Author
+price : Price
+kind : String
+rating : Rating
+--
+writtenBy(String) : boolean
+moreExpensiveThan(int) : boolean
+adjustPrice(int) : Book
+getShortDescription() : String
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1078</x><y>451</y><w>253</w><h>143</h></coordinates><panel_attributes>Author
+--
+name : String
+yob : int
+--
+nameMatches(String) : boolean
+bornBefore(Author) : boolean
+toJSONString() : String
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1078</x><y>627</y><w>198</w><h>143</h></coordinates><panel_attributes>Price
+--
+sale : int
+list : int
+discount : String
+--
+isOnSale() : boolean
+toJSONString() : String
+formatAsDollars(int) : String
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>935</x><y>451</y><w>165</w><h>88</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>130;10;80;10;80;60;10;60</additional_attributes></element><element><id>Relation</id><coordinates><x>935</x><y>528</y><w>165</w><h>132</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>130;100;80;100;80;10;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>55</x><y>77</y><w>231</w><h>154</h></coordinates><panel_attributes>Store
+--
+i1 : IMedia
+i2 : IMedia
+i3 : IMedia
+--
+catalog() : String
+itemInfoAsJSON(int) : String
+tagCounts() : String
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1078</x><y>814</y><w>220</w><h>110</h></coordinates><panel_attributes>Rating
+--
+average : double
+count : int
+--
+formatCount() : String
+toJSONStringFragment() : String
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>935</x><y>561</y><w>165</w><h>286</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>130;240;50;240;50;10;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>374</x><y>451</y><w>286</w><h>231</h></coordinates><panel_attributes>Audio
+--
+id : int
+title : String
+description : String
+artist : String
+duration : int
+price : Price
+kind : String
+rating : Rating
+--
+getShortDescription() : String
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>33</x><y>451</y><w>297</w><h>231</h></coordinates><panel_attributes>Movie
+--
+id : int
+title : String
+description : String
+starring : String
+directedBy : String
+price : Price
+genre : String
+rating : Rating
+--
+getShortDescription() : String
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>396</x><y>220</y><w>220</w><h>110</h></coordinates><panel_attributes>/IMedia/
+--
+salePrice() : int
+toJSONString() : String
+contains(String) : boolean</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>649</x><y>583</y><w>451</w><h>264</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>390;220;30;220;30;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>319</x><y>583</y><w>781</w><h>264</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>690;220;30;220;30;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>649</x><y>561</y><w>451</w><h>231</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>390;70;340;70;340;190;40;190;40;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>319</x><y>561</y><w>781</w><h>231</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>690;70;640;70;640;190;40;190;40;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>165</x><y>319</y><w>363</w><h>154</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>310;10;310;60;10;60;10;120</additional_attributes></element><element><id>Relation</id><coordinates><x>495</x><y>319</y><w>33</w><h>154</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;120</additional_attributes></element><element><id>Relation</id><coordinates><x>495</x><y>319</y><w>363</w><h>154</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;60;310;60;310;120</additional_attributes></element><element><id>Relation</id><coordinates><x>275</x><y>121</y><w>143</w><h>132</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>110;100;60;100;60;10;10;10</additional_attributes></element></diagram>
