@@ -1,23 +1,23 @@
-/**
-* Nadeem Abdul Hamid, 2025.
-*/
+/*
+ * Nadeem Abdul Hamid, 2025.
+ */
 
 import java.util.Objects;
 
 /**
-* Represents the author of a book in our online media store.
-*/
+ * Represents the author of a book in our online media store.
+ */
 public class Author {
-    String name;
-    int yob;
-    Book book;
+    private String name;
+    private int yob;
+    private Book book;
     
     public Author(String name, int yob) {
         this.name = name;
         this.yob = yob;
     }
-    
-    /**
+
+    /** 
      * Produces the book of this author.
      */
     public Book getBook() {
@@ -25,7 +25,7 @@ public class Author {
     }
 
     /**
-     * Sets the book of this author.
+     * Sets the book of this author (by mutating the `book` field of this class).
      */
     public void setBook(Book book) {
         if (book.writtenBy(this.name)) {
@@ -34,10 +34,10 @@ public class Author {
     }
 
     /**
-    * Produces true if this author's name is the same as the given name.
+    * Produces true if any portion of this author's name is the same as the given name.
     */
-    public boolean nameMatches(String name) {
-        return this.name.equals(name);
+    public boolean nameMatches(String namePortion) {
+        return this.name.contains(namePortion);
     }
     
     /** 
@@ -55,10 +55,12 @@ public class Author {
     }
 
     /**
-     * Produces true if this author's name contains the given text
+     * Produces true if this author's description contains the given text
      */
     public boolean contains(String text) {
-        return (this.name + " (b. " + this.yob + ")").contains(text);
+        String lowerText = text.toLowerCase();
+        String str = this.toJSONString().toLowerCase();
+        return str.contains(lowerText);
     }
 
 

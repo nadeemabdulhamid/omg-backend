@@ -1,6 +1,6 @@
-/**
-* Nadeem Abdul Hamid, 2025.
-*/
+/*
+ * Nadeem Abdul Hamid, 2025.
+ */
 
 
 /**
@@ -13,8 +13,8 @@ public interface IPrice {
     /** Return the sale price of the item */
     public int getSalePrice();
 
-    /** Produces a JSON data representation of this price */
-    public Object toJSON();
+    /** Produces a JSON object representation of this price */
+    public Object toJSONString();
 
     /** Produce an updated version of this price with the 
      *  list price multiplied by the given percentage.

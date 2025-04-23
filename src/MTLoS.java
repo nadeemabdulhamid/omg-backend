@@ -3,9 +3,15 @@ import org.json.JSONArray;
 public class MTLoS implements ILoS {
     
 
-	/** Produce an empty JSONArray */
+	/** Produce a string representation of this list as a JSON array */
 	public JSONArray asJSONList() {
 		return new JSONArray();
+	}
+
+    /** Produce a single string with all the strings in this list quoted 
+     * and joined by the given separator. */
+    public String join(String sep, boolean quote) {
+		return "";
 	}
 
 	/**

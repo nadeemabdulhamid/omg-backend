@@ -5,6 +5,8 @@
 import org.junit.*;
 import static org.junit.Assert.*;
 
+import org.json.JSONObject;
+
 public class PriceTest {
 
     IPrice p1 = new DiscountPrice(1000, 1500, "25% off");
@@ -35,8 +37,8 @@ public class PriceTest {
 
     @Test
     public void testToJSONString() {
-        assertEquals("""
-                {"sale":"$10.00","discount":"25% off","list":"$15.00"}""", p1.toJSON().toString());
-        assertEquals("$15.00", p2.toJSON().toString());
+        assertTrue(new JSONObject("""
+                { "sale": "$10.00", "list": "$15.00", "discount": "25% off" }""").similar(p1.toJSONString()));
+        assertEquals("$15.00", p2.toJSONString());
     }
 }

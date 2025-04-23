@@ -3,13 +3,14 @@
 */
 
 import java.util.Objects;
+
 import org.json.JSONObject;
 
 /**
  * Represents a price, in cents, of items in our media store with a 
  * discount off the normal list price.
  */
-public class DiscountPrice implements IPrice {
+public class DiscountPrice implements IPrice  {
 	int sale;
 	int list;
 	String discount;
@@ -45,15 +46,20 @@ public class DiscountPrice implements IPrice {
         return new DiscountPrice(this.sale * percent / 100, this.list * percent / 100, this.discount);
     }
 
-    /** Produces a JSON data representation of this price */
+    /**
+     * Produces a JSON object representation of this price
+     */
     @Override
-    public Object toJSON() {
+    public Object toJSONString() {
     	if (this.isOnSale()) {
-			return new JSONObject().put("sale", StringHelpers.formatAsDollars(this.sale)).put("list",StringHelpers.formatAsDollars(this.list)).put("discount", this.discount);
-		} else {
-			return StringHelpers.formatAsDollars(this.sale);
-		}
-	}
+			return new JSONObject()
+						.put("sale", StringHelpers.formatAsDollars(this.sale))
+						.put("list", StringHelpers.formatAsDollars(this.list))
+						.put("discount", this.discount);
+    	} else {
+    		return StringHelpers.formatAsDollars(sale);
+    	}
+    }
 	
     // AUTO-GENERATED: DO NOT EDIT BELOW
 

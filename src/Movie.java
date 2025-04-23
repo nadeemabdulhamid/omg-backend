@@ -4,6 +4,8 @@
 
 import java.util.Objects;
 
+import org.json.JSONObject;
+
 /**
 * Represents a video item in our media store.
 */
@@ -19,26 +21,22 @@ public class Movie extends AbsItem {
     }
 
     public Movie(int id, String title, String description, int year, String starring, String directedBy, int salePrice, int listPrice, String discount,
-                String tags, double ratingAverage, int ratingCount) {
-        this(id, title, description, year, starring, directedBy, new DiscountPrice(salePrice, listPrice, discount), StringHelpers.split(tags, ','), new Rating(ratingAverage, ratingCount));
+            String tags, double ratingAverage, int ratingCount) {
+        this(id, title, description, year, starring, directedBy, buildPrice(salePrice, listPrice, discount), StringHelpers.split(tags, ','), new Rating(ratingAverage, ratingCount));
     }
 
-    /**
-     * Return the string representation of a JSON object for this movie.
-     */
     @Override
-    public String toJSONString() {
+    protected JSONObject toJSONObject() {
         return super.toJSONObject()
-                .put("type", "video")
-                .put("starring", this.starring)
-                .put("directed-by", this.directedBy)
-                .toString();
+                    .put("type", "video")
+                    .put("starring", this.starring)
+                    .put("directed-by", this.directedBy);
     }
 
     @Override
     public boolean contains(String text) {
         String lowerText = text.toLowerCase();
-        return this.title.toLowerCase().contains(lowerText) || this.description.toLowerCase().contains(lowerText) 
+        return super.contains(text) 
                     || this.starring.toLowerCase().contains(lowerText) || this.directedBy.toLowerCase().contains(lowerText);
     }
 
@@ -46,26 +44,27 @@ public class Movie extends AbsItem {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, starring, directedBy, price, tags, rating);
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + Objects.hash(starring, directedBy);
+        return result;
     }
 
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
             return true;
+        if (!super.equals(obj))
+            return false;
         if (!(obj instanceof Movie))
             return false;
         Movie other = (Movie) obj;
-        return id == other.id && Objects.equals(title, other.title) && Objects.equals(description, other.description)
-                && Objects.equals(starring, other.starring) && Objects.equals(directedBy, other.directedBy)
-                && Objects.equals(price, other.price) && Objects.equals(tags, other.tags)
-                && Objects.equals(rating, other.rating);
+        return Objects.equals(starring, other.starring) && Objects.equals(directedBy, other.directedBy);
     }
 
     @Override
     public String toString() {
-        return "Movie [id=" + id + ", title=" + title + ", description=" + description + ", starring=" + starring
-                + ", directedBy=" + directedBy + ", price=" + price + ", tags=" + tags + ", rating=" + rating + "]";
+        return "Movie [starring=" + starring + ", directedBy=" + directedBy + ", toString()=" + super.toString() + "]";
     }
 
 }

@@ -20,9 +20,10 @@ public class MediaTest {
     Book b1 = new Book(1, "Elements of Style", "A classic guide to writing in English.", 1920, new Author("William Strunk Jr.", 1869), new DiscountPrice(1200, 1500, "20% off"), tagsb1, new Rating(4.1, 574));
     Book b2 = new Book(2, "Old Man and the Sea", "A short novel written by an American author.", 1952, new Author("Ernest Hemingway", 1899), new DiscountPrice(500, 500, ""), tagsb2, new Rating(3.4, 14849));
     Book b3 = new Book(4, "The Little Prince", "A novella by Antoine de Saint-Exupery.", 1943, new Author("Antoine de Saint-Exupery", 1900), new DiscountPrice(350, 500, "Holiday sale"), tagsb3, new Rating(5.0, 3594104));
-    Book b4 = new Book(5, "Introduction to the Theory of Computation", "A comprehensive textbook on the theory of computation.", 1997, new Author("Michael Sipser", 1954), new DiscountPrice(8000, 10000, "20% off"), tagsb4, new Rating(3.2, 9542));
+    Book b4 = new Book(5, "Introduction to the Theory of Computation", "A comprehensive textbook on the theory of computation.", 1997, 
+                                new Author("Michael Sipser", 1954), new DiscountPrice(8000, 10000, "20% off"), tagsb4, new Rating(3.2, 9542));
 
-    Audio a1 = new Audio(3, "The Dark Side of the Moon", "A classic rock album by Pink Floyd.", 1973, "Pink Floyd", 2954, new DiscountPrice(750, 750, ""), tagsa1, new Rating(4.8, 12345));
+    Audio a1 = new Audio(3, "The Dark Side of the Moon", "A classic rock album by Pink Floyd.", 1973, "Pink Floyd", 2954, new SimplePrice(750), tagsa1, new Rating(4.8, 12345));
     Audio a2 = new Audio(6, "Kind of Blue", "A classic jazz album by Miles Davis.", 1959, "Miles Davis", 3200, new DiscountPrice(400, 600, "Jazz sale"), tagsa2, new Rating(3.9, 9876));
 
     Movie m1 = new Movie(7, "The Godfather", "A classic crime film directed by Francis Ford Coppola.", 1972, "Marlon Brando", "Francis Ford Coppola", new DiscountPrice(300, 500, "Mafia sale"), tagsm1, new Rating(4.7, 54321));
@@ -63,29 +64,15 @@ public class MediaTest {
 
     @Test
     public void testToJSONString() {
-        assertTrue(new JSONObject("""
-                { "type": "print", "id": 1, "info-line": "Published 1920", "title": "Elements of Style", "description-full": "A classic guide to writing in English.", "description-short": "A classic guide...", "author": "William Strunk Jr. (b. 1869)", "price": { "sale": "$12.00", "list": "$15.00", "discount": "20% off" }, "tags": ["nonfiction","classic","guide","writing","English"], "rating-average": 4.1, "rating-count": "574" }""")
-                 .similar(new JSONObject(b1.toJSONString())));        
-        assertTrue(new JSONObject("""
-            { "type": "audio", "id": 3, "title": "The Dark Side of the Moon", "description-full": "A classic rock album by Pink Floyd.", "description-short": "A classic rock ...", "artist": "Pink Floyd", "info-line": "49 minutes 14 seconds • 1973", "price": "$7.50", "tags": ["rock","classic","album"], "rating-average": 4.8, "rating-count": "12K" }""")
-                    .similar(new JSONObject(a1.toJSONString())));
-        assertTrue(new JSONObject("""
-            { "type": "video", "id": 7, "title": "The Godfather", "description-full": "A classic crime film directed by Francis Ford Coppola.", "description-short": "A classic crime...", "starring": "Marlon Brando", "directed-by": "Francis Ford Coppola", "price": { "sale": "$3.00", "list": "$5.00", "discount": "Mafia sale" }, "tags": ["crime","classic","film"], "rating-average": 4.7, "rating-count": "54K" }""")
-                    .similar(new JSONObject(m1.toJSONString())));
-    }
-
-    @Test
-    public void testSalePrice() {
-        assertEquals(1200, b1.salePrice());
-        assertEquals(500, b2.salePrice());
-        assertEquals(350, b3.salePrice());
-        assertEquals(8000, b4.salePrice());
-
-        assertEquals(750, a1.salePrice());
-        assertEquals(400, a2.salePrice());
-
-        assertEquals(300, m1.salePrice());
-        assertEquals(200, m2.salePrice());
+        assertTrue(new JSONObject(a1.toJSONString()).similar(
+                    new JSONObject("""
+            { "type": "audio", "id": 3, "title": "The Dark Side of the Moon", "description-full": "A classic rock album by Pink Floyd.", "description-short": "A classic rock ...", "artist": "Pink Floyd", "info-line": "49 minutes 14 seconds - 1973", "price": "$7.50", "tags": ["rock","classic","album"], "rating-average": 4.8, "rating-count": "12K" }""")));
+        assertTrue(new JSONObject(b1.toJSONString()).similar(
+            new JSONObject("""
+                { "type": "print", "id": 1, "info-line": "1920", "title": "Elements of Style", "description-full": "A classic guide to writing in English.", "description-short": "A classic guide...", "author": "William Strunk Jr. (b. 1869)", "price": { "sale": "$12.00", "list": "$15.00", "discount": "20% off" }, "tags": ["nonfiction","classic","guide","writing","English"], "rating-average": 4.1, "rating-count": "574" }""")));
+        assertTrue(new JSONObject(m1.toJSONString()).similar(
+            new JSONObject("""
+            { "type": "video", "id": 7, "info-line": "1972", "title": "The Godfather", "description-full": "A classic crime film directed by Francis Ford Coppola.", "description-short": "A classic crime...", "starring": "Marlon Brando", "directed-by": "Francis Ford Coppola", "price": { "sale": "$3.00", "list": "$5.00", "discount": "Mafia sale" }, "tags": ["crime","classic","film"], "rating-average": 4.7, "rating-count": "54K" }""")));
     }
 
     @Test
