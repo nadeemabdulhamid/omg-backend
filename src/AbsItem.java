@@ -55,7 +55,7 @@ public abstract class AbsItem implements IMedia {
     }
     
     /**
-     * Produce the tags for this audio item
+     * Produce the tags for this media item
      */
     @Override
     public ILoS getTags() { 
