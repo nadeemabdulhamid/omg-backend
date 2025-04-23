@@ -40,7 +40,7 @@ public abstract class AbsItem implements IMedia {
     }
     
     /**
-     * Return the ID of this book.
+     * Return the ID of this media item.
      */
     @Override
     public int getId() {
@@ -48,7 +48,7 @@ public abstract class AbsItem implements IMedia {
     }
     
     /**
-     * Return the description of this book.
+     * Return the description of this media item.
      */
     public String getDescription() {
         return this.description;
@@ -63,7 +63,7 @@ public abstract class AbsItem implements IMedia {
     }
     
     /**
-     * Return a truncated version of the description of this book.
+     * Return a truncated version of the description of this media item.
      */
     public String getShortDescription() {
         return this.description.substring(0, Math.min(15, this.description.length())) + "...";
@@ -94,7 +94,7 @@ public abstract class AbsItem implements IMedia {
     }
     
     /**
-    * Return a JSON string representation of this book.
+    * Return a JSON string representation of this media item.
     */
     @Override
     public String toJSONString() {
