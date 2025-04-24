@@ -5,6 +5,8 @@
 import org.junit.*;
 import static org.junit.Assert.*;
 
+import org.json.JSONArray;
+
 public class ILoSTest {
 
     ILoS s0 = new MTLoS();
@@ -13,9 +15,9 @@ public class ILoSTest {
 
     @Test
     public void testAsJSONList() {
-        assertEquals("[]", s0.asJSONList());
-        assertEquals("[\"hello\",\"world\"]", s1.asJSONList());
-        assertEquals("[\"this\",\"is\",\"a\",\"test\"]", s2.asJSONList());
+        assertTrue(new JSONArray("[]").similar(s0.asJSONList()));
+        assertTrue(new JSONArray("[\"hello\",\"world\"]").similar(s1.asJSONList()));
+        assertTrue(new JSONArray("[\"this\",\"is\",\"a\",\"test\"]").similar(s2.asJSONList()));
     }
 
     @Test

@@ -28,8 +28,8 @@ public class SimplePrice implements IPrice {
 
     /** Produces a JSON object representation of this price */
     @Override
-    public String toJSONString() {
-        return StringHelpers.quote(StringHelpers.formatAsDollars(value));
+    public Object toJSONString() {
+        return StringHelpers.formatAsDollars(value);
     }
 
     /** Produce an updated version of this price with the 

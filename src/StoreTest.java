@@ -9,8 +9,9 @@ public class StoreTest extends MediaTest {
 
     Store s1 = new Store(new ConsLoM(b1, new ConsLoM(a2, new ConsLoM(m1, new MTLoM()))));   // [1, 6, 7]
     Store s2 = new Store(new ConsLoM(m2, new ConsLoM(b3, new ConsLoM(a1, new MTLoM()))));   // [8, 4, 3]
-    Store s3 = new Store(new ConsLoM(m2, new ConsLoM(b3, new ConsLoM(a1, new MTLoM()))), new ConsLoN(4, new MTLoN()));
-    Store s4 = new Store(new ConsLoM(m2, new ConsLoM(b3, new ConsLoM(a1, new MTLoM()))), new ConsLoN(8, new ConsLoN(4, new MTLoN())));
+    Store s3 = new Store(new ConsLoM(m2, new ConsLoM(b3, new ConsLoM(a1, new MTLoM()))), new ConsLoN(4, new MTLoN()), "");
+    Store s4 = new Store(new ConsLoM(m2, new ConsLoM(b3, new ConsLoM(a1, new MTLoM()))), new ConsLoN(8, new ConsLoN(4, new MTLoN())), "");
+    Store s5 = new Store(new ConsLoM(m2, new ConsLoM(b3, new ConsLoM(a1, new MTLoM()))), new ConsLoN(8, new ConsLoN(4, new MTLoN())), "50%OFF");
 
     @Test
     public void testCatalog() {    
@@ -49,6 +50,9 @@ public class StoreTest extends MediaTest {
 
     @Test
     public void testCartAddRemove() {
+        assertNotEquals(s3, s2);
+        assertNotEquals(s4, s2);
+
         assertEquals("[]", s2.cartList());
         assertEquals("true", s2.addToCart(4));
         assertEquals(s3, s2);
@@ -65,6 +69,22 @@ public class StoreTest extends MediaTest {
         assertEquals("true", s2.removeFromCart(8));
         assertEquals("false", s2.removeFromCart(8));
         assertEquals(s3, s2);
+    }
+
+    @Test
+    public void testCoupon() {
+        assertNotEquals(s4, s5);
+        assertEquals("\"50%OFF\"", s5.getCoupon());
+        assertEquals("false", s5.applyCoupon("SALE"));
+        assertEquals("false", s5.applyCoupon("50%OFF"));
+        assertEquals("false", s5.removeCoupon("SALE"));
+        assertEquals("true", s5.removeCoupon("50%OFF"));
+        assertEquals(s4, s5);
+        assertEquals("false", s5.removeCoupon("50%OFF"));
+
+        assertEquals("true", s5.applyCoupon("50%off"));
+        assertEquals("\"50%OFF\"", s5.getCoupon());         // uppercased
+        assertNotEquals(s4, s5);
     }
 
 }

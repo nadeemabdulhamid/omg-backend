@@ -1,9 +1,11 @@
+import org.json.JSONArray;
+
 public class MTLoS implements ILoS {
     
 
 	/** Produce a string representation of this list as a JSON array */
-	public String asJSONList() {
-		return "[]";
+	public JSONArray asJSONList() {
+		return new JSONArray();
 	}
 
     /** Produce a single string with all the strings in this list quoted 

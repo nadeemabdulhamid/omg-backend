@@ -6,15 +6,26 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 public class AuthorTest {
+
     Author a1 = new Author("Tolkien", 1892);
     Author a2 = new Author("Ghazzali", 1058);
     Author a3 = new Author("Cooper", 1895);
 
-    @Test 
-    public void testBook() {
-        assertEquals(null, a1.getBook());
-        Book b1 = new Book(0, "Hobbit", "A fantasy novel and children's book by J.R.R. Tolkien.", a1, new SimplePrice(1000), new MTLoS(), new Rating(5.0, 1000000));
+    @Test
+    public void testGetBook() {
+        Book b1 = new Book(0, "Hobbit", "A fantasy novel and children's book by J.R.R. Tolkien.", 1920, a1, new SimplePrice(1000), new MTLoS(), new Rating(5.0, 1000000));
+        assertEquals(null, a3.getBook());
+        a2.setBook(b1);
+        assertEquals(null, a2.getBook());
         assertEquals(b1, a1.getBook());
+    }
+
+    @Test
+    public void testContains() {
+        assertTrue( a1.contains("ToL") );
+        assertFalse( a1.contains("tok") );
+        assertTrue( a2.contains("58") );
+        assertTrue( a3.contains("b. 1895") );
     }
 
     @Test
@@ -34,8 +45,8 @@ public class AuthorTest {
 
     @Test
     public void testToJSONString() {
-        assertEquals("\"Tolkien (b. 1892)\"", a1.toJSONString());
-        assertEquals("\"Ghazzali (b. 1058)\"", a2.toJSONString());
-        assertEquals("\"Cooper (b. 1895)\"", a3.toJSONString());
+        assertEquals("Tolkien (b. 1892)", a1.toJSONString());
+        assertEquals("Ghazzali (b. 1058)", a2.toJSONString());
+        assertEquals("Cooper (b. 1895)", a3.toJSONString());
     }
 }

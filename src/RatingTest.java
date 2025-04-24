@@ -5,6 +5,8 @@
 import org.junit.*;
 import static org.junit.Assert.*;
 
+import org.json.JSONObject;
+
 public class RatingTest {
     Rating r1 = new Rating(4.1, 574);
     Rating r2 = new Rating(3.5, 75123);
@@ -15,17 +17,11 @@ public class RatingTest {
 
     @Test
     public void testToJSONStringFragment() {
-        assertEquals("""
-                "rating-average": 4.1, "rating-count": "574" """, r1.toJSONStringFragment());
-        assertEquals("""
-                "rating-average": 3.5, "rating-count": "75K" """, r2.toJSONStringFragment());
-        assertEquals("""
-                "rating-average": 4.8, "rating-count": "6K" """, r3.toJSONStringFragment());
-        assertEquals("""
-                "rating-average": 2.9, "rating-count": "7M" """, r4.toJSONStringFragment());
-        assertEquals("""
-                "rating-average": 5.0, "rating-count": "57M" """, r5.toJSONStringFragment());
-        assertEquals("""
-                "rating-average": 0.5, "rating-count": "63" """, r6.toJSONStringFragment());
+        assertTrue(r1.addToJSONObject(new JSONObject()).similar(new JSONObject().put("rating-average", 4.1).put("rating-count", "574")));
+        assertTrue(r2.addToJSONObject(new JSONObject()).similar(new JSONObject().put("rating-average", 3.5).put("rating-count", "75K")));
+        assertTrue(r3.addToJSONObject(new JSONObject()).similar(new JSONObject().put("rating-average", 4.8).put("rating-count", "6K")));
+        assertTrue(r4.addToJSONObject(new JSONObject()).similar(new JSONObject().put("rating-average", 2.9).put("rating-count", "7M")));
+        assertTrue(r5.addToJSONObject(new JSONObject()).similar(new JSONObject().put("rating-average", 5.0).put("rating-count", "57M")));
+        assertTrue(r6.addToJSONObject(new JSONObject()).similar(new JSONObject().put("rating-average", 0.5).put("rating-count", "63")));
     }
 }

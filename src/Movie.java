@@ -4,89 +4,39 @@
 
 import java.util.Objects;
 
+import org.json.JSONObject;
+
 /**
 * Represents a video item in our media store.
 */
-public class Movie implements IMedia {
-    int id;
-    String title;
-    String description;
+public class Movie extends AbsItem {
     String starring;
     String directedBy;
-    IPrice price;
-    ILoS tags;
-    Rating rating;
 
-    public Movie(int id, String title, String description, String starring, String directedBy, IPrice price,
+    public Movie(int id, String title, String description, int year, String starring, String directedBy, IPrice price,
             ILoS tags, Rating rating) {
-        this.id = id;
-        this.title = title;
-        this.description = description;
+        super(id, title, description, year, price, tags, rating);
         this.starring = starring;
         this.directedBy = directedBy;
-        this.price = price;
-        this.tags = tags;
-        this.rating = rating;
     }
 
-    public Movie(int id, String title, String description, String starring, String directedBy, int salePrice, int listPrice, String discount,
+    public Movie(int id, String title, String description, int year, String starring, String directedBy, int salePrice, int listPrice, String discount,
             String tags, double ratingAverage, int ratingCount) {
-        this(id, title, description, starring, directedBy, new DiscountPrice(salePrice, listPrice, discount), StringHelpers.split(tags, ','), new Rating(ratingAverage, ratingCount));
+        this(id, title, description, year, starring, directedBy, buildPrice(salePrice, listPrice, discount), StringHelpers.split(tags, ','), new Rating(ratingAverage, ratingCount));
     }
 
-    /**
-     * Return the ID of this movie.
-     */
     @Override
-    public int getId() {
-        return this.id;
-    }
-
-    /**
-     * Return the sale price of this movie.
-     */
-    @Override
-    public int salePrice() {
-        return this.price.getSalePrice();
-    }
-
-    /**
-     * Produce the tags for this audio item
-     */
-    public ILoS getTags() { 
-        return this.tags;
-    }
-
-    /**
-     * Return a truncated version of the description of this book.
-     */
-    public String getShortDescription() {
-        return this.description.substring(0, Math.min(15, this.description.length())) + "...";
-    }
-
-    /**
-     * Return the string representation of a JSON object for this movie.
-     */
-    @Override
-    public String toJSONString() {
-        return "{ "
-                + StringHelpers.keyValuePair("type", "video") + ", "
-                + StringHelpers.keyValuePair("id", getId()) + ", "
-                + StringHelpers.keyValuePair("title", this.title) + ", "
-                + StringHelpers.keyValuePair("description-full", this.description) + ", "
-                + StringHelpers.keyValuePair("description-short", this.getShortDescription()) + ", "
-                + StringHelpers.keyValuePair("starring", this.starring) + ", "
-                + StringHelpers.keyValuePair("directed-by", this.directedBy) + ", "
-                + StringHelpers.keyValuePair("price", this.price.toJSONString(), false) + ", "
-                + StringHelpers.keyValuePair("tags", this.tags.asJSONList(), false) + ", "
-                + this.rating.toJSONStringFragment()
-                + " }";
+    protected JSONObject toJSONObject() {
+        return super.toJSONObject()
+                    .put("type", "video")
+                    .put("starring", this.starring)
+                    .put("directed-by", this.directedBy);
     }
 
     @Override
     public boolean contains(String text) {
         String lowerText = text.toLowerCase();
-        return this.title.toLowerCase().contains(lowerText) || this.description.toLowerCase().contains(lowerText) 
+        return super.contains(text) 
                     || this.starring.toLowerCase().contains(lowerText) || this.directedBy.toLowerCase().contains(lowerText);
     }
 
@@ -94,26 +44,27 @@ public class Movie implements IMedia {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, starring, directedBy, price, tags, rating);
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + Objects.hash(starring, directedBy);
+        return result;
     }
 
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
             return true;
+        if (!super.equals(obj))
+            return false;
         if (!(obj instanceof Movie))
             return false;
         Movie other = (Movie) obj;
-        return id == other.id && Objects.equals(title, other.title) && Objects.equals(description, other.description)
-                && Objects.equals(starring, other.starring) && Objects.equals(directedBy, other.directedBy)
-                && Objects.equals(price, other.price) && Objects.equals(tags, other.tags)
-                && Objects.equals(rating, other.rating);
+        return Objects.equals(starring, other.starring) && Objects.equals(directedBy, other.directedBy);
     }
 
     @Override
     public String toString() {
-        return "Movie [id=" + id + ", title=" + title + ", description=" + description + ", starring=" + starring
-                + ", directedBy=" + directedBy + ", price=" + price + ", tags=" + tags + ", rating=" + rating + "]";
+        return "Movie [starring=" + starring + ", directedBy=" + directedBy + ", toString()=" + super.toString() + "]";
     }
 
 }
