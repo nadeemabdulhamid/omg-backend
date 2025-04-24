@@ -13,11 +13,11 @@ public class Movie implements IMedia {
     String description;
     String starring;
     String directedBy;
-    Price price;
+    IPrice price;
     String genre;
     Rating rating;
 
-    public Movie(int id, String title, String description, String starring, String directedBy, Price price,
+    public Movie(int id, String title, String description, String starring, String directedBy, IPrice price,
             String genre, Rating rating) {
         this.id = id;
         this.title = title;
@@ -31,7 +31,7 @@ public class Movie implements IMedia {
 
     public Movie(int id, String title, String description, String starring, String directedBy, int salePrice, int listPrice, String discount,
             String genre, double ratingAverage, int ratingCount) {
-        this(id, title, description, starring, directedBy, new Price(salePrice, listPrice, discount), genre, new Rating(ratingAverage, ratingCount));
+        this(id, title, description, starring, directedBy, new DiscountPrice(salePrice, listPrice, discount), genre, new Rating(ratingAverage, ratingCount));
     }
 
     /**

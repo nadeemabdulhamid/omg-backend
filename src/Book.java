@@ -10,16 +10,58 @@ import java.util.Objects;
 public class Book {
     int id;
     String title;
-    String author;
-    int price;          // in cents
-    String kind;        // "fiction", "nonfiction", "textbook"
+    String description;
+    Author author;
+    IPrice price;
+    String kind;
+    Rating rating;
 
-    public Book(int id, String title, String author, int price, String kind) {
+    public Book(int id, String title, String description, Author author, IPrice price, String kind, Rating rating) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.price = price;
         this.kind = kind;
+        this.rating = rating;
+    }
+
+    // overloaded constructor
+    public Book(int id, String title, String description, String authorName, int authorYOB, int salePrice, int listPrice, String discount, String kind,
+            double ratingAverage, int ratingCount) {
+        this(id, title, description, new Author(authorName, authorYOB), buildPrice(salePrice, listPrice, discount), kind, new Rating(ratingAverage, ratingCount));
+    }
+
+    /*
+     * Builds a DiscountPrice object if the sale price is different from the list
+     */
+    private static IPrice buildPrice(int salePrice, int listPrice, String discount) {
+        if (salePrice == listPrice) {
+            return new SimplePrice(salePrice);
+        } else {
+            return new DiscountPrice(salePrice, listPrice, discount);
+        }
+    }
+
+    /**
+     * Return the ID of this book.
+     */
+    @Override
+    public int getId() {
+        return this.id;
+    }
+
+    /**
+     * Return the description of this book.
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
+    /**
+     * Return a truncated version of the description of this book.
+     */
+    public String getShortDescription() {
+        return this.description.substring(0, Math.min(15, this.description.length())) + "...";
     }
 
     /**

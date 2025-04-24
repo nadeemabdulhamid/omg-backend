@@ -7,8 +7,8 @@ import static org.junit.Assert.*;
 
 public class StoreTest extends MediaTest {
 
-    Store s1 = new Store(b1, a2, m1);
-    Store s2 = new Store(m2, b3, a1);
+    Store s1 = new Store(new ConsLoM(b1, new ConsLoM(a2, new ConsLoM(m1, new MTLoM()))));
+    Store s2 = new Store(new ConsLoM(m2, new ConsLoM(b3, new ConsLoM(a1, new MTLoM()))));
 
     @Test
     public void testCatalog() {    

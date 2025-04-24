@@ -7,9 +7,9 @@ import static org.junit.Assert.*;
 
 public class PriceTest {
 
-    Price p1 = new Price(1000, 1500, "25% off");
-    Price p2 = new Price(1500, 1500, "");
-    Price p3 = new Price(1500, 2000, "33% off");
+    IPrice p1 = new DiscountPrice(1000, 1500, "25% off");
+    IPrice p2 = new SimplePrice(1500);
+    IPrice p3 = new DiscountPrice(1500, 2000, "33% off");
 
 
     @Test
@@ -28,9 +28,9 @@ public class PriceTest {
 
     @Test
     public void testAdjustPrice() {
-        assertEquals(new Price(500, 750, "25% off"), p1.adjustPrice(50));
-        assertEquals(new Price(750, 750, ""), p2.adjustPrice(50));
-        assertEquals(new Price(495, 660, "33% off"), p3.adjustPrice(33));
+        assertEquals(new DiscountPrice(500, 750, "25% off"), p1.adjustPrice(50));
+        assertEquals(new SimplePrice(750), p2.adjustPrice(50));
+        assertEquals(new DiscountPrice(495, 660, "33% off"), p3.adjustPrice(33));
     }
 
     @Test

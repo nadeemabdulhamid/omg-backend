@@ -13,11 +13,11 @@
     String description;
 	String artist;
 	int duration;		// seconds
-	Price price;
+	IPrice price;
 	String kind;
     Rating rating;
 
-    public Audio(int id, String title, String description, String artist, int duration, Price price, String kind, Rating rating) {
+    public Audio(int id, String title, String description, String artist, int duration, IPrice price, String kind, Rating rating) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -30,7 +30,18 @@
 
     public Audio(int id, String title, String description, String artist, int duration, int salePrice, int listPrice, String discount, String kind,
                     double ratingAverage, int ratingCount) {
-        this(id, title, description, artist, duration, new Price(salePrice, listPrice, discount), kind, new Rating(ratingAverage, ratingCount));
+        this(id, title, description, artist, duration, buildPrice(salePrice, listPrice, discount), kind, new Rating(ratingAverage, ratingCount));
+    }
+
+    /*
+     * Builds a DiscountPrice object if the sale price is different from the list
+     */
+    private static IPrice buildPrice(int salePrice, int listPrice, String discount) {
+        if (salePrice == listPrice) {
+            return new SimplePrice(salePrice);
+        } else {
+            return new DiscountPrice(salePrice, listPrice, discount);
+        }
     }
 
     /**
