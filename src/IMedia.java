@@ -20,4 +20,8 @@ public interface IMedia {
         any of its textual fields */
 	public boolean contains(String text);
 
+    /**
+     * Produce the tags for this media item
+     */
+    public ILoS getTags();
 }

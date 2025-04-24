@@ -23,10 +23,17 @@ public class ILoMTest {
     }
 
     @Test
-    public void testInfoAsJSON() {
-        assertEquals("", mt.infoAsJSON(1));
-        assertEquals("", lom2.infoAsJSON(2));
-        assertEquals(media.m1.toJSONString(), lom2.infoAsJSON(7));
-        assertEquals(media.b2.toJSONString(), lom3.infoAsJSON(2));
+    public void testFindItem() {
+        assertEquals(null, mt.findItem(1));
+        assertEquals(null, lom2.findItem(2));
+        assertEquals(media.m1, lom2.findItem(7));
+        assertEquals(media.b2, lom3.findItem(2));
+    }
+
+    @Test
+    public void testCollectTags() {
+        assertEquals("", mt.collectTags().join(",", false));
+        assertEquals("nonfiction,classic,guide,writing,English", lom1.collectTags().join(",", false));
+        assertEquals("rock,classic,album,crime,classic,film,nonfiction,classic,guide,writing,English", lom2.collectTags().join(",", false));
     }
 }

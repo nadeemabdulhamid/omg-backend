@@ -14,24 +14,24 @@ public class Movie implements IMedia {
     String starring;
     String directedBy;
     IPrice price;
-    String genre;
+    ILoS tags;
     Rating rating;
 
     public Movie(int id, String title, String description, String starring, String directedBy, IPrice price,
-            String genre, Rating rating) {
+            ILoS tags, Rating rating) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.starring = starring;
         this.directedBy = directedBy;
         this.price = price;
-        this.genre = genre;
+        this.tags = tags;
         this.rating = rating;
     }
 
     public Movie(int id, String title, String description, String starring, String directedBy, int salePrice, int listPrice, String discount,
-            String genre, double ratingAverage, int ratingCount) {
-        this(id, title, description, starring, directedBy, new DiscountPrice(salePrice, listPrice, discount), genre, new Rating(ratingAverage, ratingCount));
+            String tags, double ratingAverage, int ratingCount) {
+        this(id, title, description, starring, directedBy, new DiscountPrice(salePrice, listPrice, discount), StringHelpers.split(tags, ','), new Rating(ratingAverage, ratingCount));
     }
 
     /**
@@ -48,6 +48,13 @@ public class Movie implements IMedia {
     @Override
     public int salePrice() {
         return this.price.getSalePrice();
+    }
+
+    /**
+     * Produce the tags for this audio item
+     */
+    public ILoS getTags() { 
+        return this.tags;
     }
 
     /**
@@ -71,7 +78,7 @@ public class Movie implements IMedia {
                 + StringHelpers.keyValuePair("starring", this.starring) + ", "
                 + StringHelpers.keyValuePair("directed-by", this.directedBy) + ", "
                 + StringHelpers.keyValuePair("price", this.price.toJSONString(), false) + ", "
-                + StringHelpers.keyValuePair("tags", this.genre) + ", "
+                + StringHelpers.keyValuePair("tags", this.tags.asJSONList(), false) + ", "
                 + this.rating.toJSONStringFragment()
                 + " }";
     }
@@ -87,7 +94,7 @@ public class Movie implements IMedia {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, starring, directedBy, price, genre, rating);
+        return Objects.hash(id, title, description, starring, directedBy, price, tags, rating);
     }
 
     @Override
@@ -99,14 +106,14 @@ public class Movie implements IMedia {
         Movie other = (Movie) obj;
         return id == other.id && Objects.equals(title, other.title) && Objects.equals(description, other.description)
                 && Objects.equals(starring, other.starring) && Objects.equals(directedBy, other.directedBy)
-                && Objects.equals(price, other.price) && Objects.equals(genre, other.genre)
+                && Objects.equals(price, other.price) && Objects.equals(tags, other.tags)
                 && Objects.equals(rating, other.rating);
     }
 
     @Override
     public String toString() {
         return "Movie [id=" + id + ", title=" + title + ", description=" + description + ", starring=" + starring
-                + ", directedBy=" + directedBy + ", price=" + price + ", genre=" + genre + ", rating=" + rating + "]";
+                + ", directedBy=" + directedBy + ", price=" + price + ", tags=" + tags + ", rating=" + rating + "]";
     }
 
 }

@@ -14,23 +14,24 @@
 	String artist;
 	int duration;		// seconds
 	IPrice price;
-	String kind;
+	ILoS tags;
     Rating rating;
 
-    public Audio(int id, String title, String description, String artist, int duration, IPrice price, String kind, Rating rating) {
+    public Audio(int id, String title, String description, String artist, int duration, IPrice price, ILoS tags, Rating rating) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.artist = artist;
         this.duration = duration;
         this.price = price;
-        this.kind = kind;
+        this.tags = tags;
         this.rating = rating;
     }
 
-    public Audio(int id, String title, String description, String artist, int duration, int salePrice, int listPrice, String discount, String kind,
+    public Audio(int id, String title, String description, String artist, int duration, int salePrice, int listPrice, String discount, String tags,
                     double ratingAverage, int ratingCount) {
-        this(id, title, description, artist, duration, buildPrice(salePrice, listPrice, discount), kind, new Rating(ratingAverage, ratingCount));
+        this(id, title, description, artist, duration, buildPrice(salePrice, listPrice, discount), 
+                    StringHelpers.split(tags, ','), new Rating(ratingAverage, ratingCount));
     }
 
     /*
@@ -58,6 +59,14 @@
     public String getDescription() {
         return this.description;
     }
+
+    /**
+     * Produce the tags for this audio item
+     */
+    public ILoS getTags() { 
+        return this.tags;
+    }
+
 
     /**
      * Return a truncated version of the description of this audio item.
@@ -96,7 +105,7 @@
                 + StringHelpers.keyValuePair("artist", this.artist) + ", "
                 + StringHelpers.keyValuePair("info-line", (this.duration/60) + " minutes " + (this.duration%60) + " seconds") + ", "
                 + StringHelpers.keyValuePair("price", this.price.toJSONString(), false) + ", "
-                + StringHelpers.keyValuePair("tags", this.kind) + ", "
+                + StringHelpers.keyValuePair("tags", this.tags.asJSONList(), false) + ", "
                 + this.rating.toJSONStringFragment()
                 + " }";
     }
@@ -105,7 +114,7 @@
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, artist, duration, price, kind, rating);
+        return Objects.hash(id, title, description, artist, duration, price, tags, rating);
     }
 
     @Override
@@ -118,13 +127,13 @@
         return id == other.id && Objects.equals(title, other.title)
                 && Objects.equals(description, other.description) && Objects.equals(artist, other.artist)
                 && duration == other.duration && Objects.equals(price, other.price)
-                && Objects.equals(kind, other.kind) && Objects.equals(rating, other.rating);
+                && Objects.equals(tags, other.tags) && Objects.equals(rating, other.rating);
     }
 
     @Override
     public String toString() {
         return "Audio [id=" + id + ", title=" + title + ", description=" + description + ", artist=" + artist
-                + ", duration=" + duration + ", price=" + price + ", kind=" + kind + ", rating=" + rating + "]";
+                + ", duration=" + duration + ", price=" + price + ", tags=" + tags + ", rating=" + rating + "]";
     }
 
 }

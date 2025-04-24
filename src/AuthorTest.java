@@ -10,6 +10,13 @@ public class AuthorTest {
     Author a2 = new Author("Ghazzali", 1058);
     Author a3 = new Author("Cooper", 1895);
 
+    @Test 
+    public void testBook() {
+        assertEquals(null, a1.getBook());
+        Book b1 = new Book(0, "Hobbit", "A fantasy novel and children's book by J.R.R. Tolkien.", a1, new SimplePrice(1000), new MTLoS(), new Rating(5.0, 1000000));
+        assertEquals(b1, a1.getBook());
+    }
+
     @Test
     public void testBornBefore() {
         assertTrue(a2.bornBefore(a1));

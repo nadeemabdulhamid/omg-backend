@@ -43,5 +43,13 @@ public class StringHelpersTest {
         assertEquals("\"cost\": \"$14.50\"", StringHelpers.keyValuePair("cost", 1450, true));
     }
 
+    @Test
+    public void testSplit() {
+        assertEquals(new MTLoS(), StringHelpers.split("", ','));
+        assertEquals(new ConsLoS("hello", new MTLoS()), StringHelpers.split("hello", ','));
+        assertEquals(new ConsLoS("hello", new ConsLoS("world", new ConsLoS("goodbye", new MTLoS()))), StringHelpers.split("hello,world,goodbye", ','));
+        assertEquals(new ConsLoS("hello|world|goodbye", new MTLoS()), StringHelpers.split("hello|world|goodbye", ','));
+        assertEquals(new ConsLoS("hello", new ConsLoS("world", new ConsLoS("goodbye", new MTLoS()))), StringHelpers.split("hello|world|goodbye", '|'));
+    }
 }
 
