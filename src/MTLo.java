@@ -18,20 +18,20 @@ public class MTLo<T> implements ILo<T> {
         return new JSONArray();
     }
 
-    /** Determine if this list contains the given number */
+    /** Determine if this list contains the given element */
     @Override
     public boolean contains(T elt) {
         return false;
     }
 
-    /** Produce a copy of this list with the given number removed */
+    /** Produce a copy of this list with the given element removed */
     @Override
     public ILo<T> removeAll(T elt) {
         return this;
     }
 
     /**
-     * Produce a new list that is this list append to all the
+     * Produce a new list that is this list appended to all the
      * items in that.
      */
     @Override

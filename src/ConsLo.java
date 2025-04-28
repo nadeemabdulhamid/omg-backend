@@ -26,13 +26,13 @@ public class ConsLo<T> implements ILo<T> {
         return new JSONArray().put(this.first).putAll(this.rest.asJSONList());
 	}
 
-    /** Determine if this list contains the given number */
+    /** Determine if this list contains the given element */
     @Override
     public boolean contains(T elt) {
         return this.first.equals(elt) || this.rest.contains(elt);
     }
 
-    /** Produce a copy of this list with the given number removed */
+    /** Produce a copy of this list with the given element removed */
     @Override
     public ILo<T> removeAll(T elt) {
         if (this.first.equals(elt)) {
@@ -43,7 +43,7 @@ public class ConsLo<T> implements ILo<T> {
     }
 
     /**
-     * Produce a new list that is this list append to all the
+     * Produce a new list that is this list appended to all the
      * items in that.
      */
     @Override

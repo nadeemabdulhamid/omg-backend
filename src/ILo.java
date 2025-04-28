@@ -11,10 +11,10 @@ public interface ILo<T> {
     /** Produce a string representation of this list as a JSON array */
     public JSONArray asJSONList();
 
-    /** Determine if this list contains the given number */
+    /** Determine if this list contains the given element */
     public boolean contains(T elt);
 
-    /** Produce a copy of this list with the given number removed */
+    /** Produce a copy of this list with the given element removed */
     public ILo<T> removeAll(T elt);
     
     /** Produce a new list that is this list appended to that */
