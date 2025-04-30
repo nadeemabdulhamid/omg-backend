@@ -26,8 +26,22 @@ public class MTLoM implements ILoM {
     /**
      * Return a list of all tags of all items in this list
      */
-    public ILoS collectTags() {
-        return new MTLoS();
+    public ILo<String> collectTags() {
+        return new MTLo<>();
+    }
+
+    /**
+     * Return the range of years associated with all items in this list
+     */
+    public Range yearRange() {
+        return new Range();
+    }
+
+    /**
+     * Return the range of prices of all items in this list
+     */
+    public Range priceRange() {
+        return new Range();
     }
 
 

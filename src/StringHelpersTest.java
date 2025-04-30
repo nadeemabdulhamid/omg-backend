@@ -45,11 +45,11 @@ public class StringHelpersTest {
 
     @Test
     public void testSplit() {
-        assertEquals(new MTLoS(), StringHelpers.split("", ','));
-        assertEquals(new ConsLoS("hello", new MTLoS()), StringHelpers.split("hello", ','));
-        assertEquals(new ConsLoS("hello", new ConsLoS("world", new ConsLoS("goodbye", new MTLoS()))), StringHelpers.split("hello,world,goodbye", ','));
-        assertEquals(new ConsLoS("hello|world|goodbye", new MTLoS()), StringHelpers.split("hello|world|goodbye", ','));
-        assertEquals(new ConsLoS("hello", new ConsLoS("world", new ConsLoS("goodbye", new MTLoS()))), StringHelpers.split("hello|world|goodbye", '|'));
+        assertEquals(new MTLo<>(), StringHelpers.split("", ','));
+        assertEquals(new ConsLo<>("hello", new MTLo<>()), StringHelpers.split("hello", ','));
+        assertEquals(new ConsLo<>("hello", new ConsLo<>("world", new ConsLo<>("goodbye", new MTLo<>()))), StringHelpers.split("hello,world,goodbye", ','));
+        assertEquals(new ConsLo<>("hello|world|goodbye", new MTLo<>()), StringHelpers.split("hello|world|goodbye", ','));
+        assertEquals(new ConsLo<>("hello", new ConsLo<>("world", new ConsLo<>("goodbye", new MTLo<>()))), StringHelpers.split("hello|world|goodbye", '|'));
     }
 }
 

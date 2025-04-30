@@ -14,7 +14,7 @@ public class Movie extends AbsItem {
     String directedBy;
 
     public Movie(int id, String title, String description, int year, String starring, String directedBy, IPrice price,
-            ILoS tags, Rating rating) {
+                     ILo<String> tags, Rating rating) {
         super(id, title, description, year, price, tags, rating);
         this.starring = starring;
         this.directedBy = directedBy;
