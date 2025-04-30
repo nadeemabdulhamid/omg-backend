@@ -26,9 +26,9 @@ public class SimplePrice implements IPrice {
         return this.value;
     }
 
-    /** Produces a JSON object representation of this price */
+    /** Produces a JSON data representation of this price */
     @Override
-    public Object toJSONString() {
+    public Object toJSON() {
         return StringHelpers.formatAsDollars(value);
     }
 
