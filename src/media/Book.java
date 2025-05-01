@@ -75,7 +75,6 @@ public class Book extends AbsItem {
     @Override
     public String toJSONString() {
         return super.toJSONObject()
-                .put("type", "print")
                 .put("author", this.author.toJSONString())
                 .toString();
     }

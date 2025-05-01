@@ -54,7 +54,6 @@ public class Audio extends AbsItem {
     @Override
     public String toJSONString() {
         return super.toJSONObject()
-                .put("type", "audio")
                 .put("artist", this.artist)
                 .put("info-line", infoLine())
                 .toString();
