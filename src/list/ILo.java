@@ -32,4 +32,7 @@ public interface ILo<T> {
 
     /** Return true if this list is empty */
     default public boolean isEmpty() { return this.size() == 0; }
+
+    <R> R accept(IListVisitor<T, R> visitor);
+
 }

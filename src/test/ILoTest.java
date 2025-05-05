@@ -5,10 +5,8 @@ package test;
 
 import org.junit.*;
 
-import list.ConsLo;
-import list.ILo;
-import list.MTLo;
-import media.IMedia;
+import list.*;
+import media.*;
 
 import static org.junit.Assert.*;
 
@@ -24,6 +22,12 @@ public class ILoTest {
     ILo<String> los = new ConsLo<String>("this", new ConsLo<String>("is", new ConsLo<String>("a", new ConsLo<String>("test", mtS))));
     ILo<IMedia> lom = new ConsLo<IMedia>(media.m1, new ConsLo<IMedia>(media.b2, new ConsLo<IMedia>(media.a1, new MTLo<IMedia>())));
     ILo<Integer> lon = new ConsLo<Integer>(15, new ConsLo<Integer>(24, new ConsLo<Integer>(33, new ConsLo<Integer>(42, new ConsLo<Integer>(51, new ConsLo<Integer>(33, new MTLo<Integer>()))))));
+
+    @Test
+    public void testCollectIdsVisitor() {
+        CollectIdsVisitor collectIdsVisitor = new CollectIdsVisitor();
+        assertEquals("[7,2,3]", lom.accept(collectIdsVisitor).asJSONList().toString());
+    }
 
     @Test
     public void testSize() {

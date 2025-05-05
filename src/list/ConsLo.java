@@ -105,4 +105,9 @@ public class ConsLo<T> implements ILo<T> {
         return "ConsLo [first=" + first + ", rest=" + rest + "]";
     }
 
+    @Override
+    public <R> R accept(IListVisitor<T, R> visitor) {
+        return visitor.visitCons(this, this.first, this.rest);
+    }
+
 }
