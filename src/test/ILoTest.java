@@ -30,6 +30,14 @@ public class ILoTest {
     }
 
     @Test
+    public void testFindItemVisitor() {
+        assertEquals(media.b2, lom.accept(new FindItemVisitor(2)));
+        assertEquals(null, mtM.accept(new FindItemVisitor(2)));
+        assertEquals(null, lom.accept(new FindItemVisitor(200)));
+    }
+
+
+    @Test
     public void testSize() {
         assertEquals(0, mtS.size());
         assertEquals(4, los.size());
