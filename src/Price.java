@@ -2,8 +2,6 @@
 * Nadeem Abdul Hamid, 2025.
 */
 
-import java.math.BigDecimal;
-import java.util.Objects;
 
 /**
  * Represents a price, in cents, of items in our media store.

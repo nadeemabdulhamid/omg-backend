@@ -2,7 +2,6 @@
 * Nadeem Abdul Hamid, 2025.
 */
 
-import java.util.Objects;
 
 /**
 * Represents the author of a book in our online media store.
