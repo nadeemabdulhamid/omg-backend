@@ -2,39 +2,28 @@
 * Nadeem Abdul Hamid, 2025.
 */
 
-import java.util.Objects;
 
 /**
 * Represents the author of a book in our online media store.
 */
 public class Author {
-    String name;
-    int yob;
     
     public Author(String name, int yob) {
-        this.name = name;
-        this.yob = yob;
     }
     
-    /**
-    * Produces true if this author's name is the same as the given name.
-    */
     public boolean nameMatches(String name) {
-        return this.name.equals(name);
+        return false;
     }
     
-    /** 
-     * Produces true if this author was born before that given author
-     */
     public boolean bornBefore(Author that) {
-        return this.yob < that.yob;
+        return false;
     }
 
     /**
      * Produces a JSON object representation of this author
      */
     public String toJSONString() {
-    	return "\"" + this.name + " (b. " + this.yob + ")\"";
+    	return "\"Some author (b. year)\"";
     }
 
 
@@ -42,7 +31,7 @@ public class Author {
     
     @Override
     public int hashCode() {
-        return Objects.hash(name, yob);
+        return getClass().hashCode();
     }
 
     @Override
@@ -51,13 +40,12 @@ public class Author {
             return true;
         if (!(obj instanceof Author))
             return false;
-        Author other = (Author) obj;
-        return Objects.equals(name, other.name) && yob == other.yob;
+        return true;
     }
 
     @Override
     public String toString() {
-        return "Author [name=" + name + ", yob=" + yob + "]";
+        return "Author";
     }
 
 }

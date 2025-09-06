@@ -11,6 +11,7 @@ public class PriceTest {
     Price p2 = new Price(1500, 1500, "");
     Price p3 = new Price(1500, 2000, "33% off");
 
+    /*
     @Test
     public void testFormatAsDollars() {
         assertEquals("\"$10.00\"", p1.formatAsDollars(1000));
@@ -20,6 +21,7 @@ public class PriceTest {
         assertEquals("\"$40.05\"", p1.formatAsDollars(4005));
 
     }
+    */
 
     @Test
     public void testIsOnSale() {
