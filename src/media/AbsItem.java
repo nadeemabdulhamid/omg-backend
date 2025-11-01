@@ -27,6 +27,18 @@ public abstract class AbsItem implements IMedia {
         this.rating = rating;
     }
 
+    @SuppressWarnings("unchecked")
+    public AbsItem(JSONObject obj) {
+        this.type = obj.getString("type");
+        this.id = obj.getInt("id");
+        this.title = obj.getString("title");
+        this.description = obj.getString("description");
+        this.year = obj.getInt("year");
+        this.price = buildPrice(obj.getInt("sale-price"), obj.getInt("list-price"), obj.getString("discount"));
+        this.tags = (List<String>)(List<?>)obj.getJSONArray("tags").toList();   // weird casting needed to get around limitations of generics
+        this.rating = new Rating(obj.getDouble("rating-average"), obj.getInt("rating-count"));
+    }
+
     /**
      * Return the ID of this media item.
      */
