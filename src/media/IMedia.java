@@ -1,6 +1,9 @@
+package media;
 /**
  * Nadeem Abdul Hamid, 2025.
  */
+
+import java.util.List;
 
 /**
  * Represents a media item in our online store.
@@ -19,5 +22,21 @@ public interface IMedia {
     /** Produce true if this media item contains the given text in 
         any of its textual fields */
 	public boolean contains(String text);
+
+    /**
+     * Produce the tags for this media item
+     */
+    public List<String> getTags();
+
+    /**
+     * Produce the year of this media item
+     */
+    public int getYear();
+
+    /**
+     * Produce true if the type of this media is one
+     * of the given comma-separated list of types
+     */
+    public boolean typeMatches(String tys);
 
 }

@@ -1,3 +1,4 @@
+package media;
 /**
 * Nadeem Abdul Hamid, 2025.
 */
@@ -10,12 +11,29 @@ import java.util.Objects;
 public class Author {
     String name;
     int yob;
+    Book book;
     
     public Author(String name, int yob) {
         this.name = name;
         this.yob = yob;
     }
     
+    /**
+     * Produces the book of this author.
+     */
+    public Book getBook() {
+        return this.book;
+    }
+
+    /**
+     * Sets the book of this author.
+     */
+    public void setBook(Book book) {
+        if (book.writtenBy(this.name)) {
+            this.book = book;
+        }
+    }
+
     /**
     * Produces true if this author's name is the same as the given name.
     */
@@ -34,7 +52,7 @@ public class Author {
      * Produces a JSON object representation of this author
      */
     public String toJSONString() {
-    	return "\"" + this.name + " (b. " + this.yob + ")\"";
+    	return this.name + " (b. " + this.yob + ")";
     }
 
     /**

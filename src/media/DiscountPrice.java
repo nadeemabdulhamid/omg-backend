@@ -1,30 +1,30 @@
+package media;
 /**
 * Nadeem Abdul Hamid, 2025.
 */
 
 import java.util.Objects;
+import org.json.JSONObject;
 
 /**
- * Represents a price, in cents, of items in our media store.
+ * Represents a price, in cents, of items in our media store with a 
+ * discount off the normal list price.
  */
-public class Price {
+public class DiscountPrice implements IPrice {
 	int sale;
 	int list;
 	String discount;
 	
-	public Price(int sale, int list, String discount) {
+	public DiscountPrice(int sale, int list, String discount) {
 		this.sale = sale;
 		this.list = list;
 		this.discount = discount;
-	}
-
-	public Price(int sale) {		// overloaded constructor
-		this(sale, sale, "");
 	}
 	
     /**
      * An item is on sale if the sale price is less than the list price.
      */
+    @Override
 	public boolean isOnSale() {
 		return this.sale < this.list;
 	}
@@ -32,6 +32,7 @@ public class Price {
 	/**
 	 * Return the sale price of the item.
 	 */
+    @Override
 	public int getSalePrice() {
 		return this.sale;
 	}
@@ -40,24 +41,20 @@ public class Price {
      * Produce an updated version of this price with the 
      * list price multiplied by the given percentage.
      */
-    public Price adjustPrice(int percent) {
-        return new Price(this.sale * percent / 100, this.list * percent / 100, this.discount);
+    @Override
+    public DiscountPrice adjustPrice(int percent) {
+        return new DiscountPrice(this.sale * percent / 100, this.list * percent / 100, this.discount);
     }
 
-    /**
-     * Produces a JSON object representation of this price
-     */
-    public String toJSONString() {
+    /** Produces a JSON data representation of this price */
+    @Override
+    public Object toJSON() {
     	if (this.isOnSale()) {
-			return "{ "
-					+ StringHelpers.keyValuePair("sale", this.sale, true) + ", "
-					+ StringHelpers.keyValuePair("list", this.list, true) + ", "
-					+ StringHelpers.keyValuePair("discount", this.discount)
-					+ " }";
-    	} else {
-    		return StringHelpers.quote(StringHelpers.formatAsDollars(sale));
-    	}
-    }
+			return new JSONObject().put("sale", IPrice.formatAsDollars(this.sale)).put("list", IPrice.formatAsDollars(this.list)).put("discount", this.discount);
+		} else {
+			return IPrice.formatAsDollars(this.sale);
+		}
+	}
 	
     // AUTO-GENERATED: DO NOT EDIT BELOW
 
@@ -70,9 +67,9 @@ public class Price {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!(obj instanceof Price))
+		if (!(obj instanceof DiscountPrice))
 			return false;
-		Price other = (Price) obj;
+		DiscountPrice other = (DiscountPrice) obj;
 		return sale == other.sale && list == other.list && Objects.equals(discount, other.discount);
 	}
 
