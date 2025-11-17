@@ -23,14 +23,16 @@ public class Main {
 
         server.installPredicate("types", (StringPredicateConstructor<IMedia>) TypesPredicate::new);
         server.installPredicate("search", (StringPredicateConstructor<IMedia>) TextSearchPredicate::new);
+        server.installPredicate("tags",   (StringPredicateConstructor<IMedia>) TagsPredicate::new);
         server.installPredicate("min-year", (IntPredicateConstructor<IMedia>) MinYearPredicate::new);
         server.installPredicate("max-year", (IntPredicateConstructor<IMedia>) MaxYearPredicate::new);
         server.installPredicate("min-price", (IntPredicateConstructor<IMedia>) MinPricePredicate::new);
         server.installPredicate("max-price", (IntPredicateConstructor<IMedia>) MaxPricePredicate::new);
 
-        server.installHandler("catalog",   (RequestCatalogWithFilterHandler) store::catalog);
+        server.installHandler("catalog",   (RequestCatalogWithSortHandler) store::catalog);
         server.installHandler("item-data", (RequestItemDataHandler) store::itemInfoAsJSON);
         server.installHandler("tags",      (RequestTagsWithFilterHandler) store::tagCounts);
+        server.installHandler("count", (RequestCountWithFilterHandler) store::countMatching);
 
         server.installHandler("year-range", (RequestRangeWithFilterHandler) store::yearRangeAsJSON);
         server.installHandler("price-range", (RequestRangeWithFilterHandler) store::priceRangeAsJSON);
@@ -39,6 +41,8 @@ public class Main {
         server.installHandler("cart-list",  (RequestCatalogHandler) store::cartList);
         server.installHandler("cart-add",   (RequestItemDataHandler) store::addToCart);
         server.installHandler("cart-remove", (RequestItemDataHandler) store::removeFromCart);
+        server.installHandler("cart-subtotal", (RequestHandler) store::cartSubtotal);
+        server.installHandler("cart-total",    (RequestHandler) store::cartTotal);
 
         server.installHandler("cart-get-coupon",    (RequestHandler) store::getCoupon);
         server.installHandler("cart-apply-coupon",  (RequestCouponHandler) store::applyCoupon);

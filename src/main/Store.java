@@ -19,11 +19,19 @@ public class Store {
 	List<IMedia> items;		// catalog of items available in this store
 	List<Integer> cart;		// list of item ids that are currently in the cart
 	String coupon;	// coupon code for a discount applied to the cart, "" if none is applied, always in uppercase
+	Map<String, ICoupon> coupons;	// map of active coupon codes to coupon function objects
 	
 	public Store(List<IMedia> items, List<Integer> cart, String coupon) {
 		this.items = items;
 		this.cart = cart;
 		this.coupon = coupon;
+
+		this.coupons = Map.of(
+			"", new NoDiscountCoupon(),
+			"50%OFF", new HalfOffCoupon(),
+			"AUDIO30", new Audio30OffCoupon(),
+			"BOGOPAIR", new BOGOPairCoupon()
+		);
 	}
 
 	public Store(List<IMedia> items) {
@@ -43,6 +51,48 @@ public class Store {
 		}
 		return ids.toString();
 	}
+
+	/**
+	 * Returns a string representation of a JSON array of the ids of all items
+	 * in this store that satisfy the given predicate. The ids are sorted 
+	 * according to the given field ("title", "year", "rating", or "price") and order
+	 * (true for low-to-high, false for high-to-low).
+	 * If the sort field is invalid, the items are sorted by id.
+	 */
+	public String catalog(Predicate<IMedia> pred, String sortField, boolean loToHi) {
+		JSONArray ids = new JSONArray();
+		List<IMedia> targetItems = itemsMatching(pred);
+		
+		// sort by "id" to begin with
+		if (sortField.equals("year")) {
+			Collections.sort(targetItems, (a, b) -> Integer.compare(a.getYear(), b.getYear()));
+		} else if (sortField.equals("title")) {
+			Collections.sort(targetItems, (a, b) -> a.getTitle().compareTo(b.getTitle()));
+		} else {
+			Collections.sort(targetItems);
+		}
+
+		if (!loToHi) { Collections.reverse(targetItems); }
+
+		for (IMedia item : targetItems) { ids.put(item.getId()); }
+		return ids.toString();
+	}
+
+
+	/*
+	 * Returns a list of all items in the store 
+	 * that satisfy the given predicate
+	 */
+	private List<IMedia> itemsMatching(Predicate<IMedia> p) {
+		List<IMedia> copy = new ArrayList<>();
+		for (IMedia m : items) {
+			if (p.test(m)) {
+				copy.add(m);
+			}
+		}
+		return copy;
+	}
+
 	
 	/*
 	 * find the item with the given id
@@ -67,6 +117,20 @@ public class Store {
 		} else {
 			return item.toJSONString();
 		}
+	}
+
+	/**
+	 * Returns the number of items in the store that satisfy the given predicate,
+	 * as a string.
+	 */
+	public String countMatching(Predicate<IMedia> pred) {
+		int count = 0;
+		for (IMedia item : this.items) {
+			if (pred.test(item)) {
+				count++;
+			}
+		}
+		return Integer.toString(count);
 	}
 	
 	/*
@@ -144,6 +208,38 @@ public class Store {
 	}
 
 	/**
+	 * Calculate the subtotal of the cart, without any
+	 * coupons applied.
+	 */
+	public String cartSubtotal() {
+		int sum = new NoDiscountCoupon().calculateTotal(itemsInCart());
+		return Store.quote(IPrice.formatAsDollars(sum));
+	}
+
+	/**
+	 * Calculate the subtotal of the cart, applying the current coupon.
+	 */
+	public String cartTotal() {
+		ICoupon coupObj = this.coupons.getOrDefault(this.coupon, new NoDiscountCoupon());
+		int sum = coupObj.calculateTotal(itemsInCart());
+		return Store.quote(IPrice.formatAsDollars(sum));
+	}
+
+	/*
+	 * Returns a list of all items in the cart
+	 */
+	private List<IMedia> itemsInCart() {
+		List<IMedia> items = new ArrayList<IMedia>();
+		for (int id : this.cart) {
+			IMedia item = findItem(id);
+			if (item != null) {
+				items.add(item);
+			}
+		}
+		return items;
+	}
+
+	/**
 	 * Returns the currently applied coupon as a JSON quoted string, "\"\""" if none.
 	 */
 	public String getCoupon() {
@@ -157,8 +253,9 @@ public class Store {
 	 * Returns "true" if successful, "false" if there was already a coupon applied.
 	 */
 	public String applyCoupon(String code) {
-		if (this.coupon.equals("")) {
-			this.coupon = code.toUpperCase();
+		String codeUpper = code.toUpperCase();
+		if (this.coupon.equals("") && this.coupons.containsKey(codeUpper)) {
+			this.coupon = codeUpper;
 			return "true";
 		} else {
 			return "false";

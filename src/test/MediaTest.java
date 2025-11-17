@@ -21,11 +21,11 @@ public class MediaTest {
     List<String> tagsm2 = List.of( "drama,classic,film".split(","));
 
     Book b1 = new Book(1, "Elements of Style", "A classic guide to writing in English.", 1920, new Author("William Strunk Jr.", 1869), new DiscountPrice(1200, 1500, "20% off"), tagsb1, new Rating(4.1, 574));
-    Book b2 = new Book(2, "Old Man and the Sea", "A short novel written by an American author.", 1952, new Author("Ernest Hemingway", 1899), new DiscountPrice(500, 500, ""), tagsb2, new Rating(3.4, 14849));
+    Book b2 = new Book(2, "Old Man and the Sea", "A short novel written by an American author.", 1952, new Author("Ernest Hemingway", 1899), new SimplePrice(500), tagsb2, new Rating(3.4, 14849));
     Book b3 = new Book(4, "The Little Prince", "A novella by Antoine de Saint-Exupery.", 1943, new Author("Antoine de Saint-Exupery", 1900), new DiscountPrice(350, 500, "Holiday sale"), tagsb3, new Rating(5.0, 3594104));
     Book b4 = new Book(5, "Introduction to the Theory of Computation", "A comprehensive textbook on the theory of computation.", 1997, new Author("Michael Sipser", 1954), new DiscountPrice(8000, 10000, "20% off"), tagsb4, new Rating(3.2, 9542));
 
-    Audio a1 = new Audio(3, "The Dark Side of the Moon", "A classic rock album by Pink Floyd.", 1973, "Pink Floyd", 2954, new DiscountPrice(750, 750, ""), tagsa1, new Rating(4.8, 12345));
+    Audio a1 = new Audio(3, "The Dark Side of the Moon", "A classic rock album by Pink Floyd.", 1973, "Pink Floyd", 2954, new SimplePrice(750), tagsa1, new Rating(4.8, 12345));
     Audio a2 = new Audio(6, "Kind of Blue", "A classic jazz album by Miles Davis.", 1959, "Miles Davis", 3200, new DiscountPrice(400, 600, "Jazz sale"), tagsa2, new Rating(3.9, 9876));
 
     Movie m1 = new Movie(7, "The Godfather", "A classic crime film directed by Francis Ford Coppola.", 1972, "Marlon Brando", "Francis Ford Coppola", new DiscountPrice(300, 500, "Mafia sale"), tagsm1, new Rating(4.7, 54321));
@@ -33,7 +33,7 @@ public class MediaTest {
     Movie m3 = new Movie(9, "Inception", "A mind-bending thriller directed by Christopher Nolan.", 2010, "Leonardo DiCaprio", "Christopher Nolan", new DiscountPrice(1500, 2000, "Sci-fi sale"), List.of("thriller,sci-fi,mind-bending".split(",")), new Rating(4.8, 2000000));
 
     @Test
-    public void textGetID() {
+    public void testGetID() {
         assertEquals(2, b2.getId());
         assertEquals(5, b4.getId());
         assertEquals(3, a1.getId());
@@ -61,7 +61,7 @@ public class MediaTest {
     public void testAdjustPrice() {
         assertEquals(new Book(1, "Elements of Style", "A classic guide to writing in English.", 1920, new Author("William Strunk Jr.", 1869), new DiscountPrice(900, 1125, "20% off"), tagsb1, new Rating(4.1, 574)),
                      b1.adjustPrice(75));
-        assertEquals(new Book(2, "Old Man and the Sea", "A short novel written by an American author.", 1952, new Author("Ernest Hemingway", 1899), new DiscountPrice(575, 575, ""), tagsb2, new Rating(3.4, 14849)),
+        assertEquals(new Book(2, "Old Man and the Sea", "A short novel written by an American author.", 1952, new Author("Ernest Hemingway", 1899), new SimplePrice(575), tagsb2, new Rating(3.4, 14849)),
                       b2.adjustPrice(115));
     }
 
@@ -108,4 +108,22 @@ public class MediaTest {
         assertTrue(m1.contains("brand"));
         assertFalse(m1.contains("Shawshank"));
     }
+
+    @Test
+    public void testHasAnyTag() {
+        assertTrue(b1.hasAnyTag(List.of("jazz,drama,crime,nonfiction".split(","))));
+        assertFalse(b1.hasAnyTag(List.of("jazz,drama,crime,fiction".split(","))));
+
+        assertTrue(m2.hasAnyTag(List.of("jazz,drama,crime,nonfiction".split(","))));
+        assertFalse(a1.hasAnyTag(List.of("jazz,drama,crime,nonfiction".split(","))));
+    }
+
+    @Test
+    public void testIsOnSale() {
+        assertTrue(b1.isOnSale());
+        assertFalse(b2.isOnSale());
+        assertTrue(a2.isOnSale());
+        assertFalse(a1.isOnSale());
+    }
+    
 }

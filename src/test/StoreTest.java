@@ -6,6 +6,7 @@ package test;
 import org.junit.*;
 
 import funcobjs.MinPricePredicate;
+import funcobjs.MinYearPredicate;
 import funcobjs.TextSearchPredicate;
 import funcobjs.TypesPredicate;
 import main.*;
@@ -17,10 +18,41 @@ import java.util.List;
 
 public class StoreTest extends MediaTest {
     Store s1 = new Store(List.of(b1, a2, m1));    // [1, 6, 7]
+    Store s1mix = new Store(List.of(a2, b1, m1));    // [6, 1, 7]
     Store s2 = new Store(List.of(m2, b3, a1));    // [8, 4, 3]
     Store s3 = new Store(List.of(m2, b3, a1), new ArrayList<>(List.of(4)), "");
     Store s4 = new Store(List.of(m2, b3, a1), new ArrayList<>(List.of(4, 8)), "");
     Store s5 = new Store(List.of(m2, b3, a1), new ArrayList<>(List.of(4, 8)), "50%OFF");
+    Store s6 = new Store(List.of(m2, b3, a1), new ArrayList<>(List.of(4, 3, 8)), "AUDIO30");
+
+    @Test
+    public void testTotals() {
+        assertEquals("\"$0.00\"", s1.cartSubtotal());
+        assertEquals("\"$3.50\"", s3.cartSubtotal());
+        assertEquals("\"$5.50\"", s4.cartSubtotal());
+        assertEquals("\"$5.50\"", s5.cartSubtotal());
+        assertEquals("\"$13.00\"", s6.cartSubtotal());
+
+        assertEquals("\"$5.50\"", s4.cartTotal());
+        assertEquals("\"$5.50\"", s5.cartTotal());
+        assertEquals("\"$10.75\"", s6.cartTotal());
+    }
+
+    @Test
+    public void testCatalogWithSort() {
+        assertEquals("[1,6,7]", s1.catalog(new MinPricePredicate(0), "id", true));
+        assertEquals("[3,4,8]", s2.catalog(new MinPricePredicate(0), "id", true));
+        assertEquals("[7,6,1]", s1.catalog(new MinPricePredicate(0), "id", false));
+        assertEquals("[8,4,3]", s2.catalog(new MinPricePredicate(0), "id", false));
+
+        assertEquals("[1,6,7]", s1.catalog(new MinPricePredicate(0), "year", true));
+        assertEquals("[4,3,8]", s2.catalog(new MinPricePredicate(0), "year", true));
+        assertEquals("[8,3,4]", s2.catalog(new MinPricePredicate(0), "year", false));
+
+        assertEquals("[3,4,8]", s2.catalog(new MinPricePredicate(0), "title", true));
+        assertEquals("[8,3]", s2.catalog(new TypesPredicate("video,audio"), "title", false));
+        assertEquals("[7,6,1]", s1mix.catalog(new MinPricePredicate(0), "title", false));
+    }
 
     @Test
     public void testCatalogWithFilter() {    
@@ -37,6 +69,14 @@ public class StoreTest extends MediaTest {
         assertEquals(b1.toJSONString(), s1.itemInfoAsJSON(1));
         assertEquals(a2.toJSONString(), s1.itemInfoAsJSON(6));
         assertEquals(m2.toJSONString(), s2.itemInfoAsJSON(8));
+    }
+
+    @Test
+    public void testCountMatching() {
+        assertEquals("3", s1.countMatching(new MinPricePredicate(0)));
+        assertEquals("2", s2.countMatching(new MinYearPredicate(1950)));
+        assertEquals("1", s2.countMatching(new TypesPredicate("audio")));
+        assertEquals("2", s2.countMatching(new TypesPredicate("audio,video")));
     }
 
     @Test
