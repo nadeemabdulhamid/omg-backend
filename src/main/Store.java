@@ -29,9 +29,7 @@ public class Store {
 		this.coupons = Map.of(
 			"", new NoDiscountCoupon(),
 			"50%OFF", new HalfOffCoupon(),
-			"AUDIO30", new Audio30OffCoupon(),
-			"BOGOPAIR", new BOGOPairCoupon()
-		);
+			"AUDIO30", new Audio30OffCoupon());
 	}
 
 	public Store(List<IMedia> items) {
@@ -51,48 +49,6 @@ public class Store {
 		}
 		return ids.toString();
 	}
-
-	/**
-	 * Returns a string representation of a JSON array of the ids of all items
-	 * in this store that satisfy the given predicate. The ids are sorted 
-	 * according to the given field ("title", "year", "rating", or "price") and order
-	 * (true for low-to-high, false for high-to-low).
-	 * If the sort field is invalid, the items are sorted by id.
-	 */
-	public String catalog(Predicate<IMedia> pred, String sortField, boolean loToHi) {
-		JSONArray ids = new JSONArray();
-		List<IMedia> targetItems = itemsMatching(pred);
-		
-		// sort by "id" to begin with
-		if (sortField.equals("year")) {
-			Collections.sort(targetItems, (a, b) -> Integer.compare(a.getYear(), b.getYear()));
-		} else if (sortField.equals("title")) {
-			Collections.sort(targetItems, (a, b) -> a.getTitle().compareTo(b.getTitle()));
-		} else {
-			Collections.sort(targetItems);
-		}
-
-		if (!loToHi) { Collections.reverse(targetItems); }
-
-		for (IMedia item : targetItems) { ids.put(item.getId()); }
-		return ids.toString();
-	}
-
-
-	/*
-	 * Returns a list of all items in the store 
-	 * that satisfy the given predicate
-	 */
-	private List<IMedia> itemsMatching(Predicate<IMedia> p) {
-		List<IMedia> copy = new ArrayList<>();
-		for (IMedia m : items) {
-			if (p.test(m)) {
-				copy.add(m);
-			}
-		}
-		return copy;
-	}
-
 	
 	/*
 	 * find the item with the given id

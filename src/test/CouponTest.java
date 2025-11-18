@@ -14,7 +14,6 @@ public class CouponTest {
     ICoupon noDisc = new NoDiscountCoupon();
     ICoupon halfOff = new HalfOffCoupon();
     ICoupon audio30 = new Audio30OffCoupon();
-    ICoupon bogoPair = new BOGOPairCoupon();
 
     @Test
     public void testNoDiscountCoupon() {
@@ -26,8 +25,8 @@ public class CouponTest {
     @Test
     public void testHalfOffCoupon() {
         assertEquals(0, halfOff.calculateTotal(List.of()));
-        assertEquals(1875, halfOff.calculateTotal(List.of(media.b1, media.a1, media.m1)));
-        assertEquals(2125, halfOff.calculateTotal(List.of(media.b1, media.a1, media.m1, media.b2)));
+        assertEquals(1125, halfOff.calculateTotal(List.of(media.b1, media.a1, media.m1)));
+        assertEquals(1375, halfOff.calculateTotal(List.of(media.b1, media.a1, media.m1, media.b2)));
     }
 
     @Test
@@ -35,12 +34,5 @@ public class CouponTest {
         assertEquals(0, audio30.calculateTotal(List.of()));
         assertEquals(2025, audio30.calculateTotal(List.of(media.b1, media.a1, media.m1)));
         assertEquals(2525, audio30.calculateTotal(List.of(media.b1, media.a1, media.m1, media.b2)));
-    }
-
-    @Test
-    public void testBOGOPairCoupon() {
-        assertEquals(2250, bogoPair.calculateTotal(List.of(media.b1, media.a1, media.m1)));
-        assertEquals(2750, bogoPair.calculateTotal(List.of(media.b1, media.a1, media.m1, media.b2)));
-        assertEquals(1200, bogoPair.calculateTotal(List.of(media.b1, media.b2)));
     }
 }

@@ -27,30 +27,12 @@ public abstract class AbsItem implements IMedia {
         this.rating = rating;
     }
 
-    @SuppressWarnings("unchecked")
-    public AbsItem(JSONObject obj) {
-        this.type = obj.getString("type");
-        this.id = obj.getInt("id");
-        this.title = obj.getString("title");
-        this.description = obj.getString("description");
-        this.year = obj.getInt("year");
-        this.price = buildPrice(obj.getInt("sale-price"), obj.getInt("list-price"), obj.getString("discount"));
-        this.tags = (List<String>)(List<?>)obj.getJSONArray("tags").toList();   // weird casting needed to get around limitations of generics
-        this.rating = new Rating(obj.getDouble("rating-average"), obj.getInt("rating-count"));
-    }
-
     /**
      * Return the ID of this media item.
      */
     @Override
     public int getId() {
         return this.id;
-    }
-
-    /** Produce the type of this media item */
-    @Override
-    public String getType() {
-        return this.type;
     }
 
     /**
@@ -61,19 +43,6 @@ public abstract class AbsItem implements IMedia {
         return this.year;
     }
 
-    /** Produce the title of this media item */
-    @Override
-    public String getTitle() {
-        return this.title;
-    }
-
-    /** Produce the rating average of this media item */
-    @Override
-    public double getRating() {
-        return this.rating.getAverage();
-    }
-    
-
     /**
      * Return the sale price of this media item.
      */
@@ -81,13 +50,6 @@ public abstract class AbsItem implements IMedia {
     public int salePrice() {
         return this.price.getSalePrice();
     }
-
-    /** Is the price of this media item discounted */
-    @Override
-    public boolean isOnSale() {
-        return this.price.isOnSale();
-    }
-
 
     /**
      * Produce the tags for this media item
@@ -159,13 +121,4 @@ public abstract class AbsItem implements IMedia {
         return false;
     }
 
-    /**
-     * Compare this media item with that given one based on id
-     */
-    @Override
-    public int compareTo(IMedia that) {
-        return this.id - that.getId();      // or 
-        // return Integer.compare(this.id, that.getId());
-    }
-    
 }

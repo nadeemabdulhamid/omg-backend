@@ -21,13 +21,6 @@ import org.json.JSONObject;
     }
 
     /**
-     * Return the average rating of this item.
-     */
-    public double getAverage() {
-        return this.average;
-    }
-
-    /**
      * Produces a string representation of the average rating, with
      * shortened forms for thousands and millions.
      */

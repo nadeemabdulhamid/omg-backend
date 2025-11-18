@@ -8,25 +8,13 @@ import java.util.List;
 /**
  * Represents a media item in our online store.
  */
-public interface IMedia extends Comparable<IMedia> {
+public interface IMedia {
 
     /** Produce this media item's unique id */
     public int getId();
 
-    /** Produce the type of this media item */
-    public String getType();
-
-    /** Produce the title of this media item */
-    public String getTitle();
-
-    /** Produce the rating average of this media item */
-    public double getRating();
-
     /** Produce the sale price of this media item */
 	public int salePrice();
-
-    /** Is the price of this media item discounted */
-    public boolean isOnSale();
 
     /** Produce the string representation of a JSON object for this item */
 	public String toJSONString();
