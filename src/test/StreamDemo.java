@@ -10,6 +10,7 @@ import media.IMedia;
 import media.Movie;
 import omg.server.OMGServer;
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -22,6 +23,24 @@ public class StreamDemo {
         server.installConstructor("print", Book.class);
         server.installConstructor("video", Movie.class);      
         List<IMedia> items = server.fetchItemList();
+
+        /* progression of function objects to lambda expressions */
+        class AudioMediaPrecicate implements Predicate<IMedia> {
+            @Override
+            public boolean test(IMedia item) {
+                return item.getType().equals("audio");
+            }
+        }
+        Predicate<IMedia> isAudio1 = new AudioMediaPrecicate();
+
+        Predicate<IMedia> isAudio2 = new Predicate<IMedia>() {
+            @Override
+            public boolean test(IMedia item) {
+                return item.getType().equals("audio");
+            }
+        };
+
+        Predicate<IMedia> isAudio = item -> item.getType().equals("audio");
 
         line(40);
         System.out.println("Number of audio items: ");
