@@ -48,6 +48,12 @@ public abstract class AbsItem implements IMedia {
         return this.id;
     }
 
+    /** Produce the type of this media item */
+    @Override
+    public String getType() {
+        return this.type;
+    }
+
     /**
      * Return the year of this media item.
      */
@@ -56,6 +62,19 @@ public abstract class AbsItem implements IMedia {
         return this.year;
     }
 
+    /** Produce the title of this media item */
+    @Override
+    public String getTitle() {
+        return this.title;
+    }
+
+    /** Produce the rating average of this media item */
+    @Override
+    public double getRating() {
+        return this.rating.getAverage();
+    }
+    
+
     /**
      * Return the sale price of this media item.
      */
@@ -63,6 +82,13 @@ public abstract class AbsItem implements IMedia {
     public int salePrice() {
         return this.price.getSalePrice();
     }
+
+    /** Is the price of this media item discounted */
+    @Override
+    public boolean isOnSale() {
+        return this.price.isOnSale();
+    }
+
 
     /**
      * Produce the tags for this media item
@@ -134,4 +160,13 @@ public abstract class AbsItem implements IMedia {
         return false;
     }
 
+    /**
+     * Compare this media item with that given one based on id
+     */
+    @Override
+    public int compareTo(IMedia that) {
+        return this.id - that.getId();      // or 
+        // return Integer.compare(this.id, that.getId());
+    }
+    
 }

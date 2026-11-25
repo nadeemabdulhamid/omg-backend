@@ -30,7 +30,14 @@ public class Store {
 		this.coupons = Map.of(
 			"", new NoDiscountCoupon(),
 			"50%OFF", new HalfOffCoupon(),
-			"AUDIO30", new Audio30OffCoupon());
+			"AUDIO30", new Audio30OffCoupon()
+		);
+		this.comparators = Map.of(
+			"year", (a, b) -> Integer.compare(a.getYear(), b.getYear()),
+			"title", (a, b) -> a.getTitle().compareTo(b.getTitle()),
+			"rating", (a, b) -> Double.compare(a.getRating(), b.getRating()),
+			"price", (a, b) -> Integer.compare(a.salePrice(), b.salePrice())
+		);
 	}
 
 	public Store(List<IMedia> items) {
@@ -55,6 +62,8 @@ public class Store {
 	public String catalog(Predicate<IMedia> pred, String sortField, boolean loToHi) {
 		Comparator<IMedia> comp = comparators.getOrDefault(sortField, Comparator.naturalOrder());
 		return new JSONArray(this.items.stream()
+								.filter(pred)
+								.sorted(loToHi ? comp : comp.reversed())
 								.map(IMedia::getId)
 								.toList())
 					.toString();
@@ -71,6 +80,7 @@ public class Store {
 	 * Returns a string representation of the JSON object for the item 
 	 * with the given id.
 	 */
+	public String itemInfoAsJSON(int id) {
 		IMedia item = findItem(id);
 		return item == null ? "" : item.toJSONString();
 	}
