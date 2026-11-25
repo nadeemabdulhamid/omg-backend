@@ -14,9 +14,9 @@ public class Main {
     public static void main(String[] args) {
         OMGServer server = new OMGServer("data/data-full.json");
 
-        server.installConstructor("audio", Audio.class, "id", "title", "description", "year", "artist", "duration", "sale-price", "list-price", "discount", "tags", "rating-average", "rating-count");
-        server.installConstructor("print", Book.class, "id", "title", "description", "year", "author-name", "author-yob", "sale-price", "list-price", "discount", "tags", "rating-average", "rating-count");
-        server.installConstructor("video", Movie.class, "id", "title", "description", "year", "starring", "directed-by", "sale-price", "list-price", "discount", "tags", "rating-average", "rating-count");
+        server.installConstructor("audio", Audio.class);
+        server.installConstructor("print", Book.class);
+        server.installConstructor("video", Movie.class);
        
         List<IMedia> items = server.fetchItemList();
         Store store = new Store(items);
@@ -31,7 +31,7 @@ public class Main {
 
         server.installHandler("catalog",   (RequestCatalogWithFilterHandler) store::catalog);
         server.installHandler("item-data", (RequestItemDataHandler) store::itemInfoAsJSON);
-        server.installHandler("tags",      (RequestTagsWithFilterHandler) store::tagCounts);
+        server.installHandler("tags",      (RequestTagsWithFilterAndLimitHandler) store::tagCounts);
         server.installHandler("count", (RequestCountWithFilterHandler) store::countMatching);
 
         server.installHandler("year-range", (RequestRangeWithFilterHandler) store::yearRangeAsJSON);

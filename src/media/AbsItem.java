@@ -5,6 +5,7 @@ package media;
 
 import org.json.*;
 import java.util.List;
+import org.json.JSONObject;
 
 public abstract class AbsItem implements IMedia {
     String type;
@@ -15,6 +16,18 @@ public abstract class AbsItem implements IMedia {
     IPrice price;
     List<String> tags;
     Rating rating;
+
+    @SuppressWarnings("unchecked")
+    public AbsItem(JSONObject obj) {
+        this.type = obj.getString("type");
+        this.id = obj.getInt("id");
+        this.title = obj.getString("title");
+        this.description = obj.getString("description");
+        this.year = obj.getInt("year");
+        this.price = buildPrice(obj.getInt("sale-price"), obj.getInt("list-price"), obj.getString("discount"));
+        this.tags = (List<String>)(List<?>)obj.getJSONArray("tags").toList();
+        this.rating = new Rating(obj.getDouble("rating-average"), obj.getInt("rating-count"));
+    }
 
     public AbsItem(String type, int id, String title, String description, int year, IPrice price, List<String> tags, Rating rating) {
         this.type = type;

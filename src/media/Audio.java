@@ -6,6 +6,7 @@ package media;
 import java.util.Objects;
 
 import java.util.List;
+import org.json.JSONObject;
 
 /** 
  * Represents an audio item in our online media store.
@@ -14,6 +15,12 @@ public class Audio extends AbsItem {
     String artist;
     int duration;		// seconds
     
+    public Audio(JSONObject obj) {
+        super(obj);
+        this.artist = obj.getString("artist");
+        this.duration = obj.getInt("duration");
+    }
+
     public Audio(int id, String title, String description, int year, String artist, int duration, IPrice price, List<String> tags, Rating rating) {
         super("audio", id, title, description, year, price, tags, rating);
         this.artist = artist;

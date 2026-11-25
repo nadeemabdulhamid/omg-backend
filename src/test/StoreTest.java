@@ -38,9 +38,30 @@ public class StoreTest extends MediaTest {
     }
 
     @Test
+    public void testCatalogWithSort() {
+        assertEquals("[1,6,7]", s1.catalog(new MinPricePredicate(0), "id", true));
+        assertEquals("[3,4,8]", s2.catalog(new MinPricePredicate(0), "id", true));
+        assertEquals("[7,6,1]", s1.catalog(new MinPricePredicate(0), "id", false));
+        assertEquals("[8,4,3]", s2.catalog(new MinPricePredicate(0), "id", false));
+
+        assertEquals("[1,6,7]", s1.catalog(new MinPricePredicate(0), "year", true));
+        assertEquals("[4,3,8]", s2.catalog(new MinPricePredicate(0), "year", true));
+        assertEquals("[8,3,4]", s2.catalog(new MinPricePredicate(0), "year", false));
+
+        assertEquals("[3,4,8]", s2.catalog(new MinPricePredicate(0), "title", true));
+        assertEquals("[8,3]", s2.catalog(new TypesPredicate("video,audio"), "title", false));
+        assertEquals("[7,6,1]", s1mix.catalog(new MinPricePredicate(0), "title", false));
+    
+        assertEquals("[7,6,1]", s1mix.catalog(new MinPricePredicate(0), "price", true));
+        assertEquals("[7,1,6]", s1mix.catalog(new MinPricePredicate(0), "rating", false));
+    }
+
+
+
+    @Test
     public void testCatalogWithFilter() {    
         assertEquals("[1]", s1.catalog(new TypesPredicate("print")));
-        assertEquals("[8,3]", s2.catalog(new TypesPredicate("video,audio")));
+        assertEquals("[3,8]", s2.catalog(new TypesPredicate("video,audio")));
 
         assertEquals("[1,6,7]", s1.catalog(new TextSearchPredicate("clas")));
         assertEquals("[6,7]", s1.catalog(new TextSearchPredicate("by")));
@@ -66,25 +87,25 @@ public class StoreTest extends MediaTest {
     public void testTagCounts() {
         // drama,classic,film, fiction,novella,france,rock,classic,album
         assertEquals("""
-            [["rock",1],["drama",1],["classic",2],["novella",1],["fiction",1],["album",1],["france",1],["film",1]]""", 
-            s2.tagCounts(new MinPricePredicate(0),""));
+            [["classic",2],["album",1],["drama",1],["fiction",1],["film",1],["france",1],["novella",1],["rock",1]]""", 
+            s2.tagCounts(new MinPricePredicate(0),"",-1));
 
         // nonfiction,classic,guide,writing,English,jazz,classic,album,crime,classic,film
         assertEquals("""
-            [["English",1],["classic",3],["jazz",1],["album",1],["writing",1],["nonfiction",1],["crime",1],["film",1],["guide",1]]""",
-            s1.tagCounts(new MinPricePredicate(0),""));
+            [["classic",3],["album",1],["crime",1],["English",1],["film",1],["guide",1],["jazz",1],["nonfiction",1],["writing",1]]""",
+            s1.tagCounts(new MinPricePredicate(0),"",-1));
 
         assertEquals("""
-            [["classic",3],["nonfiction",1],["crime",1]]""",
-            s1.tagCounts(new MinPricePredicate(0),"c"));
+            [["classic",3],["crime",1],["nonfiction",1]]""",
+            s1.tagCounts(new MinPricePredicate(0),"c",-1));
     
         assertEquals("""
-            [["classic",1],["jazz",1],["album",1]]""",
-            s1.tagCounts(new TypesPredicate("audio"),""));
+            [["album",1],["classic",1],["jazz",1]]""",
+            s1.tagCounts(new TypesPredicate("audio"),"",-1));
 
         assertEquals("""
             [["classic",1]]""",
-            s1.tagCounts(new TypesPredicate("audio"),"c"));
+            s1.tagCounts(new TypesPredicate("audio"),"c",-1));
     
     }
 

@@ -20,6 +20,7 @@ public class Store {
 	List<Integer> cart;		// list of item ids that are currently in the cart
 	String coupon;	// coupon code for a discount applied to the cart, "" if none is applied, always in uppercase
 	Map<String, ICoupon> coupons;	// map of active coupon codes to coupon function objects
+	Map<String, Comparator<IMedia>> comparators;
 	
 	public Store(List<IMedia> items, List<Integer> cart, String coupon) {
 		this.items = items;
@@ -41,38 +42,37 @@ public class Store {
 	 * in this store that satisfy the given predicate.
 	 */
 	public String catalog(Predicate<IMedia> pred) {
-		JSONArray ids = new JSONArray();
-		for (IMedia item : this.items) {
-			if (pred.test(item)) {
-				ids.put(item.getId());
-			}
-		}
-		return ids.toString();
+		return this.catalog(pred, "", true);
+	}
+
+	/**
+	 * Returns a string representation of a JSON array of the ids of all items
+	 * in this store that satisfy the given predicate. The ids are sorted 
+	 * according to the given field ("title", "year", "rating", or "price") and order
+	 * (true for low-to-high, false for high-to-low).
+	 * If the sort field is invalid, the items are sorted by id.
+	 */
+	public String catalog(Predicate<IMedia> pred, String sortField, boolean loToHi) {
+		Comparator<IMedia> comp = comparators.getOrDefault(sortField, Comparator.naturalOrder());
+		return new JSONArray(this.items.stream()
+								.map(IMedia::getId)
+								.toList())
+					.toString();
 	}
 	
 	/*
 	 * find the item with the given id
 	 */
 	public IMedia findItem(int id) {
-		for (IMedia item : this.items) {
-			if (item.getId() == id) {
-				return item;
-			}
-		}
-		return null;
+		return this.items.stream().filter((item) -> item.getId() == id).findFirst().orElse(null);
 	}
 
 	/**
 	 * Returns a string representation of the JSON object for the item 
 	 * with the given id.
 	 */
-	public String itemInfoAsJSON(int id) {
 		IMedia item = findItem(id);
-		if (item == null) {
-			return "";
-		} else {
-			return item.toJSONString();
-		}
+		return item == null ? "" : item.toJSONString();
 	}
 
 	/**
@@ -80,26 +80,17 @@ public class Store {
 	 * as a string.
 	 */
 	public String countMatching(Predicate<IMedia> pred) {
-		int count = 0;
-		for (IMedia item : this.items) {
-			if (pred.test(item)) {
-				count++;
-			}
-		}
-		return Integer.toString(count);
+		return Long.toString(this.items.stream().filter(pred).count());
 	}
 	
 	/*
 	 * Collects all tags of all items in the store that satisfy the given predicate
 	 */
 	private List<String> collectTags(Predicate<IMedia> pred) {
-		List<String> tags = new ArrayList<String>();
-		for (IMedia item : this.items) {
-			if (pred.test(item)) {
-				tags.addAll(item.getTags());
-			}
-		}
-		return tags;
+		return this.items.stream()
+					.filter(pred)
+					.flatMap((item) -> item.getTags().stream())
+					.toList();
 	}
 
 	/**
@@ -107,18 +98,16 @@ public class Store {
 	 * representing the count of each tag in the store for all tags of all
 	 * items.
 	 */
-	public String tagCounts(Predicate<IMedia> pred, String tagSearch) {
-		JSONArray tallies = new JSONArray();
+	public String tagCounts(Predicate<IMedia> pred, String tagSearch, int limit) {
 		List<String> alltags = collectTags(pred);
-		Set<String> unique = new HashSet<String>(alltags);
-
-		for (String tag : unique) {
-			if (tag.contains(tagSearch)) {
-				tallies.put(new JSONArray().put(tag).put(Collections.frequency(alltags, tag)));
-			}
-		}
-
-		return tallies.toString();
+		List<JSONArray> pairs = alltags.stream().distinct()
+									.filter((tag) -> tag.contains(tagSearch))
+									.map((tag) -> new JSONArray().put(tag).put(Collections.frequency(alltags, tag)))
+									.sorted(Comparator.comparing((JSONArray pair) -> pair.getString(0).toLowerCase()))		// sort alphabetically
+									.sorted(Comparator.comparingInt((JSONArray pair) -> pair.getInt(1)).reversed()) // but by frequency primarily
+									.limit(limit >= 0 ? limit : alltags.size())
+									.toList();
+		return new JSONArray(pairs).toString();
 	}
 	
 	/**
@@ -185,14 +174,7 @@ public class Store {
 	 * Returns a list of all items in the cart
 	 */
 	private List<IMedia> itemsInCart() {
-		List<IMedia> items = new ArrayList<IMedia>();
-		for (int id : this.cart) {
-			IMedia item = findItem(id);
-			if (item != null) {
-				items.add(item);
-			}
-		}
-		return items;
+		return this.cart.stream().map(this::findItem).dropWhile(Predicate.isEqual(null)).toList();
 	}
 
 	/**
@@ -255,13 +237,9 @@ public class Store {
 	 * predicate, based on the extraction function.
 	 */
 	public String rangeAsJSON(Predicate<IMedia> pred, IIntExtractor obj) {
-		List<Integer> vals = new ArrayList<>();
-		for (IMedia item : this.items) {
-			if (pred.test(item)) {
-				vals.add(obj.extract(item));
-			}
-		}
-		return new Range(Collections.min(vals), Collections.max(vals)).toJSONString();
+		Range r = new Range();
+		this.items.stream().filter(pred).map(obj::extract).forEach(r::addValue);
+		return r.toJSONString();
 	}
 
 	/**
